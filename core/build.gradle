@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+subprojects {
+    apply plugin: 'java'
+    group = 'com.loquei.core'
+    version = '0.0.1-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        // Internal
+        implementation(project(':common'))
+
+        // External
+        implementation('io.vavr:vavr:0.10.4')
+
+        testImplementation(platform('org.junit:junit-bom:5.10.0'))
+        testImplementation('org.junit.jupiter:junit-jupiter')
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
