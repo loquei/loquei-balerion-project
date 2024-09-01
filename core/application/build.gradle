@@ -1,0 +1,9 @@
+group = 'com.loquei.core.application'
+version = '0.0.1-SNAPSHOT'
+
+dependencies {
+    // Internal
+    implementation(project(':core:domain'))
+
+    // External
+}
