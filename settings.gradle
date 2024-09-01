@@ -1,1 +1,3 @@
 rootProject.name = 'loquei-balerion-project'
+include 'cloud'
+
