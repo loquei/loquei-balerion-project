@@ -1,0 +1,23 @@
+server:
+  port: 8080
+  undertow:
+    threads:
+      worker: 10
+      io: 2
+
+postgres:
+  loquei:
+    url: localhost:5432
+    schema: loquei
+    username: postgres
+    password: P@ssw0rd
+  security:
+    url: localhost:5432
+    schema: loquei_security
+    username: postgres
+    password: P@ssw0rd
+
+mail:
+  port: 587
+  username: loquei.project@gmail.com
+  password: ${MAIL_PASS}
