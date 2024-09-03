@@ -3,7 +3,6 @@ package com.loquei.core.domain.user;
 import com.loquei.common.validation.Error;
 import com.loquei.common.validation.ValidationHandler;
 import com.loquei.common.validation.Validator;
-
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.regex.Pattern;

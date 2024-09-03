@@ -1,10 +1,8 @@
 package com.loquei.core.domain.security.auth;
 
-
 import com.loquei.common.AggregateRoot;
 import com.loquei.common.utils.InstantUtils;
 import com.loquei.common.validation.ValidationHandler;
-
 import java.time.Instant;
 
 public class SecurityAuth extends AggregateRoot<SecurityAuthId> {

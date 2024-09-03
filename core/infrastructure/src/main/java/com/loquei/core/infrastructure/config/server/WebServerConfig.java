@@ -5,5 +5,4 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan("com.loquei")
-public class WebServerConfig {
-}
+public class WebServerConfig {}

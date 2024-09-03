@@ -1,5 +1,7 @@
 package com.loquei.core.infrastructure.security.facade.impl;
 
+import static com.loquei.core.infrastructure.security.user.presenter.SecurityUserApiPresenter.present;
+
 import com.loquei.core.application.security.user.create.SecurityCreateUserCommand;
 import com.loquei.core.application.security.user.create.SecurityCreateUserUseCase;
 import com.loquei.core.application.security.user.delete.SecurityDeleteUserUseCase;
@@ -11,8 +13,6 @@ import com.loquei.core.infrastructure.security.facade.SecurityUserFacade;
 import com.loquei.core.infrastructure.security.user.models.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import static com.loquei.core.infrastructure.security.user.presenter.SecurityUserApiPresenter.present;
 
 @Component
 @RequiredArgsConstructor

@@ -18,11 +18,10 @@ import com.loquei.core.infrastructure.user.models.UpdateUserRequest;
 import com.loquei.core.infrastructure.user.models.UserListResponse;
 import com.loquei.core.infrastructure.user.models.UserResponse;
 import com.loquei.core.infrastructure.user.presenter.UserApiPresenter;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.net.URI;
 import java.util.function.Function;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserController implements UserAPI {

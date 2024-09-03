@@ -1,11 +1,11 @@
 package com.loquei.core.application.security.user.create;
 
+import static java.util.Objects.requireNonNull;
+
 import com.loquei.common.exceptions.NotificationException;
 import com.loquei.common.validation.handler.Notification;
 import com.loquei.core.domain.security.user.SecurityUser;
 import com.loquei.core.domain.security.user.SecurityUserGateway;
-
-import static java.util.Objects.requireNonNull;
 
 public class SecurityDefaultCreateUserUseCase extends SecurityCreateUserUseCase {
 

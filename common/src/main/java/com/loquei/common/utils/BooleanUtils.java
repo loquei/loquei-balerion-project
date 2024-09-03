@@ -11,5 +11,4 @@ public final class BooleanUtils {
     public static boolean isFalse(final Boolean value) {
         return Boolean.FALSE.equals(value);
     }
-
 }

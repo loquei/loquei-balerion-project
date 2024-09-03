@@ -1,7 +1,6 @@
 package com.loquei.core.application.user.retrieve.list;
 
 import com.loquei.core.domain.user.User;
-
 import java.time.Instant;
 
 public record UserListOutput(

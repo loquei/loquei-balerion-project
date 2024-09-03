@@ -1,5 +1,7 @@
 package com.loquei.core.infrastructure.user;
 
+import static com.loquei.core.infrastructure.utils.SpecificationUtils.like;
+
 import com.loquei.common.pagination.Pagination;
 import com.loquei.common.pagination.SearchQuery;
 import com.loquei.core.domain.user.User;
@@ -7,15 +9,12 @@ import com.loquei.core.domain.user.UserGateway;
 import com.loquei.core.domain.user.UserId;
 import com.loquei.core.infrastructure.user.persistence.UserJpaEntity;
 import com.loquei.core.infrastructure.user.persistence.UserRepository;
+import java.util.Optional;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
-
-import static com.loquei.core.infrastructure.utils.SpecificationUtils.like;
 
 @Component
 public class UserPostgresGateway implements UserGateway {

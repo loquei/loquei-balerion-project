@@ -1,5 +1,8 @@
 package com.loquei.core.application.security.auth.authenticate;
 
+import static com.loquei.common.utils.TimeUtils.hoursToMillis;
+import static java.util.Objects.requireNonNull;
+
 import com.loquei.common.exceptions.AuthException;
 import com.loquei.common.exceptions.NotFoundException;
 import com.loquei.common.utils.InstantUtils;
@@ -7,11 +10,7 @@ import com.loquei.core.domain.security.auth.SecurityAuth;
 import com.loquei.core.domain.security.auth.SecurityAuthCode;
 import com.loquei.core.domain.security.auth.SecurityAuthGateway;
 import com.loquei.core.domain.security.token.SecurityTokenService;
-
 import java.util.Objects;
-
-import static com.loquei.common.utils.TimeUtils.hoursToMillis;
-import static java.util.Objects.requireNonNull;
 
 public class SecurityDefaultAuthenticateUseCase extends SecurityAuthenticateUseCase {
 

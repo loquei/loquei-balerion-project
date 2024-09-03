@@ -1,13 +1,13 @@
 package com.loquei.core.infrastructure.security;
 
+import static java.util.Objects.requireNonNull;
+
 import com.loquei.core.domain.security.SecurityCoreUser;
 import com.loquei.core.domain.security.SecurityCoreUserGateway;
 import com.loquei.core.infrastructure.security.facade.SecurityUserFacade;
 import com.loquei.core.infrastructure.security.user.models.SecurityCreateUserRequest;
 import com.loquei.core.infrastructure.security.user.models.SecurityUpdateUserRequest;
 import org.springframework.stereotype.Component;
-
-import static java.util.Objects.requireNonNull;
 
 @Component
 public class SecurityUserFacadeGateway implements SecurityCoreUserGateway {

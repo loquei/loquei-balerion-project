@@ -1,7 +1,6 @@
 package com.loquei.core.application.security.user.retrieve;
 
 import com.loquei.core.domain.security.user.SecurityUser;
-
 import java.time.Instant;
 
 public record SecurityUserOutput(String id, String username, String email, Instant createdAt, Instant updatedAt) {

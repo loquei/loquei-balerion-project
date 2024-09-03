@@ -5,10 +5,9 @@ import com.loquei.core.domain.security.user.SecurityUserGateway;
 import com.loquei.core.domain.security.user.SecurityUserId;
 import com.loquei.core.infrastructure.security.user.persistence.SecurityUserJpaEntity;
 import com.loquei.core.infrastructure.security.user.persistence.SecurityUserJpaRepository;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor

@@ -1,21 +1,19 @@
 package com.loquei.core.application.user.update;
 
+import static io.vavr.API.Left;
+import static io.vavr.API.Try;
+import static java.util.Objects.requireNonNull;
+
 import com.loquei.common.exceptions.NotFoundException;
 import com.loquei.common.validation.Error;
 import com.loquei.common.validation.handler.Notification;
 import com.loquei.core.domain.security.SecurityCoreUser;
 import com.loquei.core.domain.security.SecurityCoreUserGateway;
-import com.loquei.core.domain.security.user.SecurityUser;
 import com.loquei.core.domain.user.User;
 import com.loquei.core.domain.user.UserGateway;
 import com.loquei.core.domain.user.UserId;
 import io.vavr.control.Either;
-
 import java.util.function.Supplier;
-
-import static io.vavr.API.Left;
-import static io.vavr.API.Try;
-import static java.util.Objects.requireNonNull;
 
 public class DefaultUpdateUserUseCase extends UpdateUserUseCase {
 

@@ -1,13 +1,12 @@
 package com.loquei.core.application.security.user.retrieve;
 
+import static java.util.Objects.requireNonNull;
+
 import com.loquei.common.exceptions.NotFoundException;
 import com.loquei.core.domain.security.user.SecurityUser;
 import com.loquei.core.domain.security.user.SecurityUserGateway;
 import com.loquei.core.domain.security.user.SecurityUserId;
-
 import java.util.function.Supplier;
-
-import static java.util.Objects.requireNonNull;
 
 public class SecurityDefaultGetUserByIdUseCase extends SecurityGetUserByIdUseCase {
 

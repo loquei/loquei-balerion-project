@@ -1,13 +1,12 @@
 package com.loquei.core.application.user.retrieve.get;
 
+import static java.util.Objects.requireNonNull;
+
 import com.loquei.common.exceptions.NotFoundException;
 import com.loquei.core.domain.user.User;
 import com.loquei.core.domain.user.UserGateway;
 import com.loquei.core.domain.user.UserId;
-
 import java.util.function.Supplier;
-
-import static java.util.Objects.requireNonNull;
 
 public class DefaultGetUserByIdUseCase extends GetUserByIdUseCase {
 

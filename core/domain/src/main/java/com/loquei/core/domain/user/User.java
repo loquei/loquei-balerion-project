@@ -3,7 +3,6 @@ package com.loquei.core.domain.user;
 import com.loquei.common.AggregateRoot;
 import com.loquei.common.utils.InstantUtils;
 import com.loquei.common.validation.ValidationHandler;
-
 import java.time.Instant;
 import java.time.LocalDate;
 

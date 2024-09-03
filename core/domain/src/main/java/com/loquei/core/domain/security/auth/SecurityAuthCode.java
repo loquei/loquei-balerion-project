@@ -2,7 +2,6 @@ package com.loquei.core.domain.security.auth;
 
 import com.loquei.common.ValueObject;
 import com.loquei.common.utils.RandomCodeUtils;
-
 import java.util.Objects;
 
 public class SecurityAuthCode extends ValueObject {

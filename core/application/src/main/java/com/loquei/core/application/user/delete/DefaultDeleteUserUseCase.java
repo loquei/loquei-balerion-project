@@ -1,11 +1,10 @@
 package com.loquei.core.application.user.delete;
 
+import static java.util.Objects.requireNonNull;
+
 import com.loquei.core.domain.security.SecurityCoreUserGateway;
-import com.loquei.core.domain.security.user.SecurityUserGateway;
 import com.loquei.core.domain.user.UserGateway;
 import com.loquei.core.domain.user.UserId;
-
-import static java.util.Objects.requireNonNull;
 
 public class DefaultDeleteUserUseCase extends DeleteUserUseCase {
 

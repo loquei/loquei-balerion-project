@@ -1,7 +1,6 @@
 package com.loquei.core.infrastructure.security.user.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.time.Instant;
 
 public record SecurityGetUserResponse(

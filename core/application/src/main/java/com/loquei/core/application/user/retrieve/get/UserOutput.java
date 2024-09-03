@@ -1,7 +1,6 @@
 package com.loquei.core.application.user.retrieve.get;
 
 import com.loquei.core.domain.user.User;
-
 import java.time.Instant;
 import java.time.LocalDate;
 

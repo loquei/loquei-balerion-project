@@ -1,9 +1,7 @@
 package com.loquei.core.domain.user;
 
-
 import com.loquei.common.pagination.Pagination;
 import com.loquei.common.pagination.SearchQuery;
-
 import java.util.Optional;
 
 public interface UserGateway {

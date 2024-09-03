@@ -1,7 +1,6 @@
 package com.loquei.core.infrastructure.user.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.time.LocalDate;
 
 public record UpdateUserRequest(

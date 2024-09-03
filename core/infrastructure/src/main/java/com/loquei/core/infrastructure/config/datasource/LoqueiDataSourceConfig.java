@@ -1,5 +1,6 @@
 package com.loquei.core.infrastructure.config.datasource;
 
+import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -11,16 +12,13 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import javax.sql.DataSource;
-
 @Configuration
 @EnableJpaRepositories(
         basePackages = {
-                "com.loquei.core.infrastructure.user",
+            "com.loquei.core.infrastructure.user",
         },
         entityManagerFactoryRef = "loqueiEntityManagerFactory",
-        transactionManagerRef = "loqueiTransactionManager"
-)
+        transactionManagerRef = "loqueiTransactionManager")
 public class LoqueiDataSourceConfig {
 
     @Bean
@@ -33,16 +31,14 @@ public class LoqueiDataSourceConfig {
     @Bean
     @Primary
     public DataSource loqueiDataSource(
-            @Qualifier("loqueiDataSourceProperties") final LoqueiDataSourceProperties loqueiDataSourceProperties
-    ) {
+            @Qualifier("loqueiDataSourceProperties") final LoqueiDataSourceProperties loqueiDataSourceProperties) {
         return loqueiDataSourceProperties.initializeHikariDataSource();
     }
 
     @Bean
     @Primary
     public LocalContainerEntityManagerFactoryBean loqueiEntityManagerFactory(
-            @Qualifier("loqueiDataSource") final DataSource loqueiDataSource
-    ) {
+            @Qualifier("loqueiDataSource") final DataSource loqueiDataSource) {
         final var entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactory.setDataSource(loqueiDataSource);
         entityManagerFactory.setPackagesToScan("com.loquei.core.infrastructure");
@@ -59,13 +55,10 @@ public class LoqueiDataSourceConfig {
     @Bean
     @Primary
     public PlatformTransactionManager loqueiTransactionManager(
-            @Qualifier("loqueiDataSource") final DataSource loqueiDataSource
-    ) {
+            @Qualifier("loqueiDataSource") final DataSource loqueiDataSource) {
         final var transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(
-                loqueiEntityManagerFactory(loqueiDataSource).getObject()
-        );
+                loqueiEntityManagerFactory(loqueiDataSource).getObject());
         return transactionManager;
     }
-
 }

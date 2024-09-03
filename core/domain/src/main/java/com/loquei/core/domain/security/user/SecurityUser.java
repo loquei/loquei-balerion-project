@@ -3,7 +3,6 @@ package com.loquei.core.domain.security.user;
 import com.loquei.common.AggregateRoot;
 import com.loquei.common.utils.InstantUtils;
 import com.loquei.common.validation.ValidationHandler;
-
 import java.time.Instant;
 
 public class SecurityUser extends AggregateRoot<SecurityUserId> {

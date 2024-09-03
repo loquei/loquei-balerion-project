@@ -1,5 +1,7 @@
 package com.loquei.core.infrastructure.security.api.controller;
 
+import static com.loquei.core.infrastructure.security.user.presenter.SecurityUserApiPresenter.present;
+
 import com.loquei.core.application.security.user.create.SecurityCreateUserCommand;
 import com.loquei.core.application.security.user.create.SecurityCreateUserUseCase;
 import com.loquei.core.application.security.user.delete.SecurityDeleteUserUseCase;
@@ -11,8 +13,6 @@ import com.loquei.core.infrastructure.security.api.SecurityUserAPI;
 import com.loquei.core.infrastructure.security.user.models.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
-
-import static com.loquei.core.infrastructure.security.user.presenter.SecurityUserApiPresenter.present;
 
 @RestController
 @RequiredArgsConstructor
