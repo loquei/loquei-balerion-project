@@ -17,6 +17,7 @@ import org.springframework.transaction.PlatformTransactionManager;
         basePackages = {
             "com.loquei.core.infrastructure.user",
             "com.loquei.core.infrastructure.category",
+            "com.loquei.core.infrastructure.item",
         },
         entityManagerFactoryRef = "loqueiEntityManagerFactory",
         transactionManagerRef = "loqueiTransactionManager")

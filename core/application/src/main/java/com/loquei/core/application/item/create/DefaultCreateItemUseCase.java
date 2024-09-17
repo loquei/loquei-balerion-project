@@ -1,5 +1,8 @@
 package com.loquei.core.application.item.create;
 
+import static io.vavr.API.Left;
+import static io.vavr.API.Try;
+
 import com.loquei.common.validation.Error;
 import com.loquei.common.validation.ValidationHandler;
 import com.loquei.common.validation.handler.Notification;
@@ -8,14 +11,10 @@ import com.loquei.core.domain.category.CategoryId;
 import com.loquei.core.domain.item.Item;
 import com.loquei.core.domain.item.ItemGateway;
 import io.vavr.control.Either;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
-import static io.vavr.API.Left;
-import static io.vavr.API.Try;
 
 public class DefaultCreateItemUseCase extends CreateItemUseCase {
 

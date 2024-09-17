@@ -1,7 +1,6 @@
 package com.loquei.core.application.item.update;
 
-import com.loquei.domain.item.Item;
-
+import com.loquei.core.domain.item.Item;
 import java.math.BigDecimal;
 import java.time.Instant;
 

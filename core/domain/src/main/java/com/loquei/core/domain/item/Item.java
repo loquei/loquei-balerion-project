@@ -4,7 +4,6 @@ import com.loquei.common.AggregateRoot;
 import com.loquei.common.utils.InstantUtils;
 import com.loquei.common.validation.ValidationHandler;
 import com.loquei.core.domain.category.CategoryId;
-
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;

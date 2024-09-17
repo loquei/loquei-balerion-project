@@ -1,7 +1,6 @@
 package com.loquei.core.application.item.retrieve.get;
 
 import com.loquei.core.domain.item.Item;
-
 import java.math.BigDecimal;
 import java.time.Instant;
 

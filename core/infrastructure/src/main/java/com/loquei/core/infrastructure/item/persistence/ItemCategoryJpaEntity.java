@@ -2,7 +2,6 @@ package com.loquei.core.infrastructure.item.persistence;
 
 import com.loquei.core.domain.category.CategoryId;
 import jakarta.persistence.*;
-
 import java.util.Objects;
 
 @Entity

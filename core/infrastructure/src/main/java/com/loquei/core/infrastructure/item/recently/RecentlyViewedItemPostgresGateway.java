@@ -1,10 +1,10 @@
 package com.loquei.core.infrastructure.item.recently;
 
-import com.loquei.domain.item.recently.RecentlyViewedItem;
-import com.loquei.domain.item.recently.RecentlyViewedItemGateway;
-import com.loquei.domain.item.recently.RecentlyViewedItemId;
-import com.loquei.infrastructure.item.recently.persistence.RecentlyViewedItemJpaEntity;
-import com.loquei.infrastructure.item.recently.persistence.RecentlyViewedItemRepository;
+import com.loquei.core.domain.item.recently.RecentlyViewedItem;
+import com.loquei.core.domain.item.recently.RecentlyViewedItemGateway;
+import com.loquei.core.domain.item.recently.RecentlyViewedItemId;
+import com.loquei.core.infrastructure.item.recently.persistence.RecentlyViewedItemJpaEntity;
+import com.loquei.core.infrastructure.item.recently.persistence.RecentlyViewedItemRepository;
 
 public class RecentlyViewedItemPostgresGateway implements RecentlyViewedItemGateway {
 

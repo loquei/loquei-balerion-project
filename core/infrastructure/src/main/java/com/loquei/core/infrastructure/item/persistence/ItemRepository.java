@@ -13,22 +13,14 @@ public interface ItemRepository extends JpaRepository<ItemJpaEntity, String> {
     Page<ItemJpaEntity> findAll(Specification<ItemJpaEntity> whereClause, Pageable page);
 
     @Query(
-            value =
-                    "SELECT item " +
-                    "FROM Item item " +
-                    "INNER JOIN RecentlyViewedItem recently ON item.id = recently.itemId " +
-                    "WHERE recently.userId = :userId " +
-                    "ORDER BY recently.viewedAt DESC",
-            countQuery =
-                    "SELECT count(item) " +
-                    "FROM Item item " +
-                    "INNER JOIN RecentlyViewedItem recently ON item.id = recently.itemId " +
-                    "WHERE recently.userId = :userId"
-    )
-    Page<ItemJpaEntity> findRecentlyViewedItemsByUserIdWithSpec(
-            @Param("userId") String userId,
-            Pageable pageable
-    );
+            value = "SELECT item " + "FROM Item item "
+                    + "INNER JOIN RecentlyViewedItem recently ON item.id = recently.itemId "
+                    + "WHERE recently.userId = :userId "
+                    + "ORDER BY recently.viewedAt DESC",
+            countQuery = "SELECT count(item) " + "FROM Item item "
+                    + "INNER JOIN RecentlyViewedItem recently ON item.id = recently.itemId "
+                    + "WHERE recently.userId = :userId")
+    Page<ItemJpaEntity> findRecentlyViewedItemsByUserIdWithSpec(@Param("userId") String userId, Pageable pageable);
 
     default Page<ItemJpaEntity> findRecentlyViewedItemsByUserIdWithSpec(
             String userId, Specification<ItemJpaEntity> spec, Pageable pageable) {
@@ -41,5 +33,4 @@ public interface ItemRepository extends JpaRepository<ItemJpaEntity, String> {
         };
         return findAll(Specification.where(userSpec).and(spec), pageable);
     }
-
 }

@@ -1,5 +1,7 @@
 package com.loquei.core.infrastructure.item;
 
+import static com.loquei.core.infrastructure.utils.SpecificationUtils.like;
+
 import com.loquei.common.pagination.Pagination;
 import com.loquei.common.pagination.SearchQuery;
 import com.loquei.core.domain.item.Item;
@@ -8,14 +10,11 @@ import com.loquei.core.domain.item.ItemId;
 import com.loquei.core.domain.user.UserId;
 import com.loquei.core.infrastructure.item.persistence.ItemJpaEntity;
 import com.loquei.core.infrastructure.item.persistence.ItemRepository;
+import java.util.Optional;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
-
-import static com.loquei.core.infrastructure.utils.SpecificationUtils.like;
 
 @Component
 public class ItemPostgresGateway implements ItemGateway {
@@ -70,8 +69,8 @@ public class ItemPostgresGateway implements ItemGateway {
                 .map(this::assembleSpecification)
                 .orElse(null);
 
-        final var pageResult = this.itemRespository
-                .findRecentlyViewedItemsByUserIdWithSpec(userId.getValue(), specifications, page);
+        final var pageResult =
+                this.itemRespository.findRecentlyViewedItemsByUserIdWithSpec(userId.getValue(), specifications, page);
 
         return new Pagination<>(
                 pageResult.getNumber(),

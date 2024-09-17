@@ -19,11 +19,10 @@ import com.loquei.core.infrastructure.item.models.ItemListResponse;
 import com.loquei.core.infrastructure.item.models.ItemResponse;
 import com.loquei.core.infrastructure.item.models.UpdateItemRequest;
 import com.loquei.core.infrastructure.item.presenter.ItemApiPresenter;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.net.URI;
 import java.util.function.Function;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ItemController implements ItemAPI {
@@ -74,8 +73,7 @@ public class ItemController implements ItemAPI {
             final String sort,
             final String direction,
             final Boolean recentlyViewed,
-            final String userEmail
-    ) {
+            final String userEmail) {
 
         final var query = new SearchQuery(page, perPage, search, sort, direction);
         return listItemsUseCase
@@ -111,5 +109,4 @@ public class ItemController implements ItemAPI {
     public void deleteById(final String id) {
         this.deleteItemUseCase.execute(id);
     }
-
 }

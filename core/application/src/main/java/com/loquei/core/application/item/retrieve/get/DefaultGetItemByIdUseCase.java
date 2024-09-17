@@ -4,11 +4,6 @@ import com.loquei.common.exceptions.NotFoundException;
 import com.loquei.core.domain.item.Item;
 import com.loquei.core.domain.item.ItemGateway;
 import com.loquei.core.domain.item.ItemId;
-import com.loquei.domain.exceptions.NotFoundException;
-import com.loquei.domain.item.Item;
-import com.loquei.domain.item.ItemGateway;
-import com.loquei.domain.item.ItemId;
-
 import java.util.Objects;
 import java.util.function.Supplier;
 

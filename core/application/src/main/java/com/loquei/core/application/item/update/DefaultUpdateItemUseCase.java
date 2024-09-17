@@ -1,5 +1,8 @@
 package com.loquei.core.application.item.update;
 
+import static io.vavr.API.Left;
+import static io.vavr.API.Try;
+
 import com.loquei.common.exceptions.NotFoundException;
 import com.loquei.common.validation.Error;
 import com.loquei.common.validation.ValidationHandler;
@@ -10,15 +13,11 @@ import com.loquei.core.domain.item.Item;
 import com.loquei.core.domain.item.ItemGateway;
 import com.loquei.core.domain.item.ItemId;
 import io.vavr.control.Either;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-
-import static io.vavr.API.Left;
-import static io.vavr.API.Try;
 
 public class DefaultUpdateItemUseCase extends UpdateItemUseCase {
 

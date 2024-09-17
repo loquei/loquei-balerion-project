@@ -1,7 +1,6 @@
 package com.loquei.core.infrastructure.item.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.math.BigDecimal;
 import java.time.Instant;
 

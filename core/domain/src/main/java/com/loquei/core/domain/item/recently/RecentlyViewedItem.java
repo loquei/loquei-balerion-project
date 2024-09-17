@@ -5,7 +5,6 @@ import com.loquei.common.utils.InstantUtils;
 import com.loquei.common.validation.ValidationHandler;
 import com.loquei.core.domain.item.ItemId;
 import com.loquei.core.domain.user.UserId;
-
 import java.time.Instant;
 
 public class RecentlyViewedItem extends Entity<RecentlyViewedItemId> {
@@ -20,8 +19,7 @@ public class RecentlyViewedItem extends Entity<RecentlyViewedItemId> {
             final UserId userId,
             final ItemId itemId,
             final Instant viewedAt,
-            final Instant createdAt
-    ) {
+            final Instant createdAt) {
         super(anId);
         this.userId = userId;
         this.itemId = itemId;
@@ -29,19 +27,10 @@ public class RecentlyViewedItem extends Entity<RecentlyViewedItemId> {
         this.createdAt = createdAt;
     }
 
-    public static RecentlyViewedItem newRecentlyViewedItem(
-            final UserId userId,
-            final ItemId itemId
-    ) {
+    public static RecentlyViewedItem newRecentlyViewedItem(final UserId userId, final ItemId itemId) {
         final var id = RecentlyViewedItemId.unique();
         final var now = InstantUtils.now();
-        return new RecentlyViewedItem(
-            id,
-            userId,
-            itemId,
-            now,
-            now
-        );
+        return new RecentlyViewedItem(id, userId, itemId, now, now);
     }
 
     public static RecentlyViewedItem from(
@@ -49,15 +38,8 @@ public class RecentlyViewedItem extends Entity<RecentlyViewedItemId> {
             final UserId userId,
             final ItemId itemId,
             final Instant viewedAt,
-            final Instant createdAt
-    ) {
-        return new RecentlyViewedItem(
-                id,
-                userId,
-                itemId,
-                viewedAt,
-                createdAt
-        );
+            final Instant createdAt) {
+        return new RecentlyViewedItem(id, userId, itemId, viewedAt, createdAt);
     }
 
     @Override

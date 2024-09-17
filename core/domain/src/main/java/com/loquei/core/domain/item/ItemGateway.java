@@ -3,7 +3,6 @@ package com.loquei.core.domain.item;
 import com.loquei.common.pagination.Pagination;
 import com.loquei.common.pagination.SearchQuery;
 import com.loquei.core.domain.user.UserId;
-
 import java.util.Optional;
 
 public interface ItemGateway {

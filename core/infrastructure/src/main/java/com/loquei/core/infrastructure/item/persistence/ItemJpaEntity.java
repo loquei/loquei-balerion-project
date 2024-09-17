@@ -1,18 +1,17 @@
 package com.loquei.core.infrastructure.item.persistence;
 
+import static jakarta.persistence.CascadeType.ALL;
+import static jakarta.persistence.FetchType.EAGER;
+
 import com.loquei.core.domain.category.CategoryId;
 import com.loquei.core.domain.item.Item;
 import com.loquei.core.domain.item.ItemId;
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import static jakarta.persistence.CascadeType.ALL;
-import static jakarta.persistence.FetchType.EAGER;
 
 @Entity(name = "Item")
 @Table(name = "items")
@@ -178,16 +177,15 @@ public class ItemJpaEntity {
 
     @Override
     public String toString() {
-        return "ItemJpaEntity{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", dailyValue=" + dailyValue +
-                ", maxDays=" + maxDays +
-                ", minDays=" + minDays +
-                ", categories=" + categories +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
+        return "ItemJpaEntity{" + "id='"
+                + id + '\'' + ", name='"
+                + name + '\'' + ", description='"
+                + description + '\'' + ", dailyValue="
+                + dailyValue + ", maxDays="
+                + maxDays + ", minDays="
+                + minDays + ", categories="
+                + categories + ", createdAt="
+                + createdAt + ", updatedAt="
+                + updatedAt + '}';
     }
 }

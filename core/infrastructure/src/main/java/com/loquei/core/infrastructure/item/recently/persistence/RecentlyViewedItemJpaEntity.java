@@ -1,14 +1,13 @@
 package com.loquei.core.infrastructure.item.recently.persistence;
 
-import com.loquei.domain.item.ItemId;
-import com.loquei.domain.item.recently.RecentlyViewedItem;
-import com.loquei.domain.item.recently.RecentlyViewedItemId;
-import com.loquei.domain.user.UserId;
+import com.loquei.core.domain.item.ItemId;
+import com.loquei.core.domain.item.recently.RecentlyViewedItem;
+import com.loquei.core.domain.item.recently.RecentlyViewedItemId;
+import com.loquei.core.domain.user.UserId;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
 import java.time.Instant;
 
 @Entity(name = "RecentlyViewedItem")
@@ -31,16 +30,14 @@ public class RecentlyViewedItemJpaEntity {
     @Column(name = "created_at", nullable = false, columnDefinition = "DATETIME(6)")
     private Instant createdAt;
 
-    public RecentlyViewedItemJpaEntity() {
-    }
+    public RecentlyViewedItemJpaEntity() {}
 
     public RecentlyViewedItemJpaEntity(
             final String id,
             final String userId,
             final String itemId,
             final Instant viewedAt,
-            final Instant createdAt
-    ) {
+            final Instant createdAt) {
         this.id = id;
         this.userId = userId;
         this.itemId = itemId;
@@ -54,8 +51,7 @@ public class RecentlyViewedItemJpaEntity {
                 aRecentlyViewedItem.getUserId().getValue(),
                 aRecentlyViewedItem.getItemId().getValue(),
                 aRecentlyViewedItem.getViewedAt(),
-                aRecentlyViewedItem.getCreatedAt()
-        );
+                aRecentlyViewedItem.getCreatedAt());
     }
 
     public RecentlyViewedItem toEntity() {
@@ -64,8 +60,7 @@ public class RecentlyViewedItemJpaEntity {
                 UserId.from(this.userId),
                 ItemId.from(this.itemId),
                 this.viewedAt,
-                this.createdAt
-        );
+                this.createdAt);
     }
 
     public String getId() {
