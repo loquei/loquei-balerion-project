@@ -76,9 +76,15 @@ dependencies {
 
     // Postgres Driver
     runtimeOnly('org.postgresql:postgresql')
+//    implementation('org.postgresql:postgresql:42.7.4')
+
 
     // Json Web Token (JWT)
     implementation('io.jsonwebtoken:jjwt-api:0.12.5')
     runtimeOnly('io.jsonwebtoken:jjwt-impl:0.12.5')
     runtimeOnly('io.jsonwebtoken:jjwt-jackson:0.12.5')
+
+    // Flyway
+    implementation('org.flywaydb:flyway-core:10.18.0')
+    runtimeOnly('org.flywaydb:flyway-database-postgresql:10.18.0')
 }

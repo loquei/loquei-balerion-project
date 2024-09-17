@@ -8,12 +8,12 @@ server:
 postgres:
   loquei:
     url: localhost:5432
-    schema: loquei
+    schema: loquei_flyway_test
     username: postgres
     password: P@ssw0rd
   security:
     url: localhost:5432
-    schema: loquei_security
+    schema: loquei_security_flyway_test
     username: postgres
     password: P@ssw0rd
 
