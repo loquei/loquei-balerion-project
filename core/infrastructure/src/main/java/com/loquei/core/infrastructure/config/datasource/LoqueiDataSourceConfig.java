@@ -16,6 +16,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 @EnableJpaRepositories(
         basePackages = {
             "com.loquei.core.infrastructure.user",
+            "com.loquei.core.infrastructure.category",
         },
         entityManagerFactoryRef = "loqueiEntityManagerFactory",
         transactionManagerRef = "loqueiTransactionManager")
