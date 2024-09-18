@@ -18,5 +18,4 @@ public class LoqueiFlywayMigrationRunner {
     public void migrate() {
         loqueiFlyway.migrate();
     }
-
 }

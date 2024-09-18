@@ -18,5 +18,4 @@ public class SecurityFlywayMigrationRunner {
     public void migrate() {
         securityFlyway.migrate();
     }
-
 }
