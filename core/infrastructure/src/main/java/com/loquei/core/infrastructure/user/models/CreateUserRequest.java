@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
 
 public record CreateUserRequest(
-        @JsonProperty("username") String userName,
+        @JsonProperty("username") String username,
         @JsonProperty("personal_name") String personalName,
         @JsonProperty("email") String email,
         @JsonProperty("phone") String phone,

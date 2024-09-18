@@ -48,7 +48,7 @@ public class UserController implements UserAPI {
     @Override
     public ResponseEntity<?> create(final CreateUserRequest input) {
         final var aCommand = CreateUserCommand.with(
-                input.userName(), input.personalName(), input.email(), input.phone(), input.document(), input.birth());
+                input.username(), input.personalName(), input.email(), input.phone(), input.document(), input.birth());
 
         final Function<Notification, ResponseEntity<?>> onError =
                 notification -> ResponseEntity.unprocessableEntity().body(notification);
