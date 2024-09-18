@@ -1,10 +1,9 @@
 package com.loquei.common;
 
-import com.loquei.common.validation.ValidationHandler;
-
-import java.util.Objects;
-
 import static java.util.Objects.requireNonNull;
+
+import com.loquei.common.validation.ValidationHandler;
+import java.util.Objects;
 
 public abstract class Entity<ID extends Identifier> {
 

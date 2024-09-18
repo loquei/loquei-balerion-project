@@ -3,7 +3,6 @@ package com.loquei.common.validation.handler;
 import com.loquei.common.exceptions.DomainException;
 import com.loquei.common.validation.Error;
 import com.loquei.common.validation.ValidationHandler;
-
 import java.util.List;
 
 public class ThrowsValidationHandler implements ValidationHandler {

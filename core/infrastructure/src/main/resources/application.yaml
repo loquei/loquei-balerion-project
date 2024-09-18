@@ -1,0 +1,103 @@
+################################
+##### Server Configuration #####
+################################
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+    encoding:
+      force: true
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 1024
+  undertow:
+    threads:
+      worker: 64
+      io: 4
+  shutdown: graceful
+
+
+################################
+##### Spring Configuration #####
+################################
+spring:
+  main:
+    banner-mode: off
+#    allow-bean-definition-overriding: true
+  application:
+    name: loquei-core-api
+  mvc:
+    converters:
+      preferred-json-mapper: gson
+  profiles:
+    active: ${APPLICATION_ENVIRONMENT}
+  web:
+    resources:
+      add-mappings: false
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      "[hibernate.dialect]": org.hibernate.dialect.PostgreSQLDialect
+      "[hibernate.generate_statistics]": false
+      "[hibernate.connection.provider_disables_autocommit]": true
+  mail:
+    host: smtp.gmail.com
+    port: ${mail.port}
+    username: ${mail.username}
+    password: ${mail.password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+
+#########################################
+##### Loquei Database Configuration #####
+#########################################
+loquei:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://${postgres.loquei.url}/${postgres.loquei.schema}
+    username: ${postgres.loquei.username}
+    password: ${postgres.loquei.password}
+    hikari:
+      auto-commit: false
+      connection-timeout: 250
+      max-lifetime: 600000
+      maximum-pool-size: 20
+      minimum-idle: 10
+      pool-name: master
+
+
+#########################################
+##### Security Database Configuration #####
+#########################################
+security:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://${postgres.security.url}/${postgres.security.schema}
+    username: ${postgres.security.username}
+    password: ${postgres.security.password}
+    hikari:
+      autoCommit: false
+      connectionTimeout: 250
+      maxLifetime: 600000
+      maximumPoolSize: 20
+      minimumIdle: 10
+      poolName: master
+
+
+###################################
+##### SpringDoc Configuration #####
+###################################
+springdoc:
+  swagger-ui:
+    enabled: true
+    operations-sorter: method
+    tags-sorter: alpha
+    display-request-duration: true

@@ -4,7 +4,6 @@ import com.loquei.common.AggregateRoot;
 import com.loquei.common.Entity;
 import com.loquei.common.Identifier;
 import com.loquei.common.validation.Error;
-
 import java.util.Collections;
 import java.util.List;
 

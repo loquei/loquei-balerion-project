@@ -1,0 +1,1 @@
+DROP TABLE recently_viewed_items;

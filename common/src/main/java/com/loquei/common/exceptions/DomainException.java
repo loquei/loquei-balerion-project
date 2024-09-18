@@ -1,7 +1,6 @@
 package com.loquei.common.exceptions;
 
 import com.loquei.common.validation.Error;
-
 import java.util.List;
 
 public class DomainException extends NoStacktraceException {
