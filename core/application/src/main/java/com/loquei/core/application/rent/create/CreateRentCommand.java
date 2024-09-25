@@ -1,5 +1,7 @@
 package com.loquei.core.application.rent.create;
 
+import com.loquei.core.domain.rent.RentStatus;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 

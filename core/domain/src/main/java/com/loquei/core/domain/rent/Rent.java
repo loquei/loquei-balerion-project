@@ -4,7 +4,9 @@ import com.loquei.common.AggregateRoot;
 import com.loquei.common.utils.InstantUtils;
 import com.loquei.common.validation.ValidationHandler;
 import com.loquei.core.domain.item.Item;
+import com.loquei.core.domain.item.ItemId;
 import com.loquei.core.domain.user.User;
+import com.loquei.core.domain.user.UserId;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -12,23 +14,23 @@ import java.time.LocalDateTime;
 
 public class Rent extends AggregateRoot<RentId> {
 
-    private User lessor;
-    private User lessee;
-    private Item item;
+    private final UserId lessor;
+    private final UserId lessee;
+    private final ItemId item;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private BigDecimal totalValue;
     private RentStatus status;
     private String cancellationReason;
-    private Instant createdAt;
+    private final Instant createdAt;
     private Instant updatedAt;
 
     // Construtor
     public Rent(
                 final RentId anid,
-                final User lessor,
-                final User lessee,
-                final Item item,
+                final UserId lessor,
+                final UserId lessee,
+                final ItemId item,
                 final LocalDateTime startDate,
                 final LocalDateTime endDate,
                 final BigDecimal totalValue,
@@ -51,9 +53,9 @@ public class Rent extends AggregateRoot<RentId> {
 
     public static Rent with(
             final RentId anId,
-            final User lessor,
-            final User lessee,
-            final Item item,
+            final UserId lessor,
+            final UserId lessee,
+            final ItemId item,
             final LocalDateTime startDate,
             final LocalDateTime endDate,
             final BigDecimal totalValue,
@@ -79,6 +81,31 @@ public class Rent extends AggregateRoot<RentId> {
                 rent.getUpdatedAt());
     }
 
+    public static Rent newRent(
+            final UserId lessor,
+            final UserId lessee,
+            final ItemId item,
+            final LocalDateTime startDate,
+            final LocalDateTime endDate,
+            final BigDecimal totalValue) {
+
+        final var id = RentId.unique();
+        final var now = InstantUtils.now();
+
+        return new Rent(
+                id,
+                lessor,
+                lessee,
+                item,
+                startDate,
+                endDate,
+                totalValue,
+                RentStatus.PENDING,
+                null,
+                now,
+                now);
+    }
+
 
     public Rent update(
         final LocalDateTime startDate,
@@ -97,15 +124,15 @@ public class Rent extends AggregateRoot<RentId> {
 
 
 
-    public User getLessor() {
+    public UserId getLessor() {
         return lessor;
     }
 
-    public User getLessee() {
+    public UserId getLessee() {
         return lessee;
     }
 
-    public Item getItem() {
+    public ItemId getItem() {
         return item;
     }
 
