@@ -48,6 +48,6 @@ public class DefaultUpdateCancelRentalUseCase extends UpdateCancelRentalUseCase{
     }
 
     private Supplier<NotFoundException> notFound(final RentId anId) {
-        return () -> NotFoundException.with(User.class, anId);
+        return () -> NotFoundException.with(Rent.class, anId);
     }
 }

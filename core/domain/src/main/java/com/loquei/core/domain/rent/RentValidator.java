@@ -5,6 +5,7 @@ import com.loquei.common.validation.ValidationHandler;
 import com.loquei.common.validation.Validator;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 public class RentValidator extends Validator {
 
@@ -54,6 +55,14 @@ public class RentValidator extends Validator {
 
         if (rent.getStartDate().isAfter(rent.getEndDate())) {
             this.validationHandler().append(new Error("'startDate' must be before 'endDate'"));
+        }
+
+        if (rent.getStartDate().isBefore(LocalDateTime.now())) {
+            this.validationHandler().append(new Error("'startDate' must be today or in the future"));
+        }
+
+        if (rent.getEndDate().isBefore(LocalDateTime.now())) {
+            this.validationHandler().append(new Error("'endDate' must be today or in the future"));
         }
     }
 

@@ -112,7 +112,7 @@ public class Rent extends AggregateRoot<RentId> {
        this.startDate = startDate;
        this.endDate = endDate;
        this.totalValue = totalValue;
-       this.status = status;
+       this.status = RentStatus.PENDING;
        this.updatedAt = InstantUtils.now();
 
        return this;

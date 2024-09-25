@@ -15,7 +15,7 @@ public interface RentGateway {
 
     Rent updateRentalStatus(RentStatus status);
 
-    Rent updateRentalDate (final LocalDateTime startDate, final LocalDateTime endDate, final BigDecimal totalValue);
+    Rent updateRentalDate (Rent rent);
 
     Rent cancelRental(Rent rent);
 

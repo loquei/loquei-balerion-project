@@ -3,6 +3,7 @@ package com.loquei.core.application.rent.create;
 import com.loquei.common.exceptions.NotFoundException;
 import com.loquei.common.validation.Error;
 import com.loquei.common.validation.handler.Notification;
+import com.loquei.core.domain.item.Item;
 import com.loquei.core.domain.item.ItemGateway;
 import com.loquei.core.domain.item.ItemId;
 import com.loquei.core.domain.rent.Rent;
@@ -77,6 +78,6 @@ public class DefaultCreateRentUseCase extends CreateRentUseCase{
     }
 
     private Supplier<NotFoundException> notFound(final ItemId anId) {
-        return () -> NotFoundException.with(User.class, anId);
+        return () -> NotFoundException.with(Item.class, anId);
     }
 }
