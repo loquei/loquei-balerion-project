@@ -80,7 +80,7 @@ public class Rent extends AggregateRoot<RentId> {
     }
 
 
-    public Rent updateStatus(
+    public Rent update(
         final LocalDateTime startDate,
         final LocalDateTime endDate,
         final BigDecimal totalValue,

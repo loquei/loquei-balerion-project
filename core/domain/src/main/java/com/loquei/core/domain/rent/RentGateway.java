@@ -2,6 +2,7 @@ package com.loquei.core.domain.rent;
 
 import com.loquei.common.pagination.Pagination;
 import com.loquei.common.pagination.SearchQuery;
+import com.loquei.core.domain.item.ItemId;
 import com.loquei.core.domain.user.UserId;
 
 import java.math.BigDecimal;
@@ -22,4 +23,5 @@ public interface RentGateway {
 
     Pagination<Rent> findAllByUserId(UserId userId, SearchQuery query);
 
+    boolean isItemAvailableForRent(ItemId itemId, LocalDateTime startDate, LocalDateTime endDate);
 }
