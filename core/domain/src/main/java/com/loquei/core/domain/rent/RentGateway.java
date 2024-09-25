@@ -17,7 +17,7 @@ public interface RentGateway {
 
     Rent updateRentalDate (final LocalDateTime startDate, final LocalDateTime endDate, final BigDecimal totalValue);
 
-    Rent cancelRental(RentStatus status, String cancellationReason);
+    Rent cancelRental(Rent rent);
 
     Optional<Rent> findById(RentId rentId);
 

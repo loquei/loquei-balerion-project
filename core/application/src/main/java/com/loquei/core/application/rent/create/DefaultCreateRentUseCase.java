@@ -38,17 +38,18 @@ public class DefaultCreateRentUseCase extends CreateRentUseCase{
 
         final var lessorId = UserId.from(anIn.lessorId());
         final var lesseeId =  UserId.from(anIn.lesseeId());
-        final var item = ItemId.from(anIn.itemId());
+        final var itemId = ItemId.from(anIn.itemId());
         final var startDate = anIn.startDate();
         final var endDate = anIn.endDate();
         final var totalValue = anIn.totalValue();
 
         final var lessor = userGateway.findById(lessorId).orElseThrow(notFound(lessorId));
         final var lessee = userGateway.findById(lesseeId).orElseThrow(notFound(lesseeId));
+        final var item = itemGateway.findById(itemId).orElseThrow(notFound(itemId));
 
-        isItemAvailableForRent(item, startDate, endDate).ifPresent(notification::append);
+        isItemAvailableForRent(item.getId(), startDate, endDate).ifPresent(notification::append);
 
-        final var rent = Rent.newRent(lessor.getId(), lessee.getId(), item, startDate, endDate, totalValue);
+        final var rent = Rent.newRent(lessor.getId(), lessee.getId(), item.getId(), startDate, endDate, totalValue);
 
         rent.validate(notification);
 
@@ -69,6 +70,10 @@ public class DefaultCreateRentUseCase extends CreateRentUseCase{
     }
 
     private Supplier<NotFoundException> notFound(final UserId anId) {
+        return () -> NotFoundException.with(User.class, anId);
+    }
+
+    private Supplier<NotFoundException> notFound(final ItemId anId) {
         return () -> NotFoundException.with(User.class, anId);
     }
 }

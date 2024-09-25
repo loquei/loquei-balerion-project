@@ -122,6 +122,17 @@ public class Rent extends AggregateRoot<RentId> {
        return this;
     }
 
+    public Rent cancelRental(
+            final String cancellationReason) {
+
+
+        this.status = RentStatus.CANCELLED;
+        this.cancellationReason = cancellationReason;
+        this.updatedAt = InstantUtils.now();
+
+        return this;
+    }
+
 
 
     public UserId getLessor() {
