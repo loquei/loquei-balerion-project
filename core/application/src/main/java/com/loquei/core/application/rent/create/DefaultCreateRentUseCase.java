@@ -6,6 +6,7 @@ import com.loquei.common.validation.handler.Notification;
 import com.loquei.core.domain.item.ItemGateway;
 import com.loquei.core.domain.item.ItemId;
 import com.loquei.core.domain.rent.Rent;
+import com.loquei.core.domain.rent.RentCalculator;
 import com.loquei.core.domain.rent.RentGateway;
 import com.loquei.core.domain.user.User;
 import com.loquei.core.domain.user.UserGateway;
@@ -41,11 +42,12 @@ public class DefaultCreateRentUseCase extends CreateRentUseCase{
         final var itemId = ItemId.from(anIn.itemId());
         final var startDate = anIn.startDate();
         final var endDate = anIn.endDate();
-        final var totalValue = anIn.totalValue();
 
         final var lessor = userGateway.findById(lessorId).orElseThrow(notFound(lessorId));
         final var lessee = userGateway.findById(lesseeId).orElseThrow(notFound(lesseeId));
         final var item = itemGateway.findById(itemId).orElseThrow(notFound(itemId));
+
+        final var totalValue = RentCalculator.calculateTotalValue(startDate, endDate, item);
 
         isItemAvailableForRent(item.getId(), startDate, endDate).ifPresent(notification::append);
 
@@ -56,6 +58,7 @@ public class DefaultCreateRentUseCase extends CreateRentUseCase{
         return notification.hasError() ? Left(notification) : create(rent);
 
     }
+
 
     private Optional<Error> isItemAvailableForRent(ItemId itemId, LocalDateTime startDate, LocalDateTime endDate){
         final var exists = rentGateway.isItemAvailableForRent(itemId, startDate, endDate);

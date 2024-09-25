@@ -3,9 +3,7 @@ package com.loquei.core.domain.rent;
 import com.loquei.common.AggregateRoot;
 import com.loquei.common.utils.InstantUtils;
 import com.loquei.common.validation.ValidationHandler;
-import com.loquei.core.domain.item.Item;
 import com.loquei.core.domain.item.ItemId;
-import com.loquei.core.domain.user.User;
 import com.loquei.core.domain.user.UserId;
 
 import java.math.BigDecimal;
@@ -25,7 +23,6 @@ public class Rent extends AggregateRoot<RentId> {
     private final Instant createdAt;
     private Instant updatedAt;
 
-    // Construtor
     public Rent(
                 final RentId anid,
                 final UserId lessor,
@@ -107,11 +104,10 @@ public class Rent extends AggregateRoot<RentId> {
     }
 
 
-    public Rent update(
+    public Rent updateRentalDate(
         final LocalDateTime startDate,
         final LocalDateTime endDate,
-        final BigDecimal totalValue,
-        final RentStatus status) {
+        final BigDecimal totalValue) {
 
        this.startDate = startDate;
        this.endDate = endDate;
@@ -122,18 +118,16 @@ public class Rent extends AggregateRoot<RentId> {
        return this;
     }
 
-    public Rent cancelRental(
-            final String cancellationReason) {
-
-
+    public void cancelRental(final String cancellationReason) {
         this.status = RentStatus.CANCELLED;
         this.cancellationReason = cancellationReason;
         this.updatedAt = InstantUtils.now();
-
-        return this;
     }
 
+    @Override
+    public void validate(ValidationHandler aHandler) {
 
+    }
 
     public UserId getLessor() {
         return lessor;
@@ -176,27 +170,4 @@ public class Rent extends AggregateRoot<RentId> {
     }
 
 
-    public void cancel(String reason) {
-        if (this.status.equals(RentStatus.PENDING)) {
-            this.status = RentStatus.CANCELLED;
-            this.cancellationReason = reason;
-            this.updatedAt = Instant.now();
-        } else {
-            throw new IllegalStateException("A locação já foi iniciada ou finalizada e não pode ser cancelada.");
-        }
-    }
-
-    public void accept() {
-        if (this.status.equals(RentStatus.PENDING)) {
-            this.status = RentStatus.ACCEPTED;
-            this.updatedAt = Instant.now();
-        } else {
-            throw new IllegalStateException("A locação não pode ser aceita.");
-        }
-    }
-
-    @Override
-    public void validate(ValidationHandler aHandler) {
-
-    }
 }
