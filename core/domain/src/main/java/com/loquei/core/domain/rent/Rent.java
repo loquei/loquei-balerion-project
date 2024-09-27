@@ -118,11 +118,22 @@ public class Rent extends AggregateRoot<RentId> {
        return this;
     }
 
-    public void cancelRental(final String cancellationReason) {
+    public void cancelRent(final String cancellationReason) {
         this.status = RentStatus.CANCELLED;
         this.cancellationReason = cancellationReason;
         this.updatedAt = InstantUtils.now();
     }
+
+    public void refuseRent(){
+        this.status = RentStatus.REFUSED;
+        this.updatedAt = InstantUtils.now();
+    }
+
+    public void acceptRent(){
+        this.status = RentStatus.ACCEPTED;
+        this.updatedAt = InstantUtils.now();
+    }
+
 
     @Override
     public void validate(ValidationHandler aHandler) {

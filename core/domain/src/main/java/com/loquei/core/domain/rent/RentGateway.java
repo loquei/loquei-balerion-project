@@ -13,11 +13,7 @@ public interface RentGateway {
 
     Rent rent(Rent rent);
 
-    Rent updateRentalStatus(RentStatus status);
-
-    Rent updateRentalDate (Rent rent);
-
-    Rent cancelRental(Rent rent);
+    Rent update(Rent rent);
 
     Optional<Rent> findById(RentId rentId);
 

@@ -6,7 +6,11 @@ import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public class RentCalculator {
+public final class RentCalculator {
+
+    private RentCalculator(){
+
+    }
 
     public static BigDecimal calculateTotalValue (final LocalDateTime startDate,
                                                   final LocalDateTime endDate,
