@@ -1,16 +1,12 @@
 package com.loquei.core.application.rent.update.updateRentalDate;
 
 import com.loquei.common.exceptions.NotFoundException;
+import com.loquei.common.validation.Error;
 import com.loquei.common.validation.handler.Notification;
-import com.loquei.core.application.rent.update.cancelRental.UpdateCancelRentalOutput;
 import com.loquei.core.domain.item.Item;
 import com.loquei.core.domain.item.ItemGateway;
 import com.loquei.core.domain.item.ItemId;
-import com.loquei.core.domain.rent.Rent;
-import com.loquei.core.domain.rent.RentCalculator;
-import com.loquei.core.domain.rent.RentGateway;
-import com.loquei.core.domain.rent.RentId;
-import com.loquei.core.domain.user.User;
+import com.loquei.core.domain.rent.*;
 import io.vavr.control.Either;
 
 import java.util.function.Supplier;
@@ -41,6 +37,10 @@ public class DefaultUpdateRentalDateUseCase extends UpdateRentalDateUseCase{
 
         final var totalValue = RentCalculator.calculateTotalValue(startDate, endDate, item);
 
+        if (!rent.getStatus().equals(RentStatus.PENDING)) {
+            return Left(Notification.create().append(new Error("Only pending rentals can change date.")));
+        }
+
         final var notification = Notification.create();
 
         rent.updateRentalDate(startDate, endDate, totalValue);
@@ -50,7 +50,7 @@ public class DefaultUpdateRentalDateUseCase extends UpdateRentalDateUseCase{
     }
 
     private Either<Notification, UpdateRentalDateOutput> update(Rent rent) {
-        return Try(() -> this.rentGateway.updateRentalDate(rent))
+        return Try(() -> this.rentGateway.update(rent))
                 .toEither()
                 .bimap(Notification::create, UpdateRentalDateOutput::from);
     }

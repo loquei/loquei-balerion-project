@@ -48,9 +48,9 @@ public record CreateRentOutput(
     public static CreateRentOutput from(final Rent rent) {
         return new CreateRentOutput(
                 rent.getId().getValue(),
-                rent.getLessor().getId().getValue(),
-                rent.getLessee().getId().getValue(),
-                rent.getItem().getId().getValue(),
+                rent.getLessor().getValue(),
+                rent.getLessee().getValue(),
+                rent.getItem().getValue(),
                 rent.getStartDate(),
                 rent.getEndDate(),
                 rent.getTotalValue(),
