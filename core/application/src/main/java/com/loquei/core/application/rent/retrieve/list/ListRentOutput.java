@@ -15,10 +15,7 @@ public record ListRentOutput(
     LocalDateTime startDate,
     LocalDateTime endDate,
     BigDecimal totalValue,
-    String status,
-    String cancellationReason,
-    Instant createdAt,
-    Instant updatedAt) {
+    String status) {
 
         public static ListRentOutput from(final Rent rent) {
             return new ListRentOutput(
@@ -29,9 +26,6 @@ public record ListRentOutput(
                     rent.getStartDate(),
                     rent.getEndDate(),
                     rent.getTotalValue(),
-                    rent.getStatus().name(),
-                    rent.getCancellationReason(),
-                    rent.getCreatedAt(),
-                    rent.getUpdatedAt());
+                    rent.getStatus().name());
         }
 }

@@ -4,14 +4,12 @@ import com.loquei.common.exceptions.NotFoundException;
 import com.loquei.core.domain.rent.Rent;
 import com.loquei.core.domain.rent.RentGateway;
 import com.loquei.core.domain.rent.RentId;
-import com.loquei.core.domain.user.address.Address;
-import com.loquei.core.domain.user.address.AddressId;
 
 import java.util.function.Supplier;
 
 import static java.util.Objects.requireNonNull;
 
-public class DefaultGetRentByIdUseCase extends GetRendByIdUseCase{
+public class DefaultGetRentByIdUseCase extends GetRentByIdUseCase {
 
     private final RentGateway rentGateway;
 
