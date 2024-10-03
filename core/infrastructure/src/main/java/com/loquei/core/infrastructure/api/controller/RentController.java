@@ -3,11 +3,11 @@ package com.loquei.core.infrastructure.api.controller;
 import com.loquei.common.pagination.Pagination;
 import com.loquei.common.pagination.SearchQuery;
 import com.loquei.common.validation.handler.Notification;
-import com.loquei.core.application.item.update.UpdateItemCommand;
-import com.loquei.core.application.item.update.UpdateItemOutput;
 import com.loquei.core.application.rent.create.CreateRentCommand;
 import com.loquei.core.application.rent.create.CreateRentOutput;
 import com.loquei.core.application.rent.create.CreateRentUseCase;
+import com.loquei.core.application.rent.retrieve.checkavailability.IsItemAvailableForRentCommand;
+import com.loquei.core.application.rent.retrieve.checkavailability.IsItemAvailableForRentUseCase;
 import com.loquei.core.application.rent.retrieve.get.GetRentByIdUseCase;
 import com.loquei.core.application.rent.retrieve.list.ListRentParams;
 import com.loquei.core.application.rent.retrieve.list.ListRentUseCase;
@@ -23,15 +23,14 @@ import com.loquei.core.application.rent.update.refuseRent.UpdateRefuseRentUseCas
 import com.loquei.core.application.rent.update.updateRentalDate.UpdateRentalDateCommand;
 import com.loquei.core.application.rent.update.updateRentalDate.UpdateRentalDateOutput;
 import com.loquei.core.application.rent.update.updateRentalDate.UpdateRentalDateUseCase;
-import com.loquei.core.application.user.create.CreateUserOutput;
 import com.loquei.core.infrastructure.api.RentAPI;
-import com.loquei.core.infrastructure.rent.persistence.*;
+import com.loquei.core.infrastructure.rent.models.*;
 import com.loquei.core.infrastructure.rent.presenter.RentApiPresenter;
-import com.loquei.core.infrastructure.user.models.UserResponse;
-import com.loquei.core.infrastructure.user.presenter.UserApiPresenter;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.function.Function;
 
 public class RentController implements RentAPI {
@@ -43,6 +42,7 @@ public class RentController implements RentAPI {
     private final UpdateCancelRentUseCase updateCancelRentUseCase;
     private final UpdateRefuseRentUseCase updateRefuseRentUseCase;
     private final UpdateRentalDateUseCase updateRentalDateUseCase;
+    private final IsItemAvailableForRentUseCase isItemAvailableForRentUseCase;
 
     public RentController(CreateRentUseCase createRentUseCase,
                           GetRentByIdUseCase getRentByIdUseCase,
@@ -50,7 +50,8 @@ public class RentController implements RentAPI {
                           UpdateAcceptRentUseCase updateAcceptRentUseCase,
                           UpdateCancelRentUseCase updateCancelRentUseCase,
                           UpdateRefuseRentUseCase updateRefuseRentUseCase,
-                          UpdateRentalDateUseCase updateRentalDateUseCase) {
+                          UpdateRentalDateUseCase updateRentalDateUseCase,
+                          IsItemAvailableForRentUseCase isItemAvailableForRentUseCase) {
         this.createRentUseCase = createRentUseCase;
         this.getRentByIdUseCase = getRentByIdUseCase;
         this.listRentUseCase = listRentUseCase;
@@ -58,6 +59,7 @@ public class RentController implements RentAPI {
         this.updateCancelRentUseCase = updateCancelRentUseCase;
         this.updateRefuseRentUseCase = updateRefuseRentUseCase;
         this.updateRentalDateUseCase = updateRentalDateUseCase;
+        this.isItemAvailableForRentUseCase = isItemAvailableForRentUseCase;
     }
 
     @Override
@@ -80,16 +82,10 @@ public class RentController implements RentAPI {
     }
 
     @Override
-    public Pagination<RentListResponse> listAllRentals(final String search,
-                                                       final int page,
-                                                       final int perPage,
-                                                       final String sort,
-                                                       final String direction,
-                                                       final String userId) {
-        final var query = new SearchQuery(page, perPage, search, sort, direction);
+    public Pagination<RentListResponse> listAllRentalsByUserId(final String userId) {
         return listRentUseCase
-                    .execute(ListRentParams.with(userId, query))
-                    .map(RentApiPresenter::present);
+                .execute(userId)
+                .map(RentApiPresenter::present);
     }
 
     @Override
@@ -150,4 +146,18 @@ public class RentController implements RentAPI {
 
         return this.updateRentalDateUseCase.execute(aCommand).fold(onError, onSuccess);
     }
+
+    @Override
+    public ResponseEntity<?> isItemAvailableForRent(String itemId, LocalDateTime startDate, LocalDateTime endDate) {
+        final var command = IsItemAvailableForRentCommand.with(itemId, startDate, endDate);
+        boolean isAvailable = this.isItemAvailableForRentUseCase.execute(command);
+
+        if (isAvailable) {
+            return ResponseEntity.ok("Item is available");
+        } else {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Item is not available");
+        }
+    }
+
+
 }

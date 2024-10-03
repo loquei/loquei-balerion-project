@@ -2,8 +2,8 @@ package com.loquei.core.infrastructure.rent.presenter;
 
 import com.loquei.core.application.rent.retrieve.get.GetRentOutput;
 import com.loquei.core.application.rent.retrieve.list.ListRentOutput;
-import com.loquei.core.infrastructure.rent.persistence.RentListResponse;
-import com.loquei.core.infrastructure.rent.persistence.RentResponse;
+import com.loquei.core.infrastructure.rent.models.RentListResponse;
+import com.loquei.core.infrastructure.rent.models.RentResponse;
 
 public interface RentApiPresenter {
 
