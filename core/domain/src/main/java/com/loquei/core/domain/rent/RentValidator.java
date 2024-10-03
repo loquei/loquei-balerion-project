@@ -27,6 +27,7 @@ public class RentValidator extends Validator {
         checkTotalValue();
         checkStatus();
         checkCancellationReason();
+        checkLessorAndLesseeNotSame();
     }
 
     private void checkLessor() {
@@ -86,6 +87,12 @@ public class RentValidator extends Validator {
             this.validationHandler().append(new Error("'cancellationReason' is required when rent is cancelled"));
         } else if (reason != null && reason.length() > MAX_REASON_LENGTH) {
             this.validationHandler().append(new Error("'cancellationReason' must not exceed " + MAX_REASON_LENGTH + " characters"));
+        }
+    }
+
+    private void checkLessorAndLesseeNotSame() {
+        if (rent.getLessor() != null && rent.getLessee() != null && rent.getLessor().equals(rent.getLessee())) {
+            this.validationHandler().append(new Error("'lessor' and 'lessee' cannot be the same user"));
         }
     }
 }
