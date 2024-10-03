@@ -17,7 +17,7 @@ public interface RentGateway {
 
     Optional<Rent> findById(RentId rentId);
 
-    Pagination<Rent> findAllByUserId(UserId userId, SearchQuery query);
+    Pagination<Rent> findAllByUserId(UserId userId);
 
     boolean isItemAvailableForRent(ItemId itemId, LocalDateTime startDate, LocalDateTime endDate);
 }

@@ -26,14 +26,14 @@ public class DefaultListRentUseCase extends ListRentUseCase {
     }
 
     @Override
-    public Pagination<ListRentOutput> execute(ListRentParams anIn) {
+    public Pagination<ListRentOutput> execute(String anIn) {
 
-        final var userId = UserId.from(anIn.userId());
-        final var searchQuery = anIn.aQuery();
+        final var userId = UserId.from(anIn);
+
 
         final var user = userGateway.findById(userId).orElseThrow(notFound(userId));
 
-       return rentGateway.findAllByUserId(user.getId(),searchQuery)
+       return rentGateway.findAllByUserId(user.getId())
                .map(ListRentOutput::from);
     }
 
