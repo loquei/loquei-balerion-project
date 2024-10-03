@@ -15,4 +15,6 @@ public interface ItemImageGateway {
 
     void delete(final ItemImageId itemId);
 
+    void deleteByItemId(final ItemId itemId);
+
 }

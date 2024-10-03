@@ -8,4 +8,6 @@ import java.util.List;
 public interface ItemImageRepository extends JpaRepository<ItemImageJpaEntity, String> {
 
     List<ItemImageJpaEntity> findAllByItemId(String itemId);
+
+    void deleteByItemId(String itemId);
 }

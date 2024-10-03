@@ -1,21 +1,22 @@
 package com.loquei.core.infrastructure.api.controller;
 
 import com.loquei.common.validation.handler.Notification;
-import com.loquei.core.application.item.create.CreateItemOutput;
 import com.loquei.core.application.item.image.create.CreateItemImageCommand;
 import com.loquei.core.application.item.image.create.CreateItemImageOutput;
 import com.loquei.core.application.item.image.create.CreateItemImageUseCase;
+import com.loquei.core.application.item.image.delete.DeleteItemImageUseCase;
+import com.loquei.core.application.item.image.retrieve.images.RetrieveItemImagesUseCase;
+import com.loquei.core.application.item.image.retrieve.view.ViewItemImageUseCase;
 import com.loquei.core.domain.item.ItemId;
-import com.loquei.core.domain.item.image.ItemImage;
 import com.loquei.core.infrastructure.api.ItemImageAPI;
-import com.loquei.core.infrastructure.item.image.persistence.ItemImageJpaEntity;
+import com.loquei.core.infrastructure.item.image.model.ItemImageLinksResponse;
 import com.loquei.core.infrastructure.item.image.persistence.ItemImageRepository;
 import com.loquei.core.infrastructure.utils.FileUtils;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,10 +27,22 @@ import java.util.function.Function;
 public class ItemImageController implements ItemImageAPI {
 
     private final CreateItemImageUseCase createItemImageUseCase;
+    private final DeleteItemImageUseCase deleteItemImageUseCase;
+    private final RetrieveItemImagesUseCase retrieveItemImagesUseCase;
+    private final ViewItemImageUseCase viewItemImageUseCase;
     private final ItemImageRepository itemImageRepository;
 
-    public ItemImageController(CreateItemImageUseCase createItemImageUseCase, ItemImageRepository itemImageRepository) {
+    public ItemImageController(
+            final CreateItemImageUseCase createItemImageUseCase,
+            final DeleteItemImageUseCase deleteItemImageUseCase,
+            final RetrieveItemImagesUseCase retrieveItemImagesUseCase,
+            final ViewItemImageUseCase viewItemImageUseCase,
+            final ItemImageRepository itemImageRepository
+    ) {
         this.createItemImageUseCase = createItemImageUseCase;
+        this.deleteItemImageUseCase = deleteItemImageUseCase;
+        this.retrieveItemImagesUseCase = retrieveItemImagesUseCase;
+        this.viewItemImageUseCase = viewItemImageUseCase;
         this.itemImageRepository = itemImageRepository;
     }
 
@@ -51,16 +64,26 @@ public class ItemImageController implements ItemImageAPI {
     }
 
     @Override
-    public ResponseEntity<Resource> visualizeFile(Integer id) {
-        ItemImageJpaEntity itemImage = itemImageRepository.findAll().stream().findFirst().orElseThrow(() -> new RuntimeException("error"));
-
-        String mimeType = itemImage.getFileType();
-        if (!mimeType.contains("/")) {
-            mimeType = "application/octet-stream";
-        }
+    public ResponseEntity<Resource> visualizeFile(String id) {
+        final var output = viewItemImageUseCase.execute(id);
 
         return  ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(mimeType))
-                .body(new ByteArrayResource(itemImage.getData()));
+                .contentType(MediaType.parseMediaType(output.fileType()))
+                .body(new ByteArrayResource(output.data()));
     }
+
+    @Override
+    public ResponseEntity<ItemImageLinksResponse> getLinksByItem(String imgId) {
+        final var output = this.retrieveItemImagesUseCase.execute(imgId);
+
+        final var response =  new ItemImageLinksResponse(output.ids().stream().map(id -> URI.create("/api/items/images/view/" + id).toString()).toList());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteById(final String id) {
+        this.deleteItemImageUseCase.execute(id);
+    }
+
 }

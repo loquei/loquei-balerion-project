@@ -43,4 +43,10 @@ public class ItemImagePostgresGateway implements ItemImageGateway {
             this.itemImageRepository.deleteById(idValue);
         }
     }
+
+    @Override
+    public void deleteByItemId(final ItemId itemId) {
+        this.itemImageRepository.deleteByItemId(itemId.getValue());
+    }
+
 }

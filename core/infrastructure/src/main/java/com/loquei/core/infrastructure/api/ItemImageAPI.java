@@ -1,10 +1,12 @@
 package com.loquei.core.infrastructure.api;
 
+import com.loquei.core.infrastructure.item.image.model.ItemImageLinksResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,21 @@ public interface ItemImageAPI {
             })
     ResponseEntity<?> create(@PathVariable("itemId") String itemId, @RequestBody MultipartFile file);
 
-    @GetMapping("/view")
-    ResponseEntity<Resource> visualizeFile(Integer id);
+    @GetMapping("/view/{itemImageId}")
+    ResponseEntity<Resource> visualizeFile(@PathVariable("itemImageId") String id);
+
+    @GetMapping("/links/{itemId}")
+    ResponseEntity<ItemImageLinksResponse> getLinksByItem(@PathVariable("itemId") String id);
+
+    @DeleteMapping(value = "{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary = "Delete an item image by it's identifier")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "204", description = "Item Image deleted successfully"),
+                    @ApiResponse(responseCode = "404", description = "Item Image was not found"),
+                    @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
+            })
+    void deleteById(@PathVariable(name = "id") String id);
+
 }

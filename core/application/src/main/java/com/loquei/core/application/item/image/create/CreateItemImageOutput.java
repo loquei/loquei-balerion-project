@@ -7,6 +7,6 @@ public record CreateItemImageOutput(
 ) {
 
         public static CreateItemImageOutput from(final ItemImage itemImage) {
-            return new CreateItemImageOutput(itemImage.getItemId().getValue());
+            return new CreateItemImageOutput(itemImage.getId().getValue());
         }
 }
