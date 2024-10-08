@@ -34,6 +34,17 @@ public class GsonConfig {
             }
         });
 
+        builder.registerTypeHierarchyAdapter(LocalDateTime.class, new JsonDeserializer<LocalDateTime>() {
+
+            final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+            @Override
+            public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+                    throws JsonParseException {
+                return LocalDateTime.parse(json.getAsString(), DATE_FORMATTER);
+            }
+        });
+
         builder.registerTypeHierarchyAdapter(LocalDate.class, new JsonSerializer<LocalDate>() {
 
             final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
