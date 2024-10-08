@@ -11,6 +11,7 @@ import com.loquei.core.infrastructure.rent.persistence.RentRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
 
 
 import java.time.LocalDateTime;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
 
+@Component
 public class RentPostgresGateway implements RentGateway {
 
     private final RentRepository repository;

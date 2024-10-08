@@ -48,7 +48,7 @@ public interface RentAPI {
     RentResponse getById(@PathVariable(name = "id") String id);
 
     @PutMapping(
-            value = "{id}",
+            value = "/accept/{id}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "accept a rent")
@@ -61,7 +61,7 @@ public interface RentAPI {
     ResponseEntity<?> acceptRent(@PathVariable(name = "id") String id);
 
     @PutMapping(
-            value = "{id}",
+            value = "/refuse/{id}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "refuse a rent")
@@ -74,7 +74,7 @@ public interface RentAPI {
     ResponseEntity<?> refuseRent(@PathVariable(name = "id") String id);
 
     @PutMapping(
-            value = "{id}",
+            value = "/cancel/{id}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Cancel a rent")
@@ -87,7 +87,7 @@ public interface RentAPI {
     ResponseEntity<?> cancelRent(@RequestBody CancelRentRequest input);
 
     @PutMapping(
-            value = "{id}",
+            value = "/update/{id}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Update a rental date")

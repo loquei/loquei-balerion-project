@@ -20,7 +20,9 @@ import com.loquei.core.domain.item.ItemGateway;
 import com.loquei.core.domain.rent.RentGateway;
 import com.loquei.core.domain.user.UserGateway;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class RentUseCaseConfig {
 
     private final RentGateway rentGateway;
