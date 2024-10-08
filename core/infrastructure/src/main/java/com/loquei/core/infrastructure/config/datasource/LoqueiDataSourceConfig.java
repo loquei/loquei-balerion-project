@@ -19,6 +19,7 @@ import org.springframework.transaction.PlatformTransactionManager;
             "com.loquei.core.infrastructure.category",
             "com.loquei.core.infrastructure.item",
             "com.loquei.core.infrastructure.rating",
+            "com.loquei.core.infrastructure.rent"
         },
         entityManagerFactoryRef = "loqueiEntityManagerFactory",
         transactionManagerRef = "loqueiTransactionManager")

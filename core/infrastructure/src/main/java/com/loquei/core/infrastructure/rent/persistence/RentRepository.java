@@ -1,7 +1,5 @@
 package com.loquei.core.infrastructure.rent.persistence;
 
-import com.loquei.core.domain.item.ItemId;
-import com.loquei.core.domain.rent.Rent;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,10 +9,6 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDateTime;
 
 public interface RentRepository extends JpaRepository<RentJpaEntity, String> {
-
-    Rent rent(Rent rent);
-
-    Rent update(Rent rent);
 
     @Query("SELECT r FROM Rent r WHERE r.lessorId = :userId OR r.lesseeId = :userId")
     Page<RentJpaEntity> findAllByUserId(@Param("userId") String userId, Pageable pageable);

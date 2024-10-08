@@ -3,6 +3,7 @@ package com.loquei.core.infrastructure.config.usecase;
 import com.loquei.core.application.rent.create.CreateRentUseCase;
 import com.loquei.core.application.rent.create.DefaultCreateRentUseCase;
 import com.loquei.core.application.rent.retrieve.checkavailability.DefaultIsItemAvailableForRentUseCase;
+import com.loquei.core.application.rent.retrieve.checkavailability.IsItemAvailableForRentUseCase;
 import com.loquei.core.application.rent.retrieve.get.DefaultGetRentByIdUseCase;
 import com.loquei.core.application.rent.retrieve.get.GetRentByIdUseCase;
 import com.loquei.core.application.rent.retrieve.list.DefaultListRentUseCase;
@@ -69,7 +70,7 @@ public class RentUseCaseConfig {
     }
 
     @Bean
-    public DefaultIsItemAvailableForRentUseCase checkItemAvailabilityUseCase() {
+    public IsItemAvailableForRentUseCase checkItemAvailabilityUseCase() {
         return new DefaultIsItemAvailableForRentUseCase(rentGateway);
     }
 }
