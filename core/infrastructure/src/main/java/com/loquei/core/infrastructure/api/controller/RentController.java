@@ -28,11 +28,13 @@ import com.loquei.core.infrastructure.rent.models.*;
 import com.loquei.core.infrastructure.rent.presenter.RentApiPresenter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.function.Function;
 
+@RestController
 public class RentController implements RentAPI {
 
     private final CreateRentUseCase createRentUseCase;
