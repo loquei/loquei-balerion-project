@@ -35,7 +35,7 @@ public class DefaultUpdateRefuseRentUseCase extends UpdateRefuseRentUseCase {
 
         final var notification = Notification.create();
 
-        rent.refuseRental();
+        rent.refuseRent();
         rent.validate(notification);
 
         return notification.hasError() ? Left(notification) : update(rent);
