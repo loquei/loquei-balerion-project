@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,8 +22,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 @Component
+@Profile("production")
 @RequiredArgsConstructor
-public class SecurityJwtAuthenticationFilter extends OncePerRequestFilter {
+public class SecurityJwtAuthenticationFilter extends SecurityAuthenticationFilter {
 
     private final SecurityJwtTokenService jwtService;
     private final SecurityUserGateway userGateway;
