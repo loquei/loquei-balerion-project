@@ -12,6 +12,7 @@ import com.loquei.core.application.item.update.DefaultUpdateItemUseCase;
 import com.loquei.core.application.item.update.UpdateItemUseCase;
 import com.loquei.core.domain.category.CategoryGateway;
 import com.loquei.core.domain.item.ItemGateway;
+import com.loquei.core.domain.item.image.ItemImageGateway;
 import com.loquei.core.domain.user.UserGateway;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,12 +21,14 @@ import org.springframework.context.annotation.Configuration;
 public class ItemUseCaseConfig {
 
     private final ItemGateway itemGateway;
+    private final ItemImageGateway itemImageGateway;
     private final CategoryGateway categoryGateway;
     private final UserGateway userGateway;
 
     public ItemUseCaseConfig(
-            final ItemGateway itemGateway, final CategoryGateway categoryGateway, final UserGateway userGateway) {
+            final ItemGateway itemGateway, final ItemImageGateway itemImageGateway, final CategoryGateway categoryGateway, final UserGateway userGateway) {
         this.itemGateway = itemGateway;
+        this.itemImageGateway = itemImageGateway;
         this.categoryGateway = categoryGateway;
         this.userGateway = userGateway;
     }
@@ -42,7 +45,7 @@ public class ItemUseCaseConfig {
 
     @Bean
     public DeleteItemUseCase deleteItemUseCase() {
-        return new DefaultDeleteItemUseCase(itemGateway);
+        return new DefaultDeleteItemUseCase(itemGateway, itemImageGateway);
     }
 
     @Bean
