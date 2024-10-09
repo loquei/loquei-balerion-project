@@ -3,7 +3,6 @@ package com.loquei.core.infrastructure.user.address.presenter;
 import com.loquei.core.application.user.address.retrieve.get.GetAddressOutput;
 import com.loquei.core.application.user.address.retrieve.list.AddressListOutput;
 import com.loquei.core.infrastructure.user.address.models.AddressResponse;
-
 import java.util.List;
 
 public interface AddressApiPressenter {

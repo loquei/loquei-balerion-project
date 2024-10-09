@@ -1,5 +1,8 @@
 package com.loquei.core.application.item.image.create;
 
+import static io.vavr.API.Left;
+import static io.vavr.API.Try;
+
 import com.loquei.common.validation.Error;
 import com.loquei.common.validation.handler.Notification;
 import com.loquei.core.domain.item.ItemGateway;
@@ -7,18 +10,12 @@ import com.loquei.core.domain.item.image.ItemImage;
 import com.loquei.core.domain.item.image.ItemImageGateway;
 import io.vavr.control.Either;
 
-import static io.vavr.API.Left;
-import static io.vavr.API.Try;
-
 public class DefaultCreateItemImageUseCase extends CreateItemImageUseCase {
 
     private final ItemGateway itemGateway;
     private final ItemImageGateway itemImageGateway;
 
-    public DefaultCreateItemImageUseCase(
-            final ItemGateway itemGateway,
-            final ItemImageGateway itemImageGateway
-    ) {
+    public DefaultCreateItemImageUseCase(final ItemGateway itemGateway, final ItemImageGateway itemImageGateway) {
         this.itemGateway = itemGateway;
         this.itemImageGateway = itemImageGateway;
     }
@@ -39,7 +36,6 @@ public class DefaultCreateItemImageUseCase extends CreateItemImageUseCase {
         final var itemImage = ItemImage.newItemImage(itemId, fileName, fileType, data);
         itemImage.validate(notification);
 
-
         return notification.hasError() ? Left(notification) : create(itemImage);
     }
 
@@ -48,5 +44,4 @@ public class DefaultCreateItemImageUseCase extends CreateItemImageUseCase {
                 .toEither()
                 .bimap(Notification::create, CreateItemImageOutput::from);
     }
-
 }

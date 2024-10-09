@@ -1,5 +1,6 @@
 package com.loquei.core.infrastructure.api.controller;
 
+import com.loquei.common.validation.handler.Notification;
 import com.loquei.core.application.user.address.create.CreateAddressCommand;
 import com.loquei.core.application.user.address.create.CreateAddressOutput;
 import com.loquei.core.application.user.address.create.CreateAddressUseCase;
@@ -9,18 +10,16 @@ import com.loquei.core.application.user.address.retrieve.list.ListAddressUseCase
 import com.loquei.core.application.user.address.update.UpdateAddressCommand;
 import com.loquei.core.application.user.address.update.UpdateAddressOutput;
 import com.loquei.core.application.user.address.update.UpdateAddressUseCase;
-import com.loquei.common.validation.handler.Notification;
 import com.loquei.core.infrastructure.api.AddressAPI;
 import com.loquei.core.infrastructure.user.address.models.AddressResponse;
 import com.loquei.core.infrastructure.user.address.models.CreateAddressRequest;
 import com.loquei.core.infrastructure.user.address.models.UpdateAddressRequest;
 import com.loquei.core.infrastructure.user.address.presenter.AddressApiPressenter;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.net.URI;
 import java.util.List;
 import java.util.function.Function;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class AddressController implements AddressAPI {

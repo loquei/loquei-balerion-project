@@ -4,7 +4,6 @@ import com.loquei.common.Entity;
 import com.loquei.common.utils.InstantUtils;
 import com.loquei.common.validation.ValidationHandler;
 import com.loquei.core.domain.item.ItemId;
-
 import java.time.Instant;
 
 public class ItemImage extends Entity<ItemImageId> {
@@ -17,12 +16,11 @@ public class ItemImage extends Entity<ItemImageId> {
 
     private ItemImage(
             final ItemImageId anId,
-        final ItemId itemId,
-        final String fileName,
-        final String fileType,
-        final byte[] data,
-        final Instant createdAt
-    ) {
+            final ItemId itemId,
+            final String fileName,
+            final String fileType,
+            final byte[] data,
+            final Instant createdAt) {
         super(anId);
         this.itemId = itemId;
         this.fileName = fileName;
@@ -32,24 +30,19 @@ public class ItemImage extends Entity<ItemImageId> {
     }
 
     public static ItemImage newItemImage(
-            final ItemId itemId,
-            final String fileName,
-            final String fileType,
-            final byte[] data
-    ) {
+            final ItemId itemId, final String fileName, final String fileType, final byte[] data) {
         final var id = ItemImageId.unique();
         final var now = InstantUtils.now();
         return new ItemImage(id, itemId, fileName, fileType, data, now);
     }
 
     public static ItemImage from(
-        final ItemImageId anId,
-        final ItemId itemId,
-        final String fileName,
-        final String fileType,
-        final byte[] data,
-        final Instant createdAt
-    ) {
+            final ItemImageId anId,
+            final ItemId itemId,
+            final String fileName,
+            final String fileType,
+            final byte[] data,
+            final Instant createdAt) {
         return new ItemImage(anId, itemId, fileName, fileType, data, createdAt);
     }
 
@@ -77,5 +70,4 @@ public class ItemImage extends Entity<ItemImageId> {
     public Instant getCreatedAt() {
         return createdAt;
     }
-
 }

@@ -17,7 +17,8 @@ public class DefaultViewItemImageUseCase extends ViewItemImageUseCase {
     public ViewItemImageOutput execute(final String anIn) {
         final var itemImageId = ItemImageId.from(anIn);
 
-        final var itemImage = itemImageGateway.findById(itemImageId)
+        final var itemImage = itemImageGateway
+                .findById(itemImageId)
                 .orElseThrow(() -> NotFoundException.with(itemImageId, ItemImage.class));
 
         return ViewItemImageOutput.from(itemImage);

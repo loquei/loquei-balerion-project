@@ -26,7 +26,10 @@ public class ItemUseCaseConfig {
     private final UserGateway userGateway;
 
     public ItemUseCaseConfig(
-            final ItemGateway itemGateway, final ItemImageGateway itemImageGateway, final CategoryGateway categoryGateway, final UserGateway userGateway) {
+            final ItemGateway itemGateway,
+            final ItemImageGateway itemImageGateway,
+            final CategoryGateway categoryGateway,
+            final UserGateway userGateway) {
         this.itemGateway = itemGateway;
         this.itemImageGateway = itemImageGateway;
         this.categoryGateway = categoryGateway;

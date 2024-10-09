@@ -12,6 +12,8 @@ import com.loquei.core.infrastructure.api.ItemImageAPI;
 import com.loquei.core.infrastructure.item.image.model.ItemImageLinksResponse;
 import com.loquei.core.infrastructure.item.image.persistence.ItemImageRepository;
 import com.loquei.core.infrastructure.utils.FileUtils;
+import java.net.URI;
+import java.util.function.Function;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
@@ -19,9 +21,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.net.URI;
-import java.util.function.Function;
 
 @RestController
 public class ItemImageController implements ItemImageAPI {
@@ -37,8 +36,7 @@ public class ItemImageController implements ItemImageAPI {
             final DeleteItemImageUseCase deleteItemImageUseCase,
             final RetrieveItemImagesUseCase retrieveItemImagesUseCase,
             final ViewItemImageUseCase viewItemImageUseCase,
-            final ItemImageRepository itemImageRepository
-    ) {
+            final ItemImageRepository itemImageRepository) {
         this.createItemImageUseCase = createItemImageUseCase;
         this.deleteItemImageUseCase = deleteItemImageUseCase;
         this.retrieveItemImagesUseCase = retrieveItemImagesUseCase;
@@ -67,7 +65,7 @@ public class ItemImageController implements ItemImageAPI {
     public ResponseEntity<Resource> visualizeFile(String id) {
         final var output = viewItemImageUseCase.execute(id);
 
-        return  ResponseEntity.ok()
+        return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(output.fileType()))
                 .body(new ByteArrayResource(output.data()));
     }
@@ -76,7 +74,9 @@ public class ItemImageController implements ItemImageAPI {
     public ResponseEntity<ItemImageLinksResponse> getLinksByItem(String imgId) {
         final var output = this.retrieveItemImagesUseCase.execute(imgId);
 
-        final var response =  new ItemImageLinksResponse(output.ids().stream().map(id -> URI.create("/api/items/images/view/" + id).toString()).toList());
+        final var response = new ItemImageLinksResponse(output.ids().stream()
+                .map(id -> URI.create("/api/items/images/view/" + id).toString())
+                .toList());
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -85,5 +85,4 @@ public class ItemImageController implements ItemImageAPI {
     public void deleteById(final String id) {
         this.deleteItemImageUseCase.execute(id);
     }
-
 }

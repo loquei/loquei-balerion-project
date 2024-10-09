@@ -1,10 +1,9 @@
 package com.loquei.core.domain.user.address;
 
 import com.loquei.common.Entity;
-import com.loquei.core.domain.user.UserId;
 import com.loquei.common.utils.InstantUtils;
 import com.loquei.common.validation.ValidationHandler;
-
+import com.loquei.core.domain.user.UserId;
 import java.time.Instant;
 
 public class Address extends Entity<AddressId> {

@@ -1,7 +1,6 @@
 package com.loquei.core.domain.item.image;
 
 import com.loquei.core.domain.item.ItemId;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -16,5 +15,4 @@ public interface ItemImageGateway {
     void delete(final ItemImageId itemId);
 
     void deleteByItemId(final ItemId itemId);
-
 }

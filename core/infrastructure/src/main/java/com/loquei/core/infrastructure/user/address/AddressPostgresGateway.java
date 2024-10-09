@@ -1,17 +1,16 @@
 package com.loquei.core.infrastructure.user.address;
 
+import static java.util.Objects.requireNonNull;
+
 import com.loquei.core.domain.user.UserId;
 import com.loquei.core.domain.user.address.Address;
 import com.loquei.core.domain.user.address.AddressGateway;
 import com.loquei.core.domain.user.address.AddressId;
 import com.loquei.core.infrastructure.user.address.persistence.AddressJpaEntity;
 import com.loquei.core.infrastructure.user.address.persistence.AddressRepository;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.Optional;
-
-import static java.util.Objects.requireNonNull;
+import org.springframework.stereotype.Component;
 
 @Component
 public class AddressPostgresGateway implements AddressGateway {

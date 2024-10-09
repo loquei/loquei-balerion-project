@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public final class FileUtils {
 
-    private FileUtils() { }
+    private FileUtils() {}
 
     public static String extractFileName(final MultipartFile multipartFile) {
         return StringUtils.cleanPath(multipartFile.getOriginalFilename());

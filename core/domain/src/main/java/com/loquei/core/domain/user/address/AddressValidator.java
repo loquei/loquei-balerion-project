@@ -1,10 +1,9 @@
 package com.loquei.core.domain.user.address;
 
+import com.loquei.common.exceptions.NotificationException;
 import com.loquei.common.validation.Error;
 import com.loquei.common.validation.ValidationHandler;
-import com.loquei.common.exceptions.NotificationException;
 import com.loquei.common.validation.Validator;
-
 import java.util.Objects;
 
 public class AddressValidator extends Validator {

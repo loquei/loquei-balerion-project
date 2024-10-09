@@ -2,7 +2,6 @@ package com.loquei.core.infrastructure.user.address.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.loquei.core.application.user.address.retrieve.list.AddressListOutput;
-
 import java.time.Instant;
 
 public record AddressResponse(

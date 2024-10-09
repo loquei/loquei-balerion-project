@@ -4,7 +4,6 @@ import com.loquei.core.domain.item.ItemId;
 import com.loquei.core.domain.item.image.ItemImage;
 import com.loquei.core.domain.item.image.ItemImageId;
 import jakarta.persistence.*;
-
 import java.time.Instant;
 
 @Entity
@@ -30,11 +29,10 @@ public class ItemImageJpaEntity {
     @Column(name = "created_at", nullable = false, columnDefinition = "DATETIME(6)")
     private Instant createdAt;
 
+    public ItemImageJpaEntity() {}
 
-    public ItemImageJpaEntity() {
-    }
-
-    public ItemImageJpaEntity(String id, String itemId, String fileName, String fileType, byte[] data, Instant createdAt) {
+    public ItemImageJpaEntity(
+            String id, String itemId, String fileName, String fileType, byte[] data, Instant createdAt) {
         this.id = id;
         this.itemId = itemId;
         this.fileName = fileName;
@@ -43,18 +41,29 @@ public class ItemImageJpaEntity {
         this.createdAt = createdAt;
     }
 
-    public static ItemImageJpaEntity from(String id, String itemId, String fileName, String fileType, byte[] data, Instant createdAt) {
+    public static ItemImageJpaEntity from(
+            String id, String itemId, String fileName, String fileType, byte[] data, Instant createdAt) {
         return new ItemImageJpaEntity(id, itemId, fileName, fileType, data, createdAt);
     }
 
     public static ItemImageJpaEntity from(ItemImage itemImage) {
         return new ItemImageJpaEntity(
                 itemImage.getId().getValue(),
-                itemImage.getItemId().getValue(), itemImage.getFileName(), itemImage.getFileType(), itemImage.getData(), itemImage.getCreatedAt());
+                itemImage.getItemId().getValue(),
+                itemImage.getFileName(),
+                itemImage.getFileType(),
+                itemImage.getData(),
+                itemImage.getCreatedAt());
     }
 
     public ItemImage toEntity() {
-        return ItemImage.from(ItemImageId.from(this.id), ItemId.from(this.itemId), this.fileName, this.fileType, this.data, this.createdAt);
+        return ItemImage.from(
+                ItemImageId.from(this.id),
+                ItemId.from(this.itemId),
+                this.fileName,
+                this.fileType,
+                this.data,
+                this.createdAt);
     }
 
     public String getId() {

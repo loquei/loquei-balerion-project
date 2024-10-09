@@ -6,10 +6,9 @@ import com.loquei.core.domain.item.image.ItemImageGateway;
 import com.loquei.core.domain.item.image.ItemImageId;
 import com.loquei.core.infrastructure.item.image.persistence.ItemImageJpaEntity;
 import com.loquei.core.infrastructure.item.image.persistence.ItemImageRepository;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Component;
 
 @Component
 public class ItemImagePostgresGateway implements ItemImageGateway {
@@ -32,8 +31,9 @@ public class ItemImagePostgresGateway implements ItemImageGateway {
 
     @Override
     public List<ItemImage> findByItemId(final ItemId itemId) {
-        return this.itemImageRepository.findAllByItemId(itemId.getValue())
-                .stream().map(ItemImageJpaEntity::toEntity).toList();
+        return this.itemImageRepository.findAllByItemId(itemId.getValue()).stream()
+                .map(ItemImageJpaEntity::toEntity)
+                .toList();
     }
 
     @Override
@@ -48,5 +48,4 @@ public class ItemImagePostgresGateway implements ItemImageGateway {
     public void deleteByItemId(final ItemId itemId) {
         this.itemImageRepository.deleteByItemId(itemId.getValue());
     }
-
 }

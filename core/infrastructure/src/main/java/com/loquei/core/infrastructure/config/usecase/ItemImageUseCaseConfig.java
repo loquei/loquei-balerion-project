@@ -43,5 +43,4 @@ public class ItemImageUseCaseConfig {
     public DeleteItemImageUseCase deleteItemImageUseCase() {
         return new DefaultDeleteItemImageUseCase(itemImageGateway);
     }
-
 }

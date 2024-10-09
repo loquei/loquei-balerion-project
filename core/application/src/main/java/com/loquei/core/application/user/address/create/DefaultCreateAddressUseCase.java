@@ -4,15 +4,15 @@ import static io.vavr.API.Left;
 import static io.vavr.API.Try;
 import static java.util.Objects.requireNonNull;
 
-import com.loquei.core.application.user.address.update.UpdateAddressOutput;
 import com.loquei.common.exceptions.NotFoundException;
+import com.loquei.common.validation.Error;
+import com.loquei.common.validation.handler.Notification;
+import com.loquei.core.application.user.address.update.UpdateAddressOutput;
 import com.loquei.core.domain.user.User;
 import com.loquei.core.domain.user.UserGateway;
 import com.loquei.core.domain.user.UserId;
 import com.loquei.core.domain.user.address.Address;
 import com.loquei.core.domain.user.address.AddressGateway;
-import com.loquei.common.validation.Error;
-import com.loquei.common.validation.handler.Notification;
 import io.vavr.control.Either;
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +29,7 @@ public class DefaultCreateAddressUseCase extends CreateAddressUseCase {
     }
 
     @Override
-   public Either<Notification, CreateAddressOutput> execute(final CreateAddressCommand anIn) {
+    public Either<Notification, CreateAddressOutput> execute(final CreateAddressCommand anIn) {
         final var userId = UserId.from(anIn.userId());
         final var postalCode = anIn.postalCode();
         final var street = anIn.street();

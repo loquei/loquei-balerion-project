@@ -5,13 +5,13 @@ import static io.vavr.API.Try;
 import static java.util.Objects.requireNonNull;
 
 import com.loquei.common.exceptions.NotFoundException;
+import com.loquei.common.validation.handler.Notification;
 import com.loquei.core.domain.user.User;
 import com.loquei.core.domain.user.UserGateway;
 import com.loquei.core.domain.user.UserId;
 import com.loquei.core.domain.user.address.Address;
 import com.loquei.core.domain.user.address.AddressGateway;
 import com.loquei.core.domain.user.address.AddressId;
-import com.loquei.common.validation.handler.Notification;
 import io.vavr.control.Either;
 import java.util.List;
 import java.util.function.Supplier;

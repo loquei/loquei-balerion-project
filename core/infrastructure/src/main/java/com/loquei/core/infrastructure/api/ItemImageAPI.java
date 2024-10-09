@@ -16,13 +16,16 @@ import org.springframework.web.multipart.MultipartFile;
 @Tag(name = "Item Images")
 public interface ItemImageAPI {
 
-    @PostMapping(value = "/{itemId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(
+            value = "/{itemId}",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Create a new item image")
     @ApiResponses(
             value = {
-                    @ApiResponse(responseCode = "201", description = "Created successfully"),
-                    @ApiResponse(responseCode = "422", description = "A validation error was thrown"),
-                    @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
+                @ApiResponse(responseCode = "201", description = "Created successfully"),
+                @ApiResponse(responseCode = "422", description = "A validation error was thrown"),
+                @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
             })
     ResponseEntity<?> create(@PathVariable("itemId") String itemId, @RequestBody MultipartFile file);
 
@@ -37,10 +40,9 @@ public interface ItemImageAPI {
     @Operation(summary = "Delete an item image by it's identifier")
     @ApiResponses(
             value = {
-                    @ApiResponse(responseCode = "204", description = "Item Image deleted successfully"),
-                    @ApiResponse(responseCode = "404", description = "Item Image was not found"),
-                    @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
+                @ApiResponse(responseCode = "204", description = "Item Image deleted successfully"),
+                @ApiResponse(responseCode = "404", description = "Item Image was not found"),
+                @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
             })
     void deleteById(@PathVariable(name = "id") String id);
-
 }

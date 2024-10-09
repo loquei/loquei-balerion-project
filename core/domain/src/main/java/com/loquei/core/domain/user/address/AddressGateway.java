@@ -1,7 +1,6 @@
 package com.loquei.core.domain.user.address;
 
 import com.loquei.core.domain.user.UserId;
-
 import java.util.List;
 import java.util.Optional;
 

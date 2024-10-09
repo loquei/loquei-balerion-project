@@ -1,9 +1,9 @@
 package com.loquei.core.domain.user.address;
 
+import static java.util.Objects.requireNonNull;
+
 import com.loquei.common.Identifier;
 import com.loquei.common.utils.IdUtils;
-
-import static java.util.Objects.requireNonNull;
 
 public class AddressId extends Identifier {
 
