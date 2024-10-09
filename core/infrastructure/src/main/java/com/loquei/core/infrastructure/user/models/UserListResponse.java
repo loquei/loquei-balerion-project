@@ -8,5 +8,4 @@ public record UserListResponse(
         @JsonProperty("username") String userName,
         @JsonProperty("personal_name") String personalName,
         @JsonProperty("email") String email,
-        @JsonProperty("phone") String phone,
-        @JsonProperty("created_at") Instant createdAt) {}
+        @JsonProperty("phone") String phone) {}

@@ -12,8 +12,7 @@ public interface UserApiPresenter {
                 output.userName(),
                 output.personalName(),
                 output.email(),
-                output.phone(),
-                output.createdAt());
+                output.phone());
     }
 
     static UserResponse present(final UserOutput output) {
