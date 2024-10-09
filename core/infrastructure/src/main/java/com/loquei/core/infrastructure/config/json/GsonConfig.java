@@ -60,11 +60,16 @@ public class GsonConfig {
 
             @Override
             public void write(JsonWriter out, Instant value) throws IOException {
-                out.value(formatter.format(value));
+                if (value == null) out.nullValue();
+                else out.value(formatter.format(value));
             }
 
             @Override
             public Instant read(JsonReader in) throws IOException {
+                if (in.peek() == com.google.gson.stream.JsonToken.NULL) {
+                    in.nextNull();
+                    return null;
+                }
                 return Instant.parse(in.nextString());
             }
         });
