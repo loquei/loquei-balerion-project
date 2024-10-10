@@ -15,6 +15,7 @@ import com.loquei.core.domain.user.UserId;
 import io.vavr.control.Either;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -48,6 +49,8 @@ public class DefaultCreateRentUseCase extends CreateRentUseCase{
         final var lessee = userGateway.findById(lesseeId).orElseThrow(notFound(lesseeId));
         final var item = itemGateway.findById(itemId).orElseThrow(notFound(itemId));
 
+        checkRentDurationCompatibility(item, startDate, endDate).ifPresent(notification::append);
+
         final var totalValue = RentCalculator.calculateTotalValue(startDate, endDate, item);
 
         isItemAvailableForRent(item.getId(), startDate, endDate).ifPresent(notification::append);
@@ -66,6 +69,22 @@ public class DefaultCreateRentUseCase extends CreateRentUseCase{
 
         return exists ? Optional.of(new Error("item is not available")) : Optional.empty();
     }
+
+    private Optional<Error> checkRentDurationCompatibility(Item item, LocalDateTime startDate, LocalDateTime endDate) {
+
+        long rentalDays = ChronoUnit.DAYS.between(startDate, endDate);
+
+        if (rentalDays < item.getMinDays()) {
+            return Optional.of(new Error("The rental duration is shorter than the allowed minimum of " + item.getMinDays() + " days."));
+        }
+
+        if (rentalDays > item.getMaxDays()) {
+            return Optional.of(new Error("The rental duration exceeds the allowed maximum of " + item.getMaxDays() + " days."));
+        }
+
+        return Optional.empty();
+    }
+
 
     private Either<Notification, CreateRentOutput> create(Rent rent){
         return Try(() -> this.rentGateway.rent(rent))

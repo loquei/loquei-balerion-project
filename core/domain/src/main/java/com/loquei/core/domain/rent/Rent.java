@@ -137,7 +137,7 @@ public class Rent extends AggregateRoot<RentId> {
 
     @Override
     public void validate(ValidationHandler aHandler) {
-
+        new RentValidator(this, aHandler).validate();
     }
 
     public UserId getLessor() {
