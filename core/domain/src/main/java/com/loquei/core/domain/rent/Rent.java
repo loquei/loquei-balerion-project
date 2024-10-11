@@ -5,7 +5,6 @@ import com.loquei.common.utils.InstantUtils;
 import com.loquei.common.validation.ValidationHandler;
 import com.loquei.core.domain.item.ItemId;
 import com.loquei.core.domain.user.UserId;
-
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -24,17 +23,17 @@ public class Rent extends AggregateRoot<RentId> {
     private Instant updatedAt;
 
     public Rent(
-                final RentId anid,
-                final UserId lessor,
-                final UserId lessee,
-                final ItemId item,
-                final LocalDateTime startDate,
-                final LocalDateTime endDate,
-                final BigDecimal totalValue,
-                final RentStatus status,
-                final String cancellationReason,
-                final Instant createdAt,
-                final Instant updatedAt) {
+            final RentId anid,
+            final UserId lessor,
+            final UserId lessee,
+            final ItemId item,
+            final LocalDateTime startDate,
+            final LocalDateTime endDate,
+            final BigDecimal totalValue,
+            final RentStatus status,
+            final String cancellationReason,
+            final Instant createdAt,
+            final Instant updatedAt) {
         super(anid);
         this.lessor = lessor;
         this.lessee = lessee;
@@ -60,7 +59,18 @@ public class Rent extends AggregateRoot<RentId> {
             final String cancellationReason,
             final Instant createdAt,
             final Instant updatedAt) {
-        return new Rent(anId, lessor, lessee, item, startDate, endDate, totalValue, status, cancellationReason, createdAt, updatedAt);
+        return new Rent(
+                anId,
+                lessor,
+                lessee,
+                item,
+                startDate,
+                endDate,
+                totalValue,
+                status,
+                cancellationReason,
+                createdAt,
+                updatedAt);
     }
 
     public static Rent with(final Rent rent) {
@@ -89,33 +99,19 @@ public class Rent extends AggregateRoot<RentId> {
         final var id = RentId.unique();
         final var now = InstantUtils.now();
 
-        return new Rent(
-                id,
-                lessor,
-                lessee,
-                item,
-                startDate,
-                endDate,
-                totalValue,
-                RentStatus.PENDING,
-                null,
-                now,
-                now);
+        return new Rent(id, lessor, lessee, item, startDate, endDate, totalValue, RentStatus.PENDING, null, now, now);
     }
 
-
     public Rent updateRentalDate(
-        final LocalDateTime startDate,
-        final LocalDateTime endDate,
-        final BigDecimal totalValue) {
+            final LocalDateTime startDate, final LocalDateTime endDate, final BigDecimal totalValue) {
 
-       this.startDate = startDate;
-       this.endDate = endDate;
-       this.totalValue = totalValue;
-       this.status = RentStatus.PENDING;
-       this.updatedAt = InstantUtils.now();
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.totalValue = totalValue;
+        this.status = RentStatus.PENDING;
+        this.updatedAt = InstantUtils.now();
 
-       return this;
+        return this;
     }
 
     public void cancelRent(final String cancellationReason) {
@@ -124,16 +120,15 @@ public class Rent extends AggregateRoot<RentId> {
         this.updatedAt = InstantUtils.now();
     }
 
-    public void refuseRent(){
+    public void refuseRent() {
         this.status = RentStatus.REFUSED;
         this.updatedAt = InstantUtils.now();
     }
 
-    public void acceptRent(){
+    public void acceptRent() {
         this.status = RentStatus.ACCEPTED;
         this.updatedAt = InstantUtils.now();
     }
-
 
     @Override
     public void validate(ValidationHandler aHandler) {
@@ -179,6 +174,4 @@ public class Rent extends AggregateRoot<RentId> {
     public Instant getUpdatedAt() {
         return updatedAt;
     }
-
-
 }

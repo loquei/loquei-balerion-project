@@ -16,8 +16,7 @@ public interface RentApiPresenter {
                 output.startDate(),
                 output.endDate(),
                 output.totalValue(),
-                output.status()
-        );
+                output.status());
     }
 
     static RentResponse present(final GetRentOutput output) {
@@ -32,7 +31,6 @@ public interface RentApiPresenter {
                 output.status(),
                 output.cancellationReason(),
                 output.createdAt(),
-                output.updatedAt()
-        );
+                output.updatedAt());
     }
 }

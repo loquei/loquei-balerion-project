@@ -3,7 +3,6 @@ package com.loquei.core.domain.rent;
 import com.loquei.common.validation.Error;
 import com.loquei.common.validation.ValidationHandler;
 import com.loquei.common.validation.Validator;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -86,12 +85,15 @@ public class RentValidator extends Validator {
         if (rent.getStatus() == RentStatus.CANCELLED && (reason == null || reason.isBlank())) {
             this.validationHandler().append(new Error("'cancellationReason' is required when rent is cancelled"));
         } else if (reason != null && reason.length() > MAX_REASON_LENGTH) {
-            this.validationHandler().append(new Error("'cancellationReason' must not exceed " + MAX_REASON_LENGTH + " characters"));
+            this.validationHandler()
+                    .append(new Error("'cancellationReason' must not exceed " + MAX_REASON_LENGTH + " characters"));
         }
     }
 
     private void checkLessorAndLesseeNotSame() {
-        if (rent.getLessor() != null && rent.getLessee() != null && rent.getLessor().equals(rent.getLessee())) {
+        if (rent.getLessor() != null
+                && rent.getLessee() != null
+                && rent.getLessor().equals(rent.getLessee())) {
             this.validationHandler().append(new Error("'lessor' and 'lessee' cannot be the same user"));
         }
     }

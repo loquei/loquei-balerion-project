@@ -1,5 +1,9 @@
 package com.loquei.core.application.rent.create;
 
+import static io.vavr.API.Left;
+import static io.vavr.API.Try;
+import static java.util.Objects.requireNonNull;
+
 import com.loquei.common.exceptions.NotFoundException;
 import com.loquei.common.validation.Error;
 import com.loquei.common.validation.handler.Notification;
@@ -13,23 +17,19 @@ import com.loquei.core.domain.user.User;
 import com.loquei.core.domain.user.UserGateway;
 import com.loquei.core.domain.user.UserId;
 import io.vavr.control.Either;
-
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import static io.vavr.API.Left;
-import static io.vavr.API.Try;
-import static java.util.Objects.requireNonNull;
-
-public class DefaultCreateRentUseCase extends CreateRentUseCase{
+public class DefaultCreateRentUseCase extends CreateRentUseCase {
 
     private final RentGateway rentGateway;
     private final UserGateway userGateway;
     private final ItemGateway itemGateway;
 
-    public DefaultCreateRentUseCase(final RentGateway rentGateway, final UserGateway userGateway, final ItemGateway itemGateway) {
+    public DefaultCreateRentUseCase(
+            final RentGateway rentGateway, final UserGateway userGateway, final ItemGateway itemGateway) {
         this.rentGateway = requireNonNull(rentGateway);
         this.userGateway = requireNonNull(userGateway);
         this.itemGateway = requireNonNull(itemGateway);
@@ -40,7 +40,7 @@ public class DefaultCreateRentUseCase extends CreateRentUseCase{
         final var notification = Notification.create();
 
         final var lessorId = UserId.from(anIn.lessorId());
-        final var lesseeId =  UserId.from(anIn.lesseeId());
+        final var lesseeId = UserId.from(anIn.lesseeId());
         final var itemId = ItemId.from(anIn.itemId());
         final var startDate = anIn.startDate();
         final var endDate = anIn.endDate();
@@ -60,14 +60,12 @@ public class DefaultCreateRentUseCase extends CreateRentUseCase{
         rent.validate(notification);
 
         return notification.hasError() ? Left(notification) : create(rent);
-
     }
 
+    private Optional<Error> isItemAvailableForRent(ItemId itemId, LocalDateTime startDate, LocalDateTime endDate) {
+        final var isAvailable = rentGateway.isItemAvailableForRent(itemId, startDate, endDate);
 
-    private Optional<Error> isItemAvailableForRent(ItemId itemId, LocalDateTime startDate, LocalDateTime endDate){
-        final var exists = rentGateway.isItemAvailableForRent(itemId, startDate, endDate);
-
-        return exists ? Optional.of(new Error("item is not available")) : Optional.empty();
+        return !isAvailable ? Optional.of(new Error("item is not available")) : Optional.empty();
     }
 
     private Optional<Error> checkRentDurationCompatibility(Item item, LocalDateTime startDate, LocalDateTime endDate) {
@@ -75,21 +73,20 @@ public class DefaultCreateRentUseCase extends CreateRentUseCase{
         long rentalDays = ChronoUnit.DAYS.between(startDate, endDate);
 
         if (rentalDays < item.getMinDays()) {
-            return Optional.of(new Error("The rental duration is shorter than the allowed minimum of " + item.getMinDays() + " days."));
+            return Optional.of(new Error(
+                    "The rental duration is shorter than the allowed minimum of " + item.getMinDays() + " days."));
         }
 
         if (rentalDays > item.getMaxDays()) {
-            return Optional.of(new Error("The rental duration exceeds the allowed maximum of " + item.getMaxDays() + " days."));
+            return Optional.of(
+                    new Error("The rental duration exceeds the allowed maximum of " + item.getMaxDays() + " days."));
         }
 
         return Optional.empty();
     }
 
-
-    private Either<Notification, CreateRentOutput> create(Rent rent){
-        return Try(() -> this.rentGateway.rent(rent))
-                .toEither()
-                .bimap(Notification::create, CreateRentOutput::from);
+    private Either<Notification, CreateRentOutput> create(Rent rent) {
+        return Try(() -> this.rentGateway.rent(rent)).toEither().bimap(Notification::create, CreateRentOutput::from);
     }
 
     private Supplier<NotFoundException> notFound(final UserId anId) {

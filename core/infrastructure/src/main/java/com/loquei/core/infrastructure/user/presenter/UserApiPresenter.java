@@ -8,11 +8,7 @@ import com.loquei.core.infrastructure.user.models.UserResponse;
 public interface UserApiPresenter {
     static UserListResponse present(final UserListOutput output) {
         return new UserListResponse(
-                output.id(),
-                output.userName(),
-                output.personalName(),
-                output.email(),
-                output.phone());
+                output.id(), output.userName(), output.personalName(), output.email(), output.phone());
     }
 
     static UserResponse present(final UserOutput output) {

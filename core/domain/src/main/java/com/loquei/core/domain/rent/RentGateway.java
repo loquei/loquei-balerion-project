@@ -1,11 +1,8 @@
 package com.loquei.core.domain.rent;
 
 import com.loquei.common.pagination.Pagination;
-import com.loquei.common.pagination.SearchQuery;
 import com.loquei.core.domain.item.ItemId;
 import com.loquei.core.domain.user.UserId;
-
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 

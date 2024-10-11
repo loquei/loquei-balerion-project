@@ -10,4 +10,4 @@ public record UpdateItemRequest(
         @JsonProperty("daily_value") BigDecimal dailyValue,
         @JsonProperty("max_days") Integer maxDays,
         @JsonProperty("min_days") Integer minDays,
-        @JsonProperty("categories_id") List<String> categories) {}
+        @JsonProperty("categories") List<String> categories) {}

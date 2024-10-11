@@ -4,5 +4,5 @@ import com.loquei.common.UseCase;
 import com.loquei.common.validation.handler.Notification;
 import io.vavr.control.Either;
 
-public abstract class UpdateCancelRentUseCase extends UseCase<UpdateCancelRentCommand, Either<Notification, UpdateCancelRentOutput>> {
-}
+public abstract class UpdateCancelRentUseCase
+        extends UseCase<UpdateCancelRentCommand, Either<Notification, UpdateCancelRentOutput>> {}

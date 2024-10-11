@@ -1,5 +1,9 @@
 package com.loquei.core.application.rent.update.cancelRent;
 
+import static io.vavr.API.Left;
+import static io.vavr.API.Try;
+import static java.util.Objects.requireNonNull;
+
 import com.loquei.common.exceptions.NotFoundException;
 import com.loquei.common.validation.Error;
 import com.loquei.common.validation.handler.Notification;
@@ -8,12 +12,7 @@ import com.loquei.core.domain.rent.RentGateway;
 import com.loquei.core.domain.rent.RentId;
 import com.loquei.core.domain.rent.RentStatus;
 import io.vavr.control.Either;
-
 import java.util.function.Supplier;
-
-import static io.vavr.API.Left;
-import static io.vavr.API.Try;
-import static java.util.Objects.requireNonNull;
 
 public class DefaultUpdateCancelRentUseCase extends UpdateCancelRentUseCase {
 

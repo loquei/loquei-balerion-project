@@ -1,5 +1,7 @@
 package com.loquei.core.infrastructure.rent;
 
+import static java.util.Objects.requireNonNull;
+
 import com.loquei.common.pagination.Pagination;
 import com.loquei.core.domain.item.ItemId;
 import com.loquei.core.domain.rent.Rent;
@@ -8,18 +10,14 @@ import com.loquei.core.domain.rent.RentId;
 import com.loquei.core.domain.user.UserId;
 import com.loquei.core.infrastructure.rent.persistence.RentJpaEntity;
 import com.loquei.core.infrastructure.rent.persistence.RentRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
-
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import static java.util.Objects.requireNonNull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
 
 @Component
 public class RentPostgresGateway implements RentGateway {
@@ -53,17 +51,10 @@ public class RentPostgresGateway implements RentGateway {
         Page<RentJpaEntity> rentsPage = repository.findAllByUserId(userId.getValue(), pageable);
 
         // Converter a página de RentJpaEntity para uma lista de Rent agregados
-        List<Rent> rents = rentsPage.stream()
-                .map(RentJpaEntity::toAggregate)
-                .collect(Collectors.toList());
+        List<Rent> rents = rentsPage.stream().map(RentJpaEntity::toAggregate).collect(Collectors.toList());
 
         // Criar um objeto de paginação personalizado com os detalhes da página
-        return new Pagination<>(
-                rentsPage.getNumber(),
-                rentsPage.getSize(),
-                rentsPage.getTotalElements(),
-                rents
-        );
+        return new Pagination<>(rentsPage.getNumber(), rentsPage.getSize(), rentsPage.getTotalElements(), rents);
     }
 
     @Override
@@ -71,10 +62,7 @@ public class RentPostgresGateway implements RentGateway {
         return repository.isItemAvailableForRent(itemId.getValue(), startDate, endDate);
     }
 
-    private Rent save (final Rent rent){
+    private Rent save(final Rent rent) {
         return repository.save(RentJpaEntity.from(rent)).toAggregate();
     }
-
-
-
 }

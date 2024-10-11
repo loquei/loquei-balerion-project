@@ -40,7 +40,7 @@ public interface RatingAPI {
             @RequestParam(name = "search", required = false, defaultValue = "") final String search,
             @RequestParam(name = "page", required = false, defaultValue = "0") final int page,
             @RequestParam(name = "perPage", required = false, defaultValue = "10") final int perPage,
-            @RequestParam(name = "sort", required = false, defaultValue = "name") final String sort,
+            @RequestParam(name = "sort", required = false, defaultValue = "description") final String sort,
             @RequestParam(name = "dir", required = false, defaultValue = "asc") final String direction);
 
     @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)

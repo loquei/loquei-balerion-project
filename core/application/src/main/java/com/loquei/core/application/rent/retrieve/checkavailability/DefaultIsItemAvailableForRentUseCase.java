@@ -1,9 +1,9 @@
 package com.loquei.core.application.rent.retrieve.checkavailability;
 
+import static java.util.Objects.requireNonNull;
 
 import com.loquei.core.domain.item.ItemId;
 import com.loquei.core.domain.rent.RentGateway;
-import static java.util.Objects.requireNonNull;
 
 public class DefaultIsItemAvailableForRentUseCase extends IsItemAvailableForRentUseCase {
 

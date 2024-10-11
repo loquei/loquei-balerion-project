@@ -6,13 +6,12 @@ import com.loquei.core.domain.rent.RentId;
 import com.loquei.core.domain.rent.RentStatus;
 import com.loquei.core.domain.user.UserId;
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Entity(name = "Rent")
-@Table(name = "rents")
+@Table(name = "rentals")
 public class RentJpaEntity {
 
     @Id

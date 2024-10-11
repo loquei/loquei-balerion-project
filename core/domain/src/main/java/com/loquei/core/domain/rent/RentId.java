@@ -1,11 +1,10 @@
 package com.loquei.core.domain.rent;
 
+import static java.util.Objects.requireNonNull;
+
 import com.loquei.common.Identifier;
 import com.loquei.common.utils.IdUtils;
-
 import java.util.Objects;
-
-import static java.util.Objects.requireNonNull;
 
 public class RentId extends Identifier {
 

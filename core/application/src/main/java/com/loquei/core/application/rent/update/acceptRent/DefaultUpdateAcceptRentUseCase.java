@@ -1,5 +1,9 @@
 package com.loquei.core.application.rent.update.acceptRent;
 
+import static io.vavr.API.Left;
+import static io.vavr.API.Try;
+import static java.util.Objects.requireNonNull;
+
 import com.loquei.common.exceptions.NotFoundException;
 import com.loquei.common.validation.Error;
 import com.loquei.common.validation.handler.Notification;
@@ -8,12 +12,7 @@ import com.loquei.core.domain.rent.RentGateway;
 import com.loquei.core.domain.rent.RentId;
 import com.loquei.core.domain.rent.RentStatus;
 import io.vavr.control.Either;
-
 import java.util.function.Supplier;
-
-import static io.vavr.API.Left;
-import static io.vavr.API.Try;
-import static java.util.Objects.requireNonNull;
 
 public class DefaultUpdateAcceptRentUseCase extends UpdateAcceptRentUseCase {
     private final RentGateway rentGateway;
@@ -35,7 +34,7 @@ public class DefaultUpdateAcceptRentUseCase extends UpdateAcceptRentUseCase {
 
         final var notification = Notification.create();
 
-        rent.refuseRent();
+        rent.acceptRent();
         rent.validate(notification);
 
         return notification.hasError() ? Left(notification) : update(rent);

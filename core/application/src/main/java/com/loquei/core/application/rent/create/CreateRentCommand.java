@@ -3,11 +3,7 @@ package com.loquei.core.application.rent.create;
 import java.time.LocalDateTime;
 
 public record CreateRentCommand(
-        String lessorId,
-        String lesseeId,
-        String itemId,
-        LocalDateTime startDate,
-        LocalDateTime endDate) {
+        String lessorId, String lesseeId, String itemId, LocalDateTime startDate, LocalDateTime endDate) {
 
     public static CreateRentCommand with(
             final String lessorId,

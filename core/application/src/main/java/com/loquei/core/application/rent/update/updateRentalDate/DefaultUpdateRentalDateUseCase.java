@@ -1,5 +1,9 @@
 package com.loquei.core.application.rent.update.updateRentalDate;
 
+import static io.vavr.API.Left;
+import static io.vavr.API.Try;
+import static java.util.Objects.requireNonNull;
+
 import com.loquei.common.exceptions.NotFoundException;
 import com.loquei.common.validation.Error;
 import com.loquei.common.validation.handler.Notification;
@@ -8,14 +12,9 @@ import com.loquei.core.domain.item.ItemGateway;
 import com.loquei.core.domain.item.ItemId;
 import com.loquei.core.domain.rent.*;
 import io.vavr.control.Either;
-
 import java.util.function.Supplier;
 
-import static io.vavr.API.Left;
-import static io.vavr.API.Try;
-import static java.util.Objects.requireNonNull;
-
-public class DefaultUpdateRentalDateUseCase extends UpdateRentalDateUseCase{
+public class DefaultUpdateRentalDateUseCase extends UpdateRentalDateUseCase {
 
     private final RentGateway rentGateway;
     private final ItemGateway itemGateway;

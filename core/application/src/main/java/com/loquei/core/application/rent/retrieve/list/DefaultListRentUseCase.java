@@ -1,19 +1,14 @@
 package com.loquei.core.application.rent.retrieve.list;
 
+import static java.util.Objects.requireNonNull;
+
 import com.loquei.common.exceptions.NotFoundException;
 import com.loquei.common.pagination.Pagination;
-import com.loquei.common.pagination.SearchQuery;
-import com.loquei.core.application.user.retrieve.list.UserListOutput;
-import com.loquei.core.domain.rent.Rent;
 import com.loquei.core.domain.rent.RentGateway;
-import com.loquei.core.domain.rent.RentId;
 import com.loquei.core.domain.user.User;
 import com.loquei.core.domain.user.UserGateway;
 import com.loquei.core.domain.user.UserId;
-
 import java.util.function.Supplier;
-
-import static java.util.Objects.requireNonNull;
 
 public class DefaultListRentUseCase extends ListRentUseCase {
 
@@ -30,11 +25,9 @@ public class DefaultListRentUseCase extends ListRentUseCase {
 
         final var userId = UserId.from(anIn);
 
-
         final var user = userGateway.findById(userId).orElseThrow(notFound(userId));
 
-       return rentGateway.findAllByUserId(user.getId())
-               .map(ListRentOutput::from);
+        return rentGateway.findAllByUserId(user.getId()).map(ListRentOutput::from);
     }
 
     private Supplier<NotFoundException> notFound(final UserId id) {

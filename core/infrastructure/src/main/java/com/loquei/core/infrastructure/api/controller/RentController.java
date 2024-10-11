@@ -1,7 +1,6 @@
 package com.loquei.core.infrastructure.api.controller;
 
 import com.loquei.common.pagination.Pagination;
-import com.loquei.common.pagination.SearchQuery;
 import com.loquei.common.validation.handler.Notification;
 import com.loquei.core.application.rent.create.CreateRentCommand;
 import com.loquei.core.application.rent.create.CreateRentOutput;
@@ -9,7 +8,6 @@ import com.loquei.core.application.rent.create.CreateRentUseCase;
 import com.loquei.core.application.rent.retrieve.checkavailability.IsItemAvailableForRentCommand;
 import com.loquei.core.application.rent.retrieve.checkavailability.IsItemAvailableForRentUseCase;
 import com.loquei.core.application.rent.retrieve.get.GetRentByIdUseCase;
-import com.loquei.core.application.rent.retrieve.list.ListRentParams;
 import com.loquei.core.application.rent.retrieve.list.ListRentUseCase;
 import com.loquei.core.application.rent.update.acceptRent.UpdateAcceptRentCommand;
 import com.loquei.core.application.rent.update.acceptRent.UpdateAcceptRentUseCase;
@@ -26,13 +24,12 @@ import com.loquei.core.application.rent.update.updateRentalDate.UpdateRentalDate
 import com.loquei.core.infrastructure.api.RentAPI;
 import com.loquei.core.infrastructure.rent.models.*;
 import com.loquei.core.infrastructure.rent.presenter.RentApiPresenter;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.function.Function;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class RentController implements RentAPI {
@@ -46,14 +43,15 @@ public class RentController implements RentAPI {
     private final UpdateRentalDateUseCase updateRentalDateUseCase;
     private final IsItemAvailableForRentUseCase isItemAvailableForRentUseCase;
 
-    public RentController(CreateRentUseCase createRentUseCase,
-                          GetRentByIdUseCase getRentByIdUseCase,
-                          ListRentUseCase listRentUseCase,
-                          UpdateAcceptRentUseCase updateAcceptRentUseCase,
-                          UpdateCancelRentUseCase updateCancelRentUseCase,
-                          UpdateRefuseRentUseCase updateRefuseRentUseCase,
-                          UpdateRentalDateUseCase updateRentalDateUseCase,
-                          IsItemAvailableForRentUseCase isItemAvailableForRentUseCase) {
+    public RentController(
+            CreateRentUseCase createRentUseCase,
+            GetRentByIdUseCase getRentByIdUseCase,
+            ListRentUseCase listRentUseCase,
+            UpdateAcceptRentUseCase updateAcceptRentUseCase,
+            UpdateCancelRentUseCase updateCancelRentUseCase,
+            UpdateRefuseRentUseCase updateRefuseRentUseCase,
+            UpdateRentalDateUseCase updateRentalDateUseCase,
+            IsItemAvailableForRentUseCase isItemAvailableForRentUseCase) {
         this.createRentUseCase = createRentUseCase;
         this.getRentByIdUseCase = getRentByIdUseCase;
         this.listRentUseCase = listRentUseCase;
@@ -67,12 +65,7 @@ public class RentController implements RentAPI {
     @Override
     public ResponseEntity<?> rent(CreateRentRequest input) {
         final var aCommand = CreateRentCommand.with(
-                input.lessor(),
-                input.lessee(),
-                input.item(),
-                input.startDate(),
-                input.endDate()
-        );
+                input.lessor(), input.lessee(), input.item(), input.startDate(), input.endDate());
 
         final Function<Notification, ResponseEntity<?>> onError =
                 notification -> ResponseEntity.unprocessableEntity().body(notification);
@@ -85,9 +78,7 @@ public class RentController implements RentAPI {
 
     @Override
     public Pagination<RentListResponse> listAllRentalsByUserId(final String userId) {
-        return listRentUseCase
-                .execute(userId)
-                .map(RentApiPresenter::present);
+        return listRentUseCase.execute(userId).map(RentApiPresenter::present);
     }
 
     @Override
@@ -97,7 +88,7 @@ public class RentController implements RentAPI {
 
     @Override
     public ResponseEntity<?> acceptRent(String id) {
-        final var acommand =UpdateAcceptRentCommand.with(id);
+        final var acommand = UpdateAcceptRentCommand.with(id);
 
         final Function<Notification, ResponseEntity<?>> onError =
                 notification -> ResponseEntity.unprocessableEntity().body(notification);
@@ -121,9 +112,7 @@ public class RentController implements RentAPI {
 
     @Override
     public ResponseEntity<?> cancelRent(CancelRentRequest input) {
-        final var aCommand = UpdateCancelRentCommand.with(
-                input.rentId(),
-                input.cancellationReason());
+        final var aCommand = UpdateCancelRentCommand.with(input.rentId(), input.cancellationReason());
 
         final Function<Notification, ResponseEntity<?>> onError =
                 notification -> ResponseEntity.unprocessableEntity().body(notification);
@@ -135,11 +124,8 @@ public class RentController implements RentAPI {
 
     @Override
     public ResponseEntity<?> UpdateRentalDate(UpdateRentalDateRequest input) {
-        final var aCommand = UpdateRentalDateCommand.with(
-                input.rentId(),
-                input.itemId(),
-                input.startDate(),
-                input.endDate());
+        final var aCommand =
+                UpdateRentalDateCommand.with(input.rentId(), input.itemId(), input.startDate(), input.endDate());
 
         final Function<Notification, ResponseEntity<?>> onError =
                 notification -> ResponseEntity.unprocessableEntity().body(notification);
@@ -160,6 +146,4 @@ public class RentController implements RentAPI {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Item is not available");
         }
     }
-
-
 }
