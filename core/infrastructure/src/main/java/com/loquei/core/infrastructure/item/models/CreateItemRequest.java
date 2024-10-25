@@ -10,4 +10,5 @@ public record CreateItemRequest(
         @JsonProperty("daily_value") BigDecimal dailyValue,
         @JsonProperty("max_days") Integer maxDays,
         @JsonProperty("min_days") Integer minDays,
-        @JsonProperty("categories") List<String> categories) {}
+        @JsonProperty("categories") List<String> categories,
+        @JsonProperty("user_id") String userId) {}

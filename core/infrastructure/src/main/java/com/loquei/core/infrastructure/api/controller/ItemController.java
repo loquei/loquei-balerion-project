@@ -54,6 +54,7 @@ public class ItemController implements ItemAPI {
                 input.dailyValue(),
                 input.maxDays(),
                 input.minDays(),
+                input.userId(),
                 input.categories());
 
         final Function<Notification, ResponseEntity<?>> onError =

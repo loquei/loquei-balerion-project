@@ -11,6 +11,7 @@ public record ItemListOutput(
         BigDecimal dailyValue,
         Integer maxDays,
         Integer minDays,
+        String userId,
         Instant updatedAt) {
     public static ItemListOutput from(final Item item) {
         return new ItemListOutput(
@@ -20,6 +21,7 @@ public record ItemListOutput(
                 item.getDailyValue(),
                 item.getMaxDays(),
                 item.getMinDays(),
+                item.getUser().getValue(),
                 item.getUpdatedAt());
     }
 }

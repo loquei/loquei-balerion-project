@@ -6,6 +6,7 @@ import static jakarta.persistence.FetchType.EAGER;
 import com.loquei.core.domain.category.CategoryId;
 import com.loquei.core.domain.item.Item;
 import com.loquei.core.domain.item.ItemId;
+import com.loquei.core.domain.user.UserId;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -36,6 +37,9 @@ public class ItemJpaEntity {
     @Column(name = "min_days", nullable = false)
     private int minDays;
 
+    @Column(name = "user_id", nullable = false)
+    private String userId;
+
     @OneToMany(mappedBy = "item", cascade = ALL, fetch = EAGER, orphanRemoval = true)
     private Set<ItemCategoryJpaEntity> categories;
 
@@ -54,6 +58,7 @@ public class ItemJpaEntity {
             final BigDecimal dailyValue,
             final int maxDays,
             final int minDays,
+            final String userId,
             final Instant createdAt,
             final Instant updatedAt) {
         this.id = id;
@@ -62,6 +67,7 @@ public class ItemJpaEntity {
         this.dailyValue = dailyValue;
         this.maxDays = maxDays;
         this.minDays = minDays;
+        this.userId = userId;
         this.categories = new HashSet<>();
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -75,6 +81,7 @@ public class ItemJpaEntity {
                 item.getDailyValue(),
                 item.getMaxDays(),
                 item.getMinDays(),
+                item.getUser().getValue(),
                 item.getCreatedAt(),
                 item.getUpdatedAt());
 
@@ -92,6 +99,7 @@ public class ItemJpaEntity {
                 getDailyValue(),
                 getMaxDays(),
                 getMinDays(),
+                UserId.from(getUserId()),
                 getCategoriesIds(),
                 getCreatedAt(),
                 getUpdatedAt());
@@ -147,6 +155,14 @@ public class ItemJpaEntity {
 
     public void setMinDays(int minDays) {
         this.minDays = minDays;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public List<CategoryId> getCategoriesIds() {

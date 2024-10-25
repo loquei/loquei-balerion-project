@@ -11,5 +11,6 @@ public record ItemResponse(
         @JsonProperty("daily_value") BigDecimal dailyValue,
         @JsonProperty("max_days") Integer maxDays,
         @JsonProperty("min_days") Integer minDays,
+        @JsonProperty("user_id") String userId,
         @JsonProperty("created_at") Instant createdAt,
         @JsonProperty("updated_at") Instant updatedAt) {}

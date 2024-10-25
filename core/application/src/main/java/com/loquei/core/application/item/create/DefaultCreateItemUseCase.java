@@ -10,6 +10,7 @@ import com.loquei.core.domain.category.CategoryGateway;
 import com.loquei.core.domain.category.CategoryId;
 import com.loquei.core.domain.item.Item;
 import com.loquei.core.domain.item.ItemGateway;
+import com.loquei.core.domain.user.UserId;
 import io.vavr.control.Either;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +34,12 @@ public class DefaultCreateItemUseCase extends CreateItemUseCase {
         final var dailyValue = aCommand.dailyValue();
         final var maxDays = aCommand.maxDays();
         final var minDays = aCommand.minDays();
+        final var userId = UserId.from(aCommand.userId());
         final var categories = toCategoryId(aCommand.categories());
 
         final var notification = Notification.create();
         notification.append(validateCategories(categories));
-        final var item = Item.newItem(name, description, dailyValue, maxDays, minDays);
+        final var item = Item.newItem(name, description, dailyValue, maxDays, minDays, userId);
         item.validate(notification);
         item.addCategories(categories);
 

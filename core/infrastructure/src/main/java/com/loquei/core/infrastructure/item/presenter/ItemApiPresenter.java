@@ -14,6 +14,7 @@ public interface ItemApiPresenter {
                 output.dailyValue(),
                 output.maxDays(),
                 output.minDays(),
+                output.userId(),
                 output.updatedAt());
     }
 
@@ -25,6 +26,7 @@ public interface ItemApiPresenter {
                 output.dailyValue(),
                 output.maxDays(),
                 output.minDays(),
+                output.userId(),
                 output.createdAt(),
                 output.updatedAt());
     }

@@ -11,6 +11,7 @@ public record ItemOutput(
         BigDecimal dailyValue,
         Integer maxDays,
         Integer minDays,
+        String userId,
         Instant createdAt,
         Instant updatedAt) {
 
@@ -21,10 +22,11 @@ public record ItemOutput(
             final BigDecimal dailyValue,
             final Integer maxDays,
             final Integer minDays,
+            final String userId,
             final Instant createdAt,
             final Instant updatedAt) {
 
-        return new ItemOutput(id, name, description, dailyValue, maxDays, minDays, createdAt, updatedAt);
+        return new ItemOutput(id, name, description, dailyValue, maxDays, minDays, userId, createdAt, updatedAt);
     }
 
     public static ItemOutput from(final Item item) {
@@ -35,6 +37,7 @@ public record ItemOutput(
                 item.getDailyValue(),
                 item.getMaxDays(),
                 item.getMinDays(),
+                item.getUser().getValue(),
                 item.getCreatedAt(),
                 item.getUpdatedAt());
     }

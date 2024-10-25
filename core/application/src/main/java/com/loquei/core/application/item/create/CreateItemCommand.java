@@ -9,6 +9,7 @@ public record CreateItemCommand(
         BigDecimal dailyValue,
         Integer maxDays,
         Integer minDays,
+        String userId,
         List<String> categories) {
 
     public static CreateItemCommand with(
@@ -17,7 +18,8 @@ public record CreateItemCommand(
             final BigDecimal dailyValue,
             final Integer maxDays,
             final Integer minDays,
+            final String userId,
             final List<String> categories) {
-        return new CreateItemCommand(name, description, dailyValue, maxDays, minDays, categories);
+        return new CreateItemCommand(name, description, dailyValue, maxDays, minDays, userId, categories);
     }
 }

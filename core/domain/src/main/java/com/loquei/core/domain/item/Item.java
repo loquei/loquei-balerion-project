@@ -4,6 +4,8 @@ import com.loquei.common.AggregateRoot;
 import com.loquei.common.utils.InstantUtils;
 import com.loquei.common.validation.ValidationHandler;
 import com.loquei.core.domain.category.CategoryId;
+import com.loquei.core.domain.user.UserId;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ public class Item extends AggregateRoot<ItemId> {
     private BigDecimal dailyValue;
     private int maxDays;
     private int minDays;
+    private UserId user;
     private List<CategoryId> categories;
     private final Instant createdAt;
     private Instant updatedAt;
@@ -28,6 +31,7 @@ public class Item extends AggregateRoot<ItemId> {
             final BigDecimal dailyValue,
             final int maxDays,
             final int minDays,
+            final UserId user,
             final List<CategoryId> categories,
             final Instant createdAt,
             final Instant updatedAt) {
@@ -37,6 +41,7 @@ public class Item extends AggregateRoot<ItemId> {
         this.dailyValue = dailyValue;
         this.maxDays = maxDays;
         this.minDays = minDays;
+        this.user = user;
         this.categories = categories;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -47,10 +52,11 @@ public class Item extends AggregateRoot<ItemId> {
             final String description,
             final BigDecimal dailyValue,
             final int maxDays,
-            final int minDays) {
+            final int minDays,
+            final UserId user) {
         final var id = ItemId.unique();
         final var now = InstantUtils.now();
-        return new Item(id, name, description, dailyValue, maxDays, minDays, new ArrayList<>(), now, now);
+        return new Item(id, name, description, dailyValue, maxDays, minDays, user, new ArrayList<>(), now, now);
     }
 
     public static Item with(
@@ -60,10 +66,11 @@ public class Item extends AggregateRoot<ItemId> {
             final BigDecimal dailyValue,
             final int maxDays,
             final int minDays,
+            final UserId user,
             final List<CategoryId> categories,
             final Instant createdAt,
             final Instant updatedAt) {
-        return new Item(anId, name, description, dailyValue, maxDays, minDays, categories, createdAt, updatedAt);
+        return new Item(anId, name, description, dailyValue, maxDays, minDays, user, categories, createdAt, updatedAt);
     }
 
     public static Item with(final Item item) {
@@ -74,6 +81,7 @@ public class Item extends AggregateRoot<ItemId> {
                 item.getDailyValue(),
                 item.getMaxDays(),
                 item.getMinDays(),
+                item.getUser(),
                 new ArrayList<>(item.getCategories()),
                 item.getCreatedAt(),
                 item.getUpdatedAt());
@@ -137,6 +145,10 @@ public class Item extends AggregateRoot<ItemId> {
 
     public int getMinDays() {
         return minDays;
+    }
+
+    public UserId getUser() {
+        return user;
     }
 
     public List<CategoryId> getCategories() {
