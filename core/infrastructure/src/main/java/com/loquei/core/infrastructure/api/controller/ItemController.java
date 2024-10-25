@@ -74,11 +74,13 @@ public class ItemController implements ItemAPI {
             final String sort,
             final String direction,
             final Boolean recentlyViewed,
-            final String userEmail) {
+            final String userEmail,
+            final String ownerEmail
+    ) {
 
         final var query = new SearchQuery(page, perPage, search, sort, direction);
         return listItemsUseCase
-                .execute(ListItemsParams.with(userEmail, recentlyViewed, query))
+                .execute(ListItemsParams.with(userEmail, recentlyViewed, ownerEmail, query))
                 .map(ItemApiPresenter::present);
     }
 

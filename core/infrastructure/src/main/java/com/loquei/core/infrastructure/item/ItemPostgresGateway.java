@@ -80,6 +80,26 @@ public class ItemPostgresGateway implements ItemGateway {
     }
 
     @Override
+    public Pagination<Item> findByOwnerId(final UserId userId, final SearchQuery aQuery) {
+        final var page = PageRequest.of(
+                aQuery.page(), aQuery.perPage(), Sort.by(Sort.Direction.fromString(aQuery.direction()), aQuery.sort()));
+
+        final var specifications = Optional.ofNullable(aQuery.terms())
+                .filter(str -> !str.isBlank())
+                .map(this::assembleSpecification)
+                .orElse(Specification.where(null))
+                .and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("userId"), userId.getValue()));
+
+        final var pageResult = this.itemRespository.findAll(Specification.where(specifications), page);
+
+        return new Pagination<>(
+                pageResult.getNumber(),
+                pageResult.getSize(),
+                pageResult.getTotalElements(),
+                pageResult.map(ItemJpaEntity::toAggregate).toList());
+    }
+
+    @Override
     public void delete(final ItemId itemId) {
         final var idValue = itemId.getValue();
         if (this.itemRespository.existsById(idValue)) {

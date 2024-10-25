@@ -44,7 +44,8 @@ public interface ItemAPI {
             @RequestParam(name = "dir", required = false, defaultValue = "asc") final String direction,
             @RequestParam(name = "recentlyViewed", required = false, defaultValue = "false")
                     final Boolean recentlyViewed,
-            @RequestParam(name = "userEmail", required = false, defaultValue = "email") final String userEmail);
+            @RequestParam(name = "userEmail", required = false, defaultValue = "email") final String userEmail,
+            @RequestParam(name = "ownerEmail", required = false, defaultValue = "") final String email);
 
     @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Get a items by it's identifier")

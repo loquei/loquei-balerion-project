@@ -1,6 +1,7 @@
 package com.loquei.core.application.item.retrieve.list;
 
 import static com.loquei.common.utils.BooleanUtils.isTrue;
+import static java.util.Objects.nonNull;
 
 import com.loquei.common.exceptions.NotFoundException;
 import com.loquei.common.pagination.Pagination;
@@ -24,9 +25,12 @@ public class DefaultListItemsUseCase extends ListItemsUseCase {
     public Pagination<ItemListOutput> execute(final ListItemsParams params) {
         final var userEmail = params.userEmail();
         final var recentlyViewed = params.recentlyViewed();
+        final var ownerEmail = params.ownerEmail();
         final var aQuery = params.aQuery();
 
         if (isTrue(recentlyViewed)) return listRecentlyViewedItems(userEmail, aQuery);
+
+        if (nonNull(ownerEmail) && !ownerEmail.isEmpty()) return listItemsByOwnerEmail(ownerEmail, aQuery);
 
         return this.itemGateway.findAll(aQuery).map(ItemListOutput::from);
     }
@@ -37,6 +41,15 @@ public class DefaultListItemsUseCase extends ListItemsUseCase {
 
         return this.itemGateway
                 .findRecentlyViewedItemsByUserId(user.getId(), aQuery)
+                .map(ItemListOutput::from);
+    }
+
+    private Pagination<ItemListOutput> listItemsByOwnerEmail(final String ownerEmail, final SearchQuery aQuery) {
+        final var user =
+                userGateway.findByEmail(ownerEmail).orElseThrow(() -> NotFoundException.with(User.class, ownerEmail));
+
+        return this.itemGateway
+                .findByOwnerId(user.getId(), aQuery)
                 .map(ItemListOutput::from);
     }
 }
