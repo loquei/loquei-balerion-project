@@ -75,7 +75,7 @@ public class ItemImageController implements ItemImageAPI {
         final var output = this.retrieveItemImagesUseCase.execute(imgId);
 
         final var response = new ItemImageLinksResponse(output.ids().stream()
-                .map(id -> URI.create("/api/items/images/view/" + id).toString())
+                .map(id -> URI.create("/items/images/view/" + id).toString())
                 .toList());
 
         return new ResponseEntity<>(response, HttpStatus.OK);
