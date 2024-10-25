@@ -48,7 +48,7 @@ public class SecurityUserFacadeImpl implements SecurityUserFacade {
     }
 
     @Override
-    public void deleteById(final String id) {
-        this.securityDeleteUserUseCase.execute(id);
+    public void deleteByEmail(final String email) {
+        this.securityDeleteUserUseCase.execute(email);
     }
 }

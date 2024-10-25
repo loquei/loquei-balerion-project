@@ -51,7 +51,7 @@ public class SecurityUserFacadeGateway implements SecurityCoreUserGateway {
     }
 
     @Override
-    public void deleteById(final String id) {
-        this.securityUserFacade.deleteById(id);
+    public void deleteByEmail(final String email) {
+        this.securityUserFacade.deleteByEmail(email);
     }
 }

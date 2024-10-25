@@ -10,5 +10,5 @@ public interface SecurityCoreUserGateway {
 
     SecurityCoreUser update(String id, SecurityCoreUser input);
 
-    void deleteById(String id);
+    void deleteByEmail(String email);
 }

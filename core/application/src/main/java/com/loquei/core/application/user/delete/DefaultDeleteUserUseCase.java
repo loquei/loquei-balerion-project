@@ -18,7 +18,12 @@ public class DefaultDeleteUserUseCase extends DeleteUserUseCase {
 
     @Override
     public void execute(final String anId) {
-        this.securityUserGateway.deleteById(anId);
+        final var user = this.userGateway.findById(UserId.from(anId))
+                .orElse(null);
+
+        if (user == null) return;
+
+        this.securityUserGateway.deleteByEmail(user.getEmail());
         this.userGateway.delete(UserId.from(anId));
     }
 }

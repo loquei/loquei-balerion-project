@@ -12,5 +12,5 @@ public interface SecurityUserFacade {
 
     SecurityUpdateUserResponse update(String id, SecurityUpdateUserRequest input);
 
-    void deleteById(String id);
+    void deleteByEmail(String id);
 }

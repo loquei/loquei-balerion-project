@@ -36,9 +36,10 @@ public class SecurityUserPostgresGateway implements SecurityUserGateway {
     }
 
     @Override
-    public void delete(SecurityUserId id) {
-        final var idValue = id.getValue();
-        if (this.userJpaRepository.existsById(idValue)) this.userJpaRepository.deleteById(idValue);
+    public void deleteByEmail(String email) {
+        final var user = this.userJpaRepository.findByEmail(email);
+
+        user.ifPresent(securityUserJpaEntity -> this.userJpaRepository.deleteById(securityUserJpaEntity.getId()));
     }
 
     private SecurityUser save(final SecurityUser user) {

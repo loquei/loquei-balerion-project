@@ -12,5 +12,5 @@ public interface SecurityUserGateway {
 
     Optional<SecurityUser> findByEmail(String email);
 
-    void delete(SecurityUserId id);
+    void deleteByEmail(String email);
 }

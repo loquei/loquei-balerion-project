@@ -14,7 +14,7 @@ public class SecurityDefaultDeleteUserUseCase extends SecurityDeleteUserUseCase 
     }
 
     @Override
-    public void execute(final String anId) {
-        this.userGateway.delete(SecurityUserId.from(anId));
+    public void execute(final String email) {
+        this.userGateway.deleteByEmail(email);
     }
 }
