@@ -3,7 +3,6 @@ package com.loquei.core.application.security.user.delete;
 import static java.util.Objects.requireNonNull;
 
 import com.loquei.core.domain.security.user.SecurityUserGateway;
-import com.loquei.core.domain.security.user.SecurityUserId;
 
 public class SecurityDefaultDeleteUserUseCase extends SecurityDeleteUserUseCase {
 

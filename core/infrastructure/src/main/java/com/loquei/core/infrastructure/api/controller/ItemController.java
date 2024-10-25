@@ -75,8 +75,7 @@ public class ItemController implements ItemAPI {
             final String direction,
             final Boolean recentlyViewed,
             final String userEmail,
-            final String ownerEmail
-    ) {
+            final String ownerEmail) {
 
         final var query = new SearchQuery(page, perPage, search, sort, direction);
         return listItemsUseCase

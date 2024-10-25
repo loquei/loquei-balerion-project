@@ -18,8 +18,7 @@ public class DefaultDeleteUserUseCase extends DeleteUserUseCase {
 
     @Override
     public void execute(final String anId) {
-        final var user = this.userGateway.findById(UserId.from(anId))
-                .orElse(null);
+        final var user = this.userGateway.findById(UserId.from(anId)).orElse(null);
 
         if (user == null) return;
 

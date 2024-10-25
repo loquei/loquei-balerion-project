@@ -5,7 +5,6 @@ import com.loquei.common.utils.InstantUtils;
 import com.loquei.common.validation.ValidationHandler;
 import com.loquei.core.domain.category.CategoryId;
 import com.loquei.core.domain.user.UserId;
-
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;

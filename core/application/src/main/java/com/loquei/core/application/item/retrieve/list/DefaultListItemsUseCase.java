@@ -48,8 +48,6 @@ public class DefaultListItemsUseCase extends ListItemsUseCase {
         final var user =
                 userGateway.findByEmail(ownerEmail).orElseThrow(() -> NotFoundException.with(User.class, ownerEmail));
 
-        return this.itemGateway
-                .findByOwnerId(user.getId(), aQuery)
-                .map(ItemListOutput::from);
+        return this.itemGateway.findByOwnerId(user.getId(), aQuery).map(ItemListOutput::from);
     }
 }
