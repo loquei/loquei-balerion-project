@@ -94,6 +94,7 @@ public class UserPostgresGateway implements UserGateway {
     private Specification<UserJpaEntity> assembleSpecification(final String str) {
         final Specification<UserJpaEntity> usernameLike = like("username", str);
         final Specification<UserJpaEntity> personalNameLike = like("personalName", str);
-        return usernameLike.or(personalNameLike);
+        final Specification<UserJpaEntity> emailLike = like("email", str);
+        return usernameLike.or(personalNameLike).or(emailLike);
     }
 }
