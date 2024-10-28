@@ -1,4 +1,4 @@
-package com.loquei.core.infrastructure.rent.persistence;
+package com.loquei.core.infrastructure.scheduler;
 
 import com.loquei.core.application.rent.update.UpdateScheduleStatus.UpdateScheduleStatusUseCase;
 import org.springframework.context.annotation.Configuration;

@@ -133,9 +133,9 @@ public class Rent extends AggregateRoot<RentId> {
     public void updateStatusBasedOnDate() {
         LocalDateTime now = LocalDateTime.now();
 
-        if (this.startDate.isBefore(now) && this.endDate.isAfter(now)) {
+        if (this.startDate.isBefore(now) && this.endDate.isAfter(now) && !this.status.equals(RentStatus.ACCEPTED)) {
             this.status = RentStatus.IN_PROGRESS;
-        } else if (this.endDate.isBefore(now)) {
+        } else if (this.endDate.isBefore(now) && this.status.equals(RentStatus.IN_PROGRESS)) {
             this.status = RentStatus.COMPLETED;
         }
     }

@@ -8,6 +8,8 @@ import com.loquei.core.application.rent.retrieve.get.DefaultGetRentByIdUseCase;
 import com.loquei.core.application.rent.retrieve.get.GetRentByIdUseCase;
 import com.loquei.core.application.rent.retrieve.list.DefaultListRentUseCase;
 import com.loquei.core.application.rent.retrieve.list.ListRentUseCase;
+import com.loquei.core.application.rent.update.UpdateScheduleStatus.DefaultUpdateScheduleStatusUseCase;
+import com.loquei.core.application.rent.update.UpdateScheduleStatus.UpdateScheduleStatusUseCase;
 import com.loquei.core.application.rent.update.acceptRent.DefaultUpdateAcceptRentUseCase;
 import com.loquei.core.application.rent.update.acceptRent.UpdateAcceptRentUseCase;
 import com.loquei.core.application.rent.update.cancelRent.DefaultUpdateCancelRentUseCase;
@@ -74,5 +76,10 @@ public class RentUseCaseConfig {
     @Bean
     public IsItemAvailableForRentUseCase checkItemAvailabilityUseCase() {
         return new DefaultIsItemAvailableForRentUseCase(rentGateway);
+    }
+
+    @Bean
+    public UpdateScheduleStatusUseCase updateScheduleStatusUseCase() {
+        return new DefaultUpdateScheduleStatusUseCase(rentGateway);
     }
 }
