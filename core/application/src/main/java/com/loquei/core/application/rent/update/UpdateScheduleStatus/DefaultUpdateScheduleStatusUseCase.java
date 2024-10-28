@@ -2,11 +2,9 @@ package com.loquei.core.application.rent.update.UpdateScheduleStatus;
 
 import com.loquei.core.domain.rent.Rent;
 import com.loquei.core.domain.rent.RentGateway;
-
-import java.time.Instant;
 import java.util.List;
 
-public class DefaultUpdateScheduleStatusUseCase implements UpdateScheduleStatusUseCase{
+public class DefaultUpdateScheduleStatusUseCase implements UpdateScheduleStatusUseCase {
 
     private final RentGateway rentGateway;
 
@@ -24,5 +22,4 @@ public class DefaultUpdateScheduleStatusUseCase implements UpdateScheduleStatusU
             rentGateway.rent(rent);
         });
     }
-
 }

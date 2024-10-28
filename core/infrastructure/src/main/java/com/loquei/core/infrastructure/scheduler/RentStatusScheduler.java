@@ -18,7 +18,6 @@ public class RentStatusScheduler {
     // Agendamento para execução do método updateRentStatuses a cada hora
     @Scheduled(cron = "0 0 * * * ?") // Define a frequência: a cada hora
     public void updateRentStatuses() {
-        updateScheduleStatusUseCase.execute(); 
+        updateScheduleStatusUseCase.execute();
     }
-
 }
