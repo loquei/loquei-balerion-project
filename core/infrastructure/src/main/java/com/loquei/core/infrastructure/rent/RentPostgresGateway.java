@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -36,6 +37,11 @@ public class RentPostgresGateway implements RentGateway {
     @Override
     public Rent update(Rent rent) {
         return save(rent);
+    }
+
+    @Override
+    public List<Rent> findAll() {
+        return repository.findAll().stream().map(RentJpaEntity::toAggregate).toList();
     }
 
     @Override
