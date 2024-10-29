@@ -36,3 +36,7 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+tasks.register("stage") {
+    dependsOn("build", "clean") // Ajuste as dependências de acordo com o seu projeto
+}
