@@ -69,8 +69,8 @@ loquei:
       auto-commit: false
       connection-timeout: 250
       max-lifetime: 600000
-      maximum-pool-size: 5
-      minimum-idle: 10
+      maximum-pool-size: 2
+      minimum-idle: 5
       pool-name: master
 
 
@@ -87,8 +87,8 @@ security:
       autoCommit: false
       connectionTimeout: 250
       maxLifetime: 600000
-      maximumPoolSize: 5
-      minimumIdle: 10
+      maximumPoolSize: 2
+      minimumIdle: 5
       poolName: master
 
 
