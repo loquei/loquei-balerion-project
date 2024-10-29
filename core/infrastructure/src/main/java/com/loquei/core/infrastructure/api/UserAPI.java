@@ -28,7 +28,7 @@ public interface UserAPI {
             })
     ResponseEntity<?> create(@RequestBody CreateUserRequest input);
 
-    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "List all categories paginated")
     @ApiResponses(
             value = {
