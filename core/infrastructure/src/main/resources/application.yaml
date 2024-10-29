@@ -62,14 +62,14 @@ spring:
 loquei:
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://${postgres.loquei.url}/${postgres.loquei.schema}
+    url: jdbc:postgresql://${postgres.loquei.url}/${postgres.loquei.schema}?sslmode=require
     username: ${postgres.loquei.username}
     password: ${postgres.loquei.password}
     hikari:
       auto-commit: false
       connection-timeout: 250
       max-lifetime: 600000
-      maximum-pool-size: 20
+      maximum-pool-size: 5
       minimum-idle: 10
       pool-name: master
 
@@ -80,14 +80,14 @@ loquei:
 security:
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://${postgres.security.url}/${postgres.security.schema}
+    url: jdbc:postgresql://${postgres.security.url}/${postgres.security.schema}?sslmode=require
     username: ${postgres.security.username}
     password: ${postgres.security.password}
     hikari:
       autoCommit: false
       connectionTimeout: 250
       maxLifetime: 600000
-      maximumPoolSize: 20
+      maximumPoolSize: 5
       minimumIdle: 10
       poolName: master
 
