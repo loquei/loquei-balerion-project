@@ -8,6 +8,6 @@ public record CreateRentRequest(
         @JsonProperty("lessor") String lessor,
         @JsonProperty("lessee") String lessee,
         @JsonProperty("item") String item,
-        @JsonProperty("startDate") LocalDateTime startDate,
-        @JsonProperty("endDate") LocalDateTime endDate,
-        @JsonProperty("totalValue") BigDecimal totalValue) {}
+        @JsonProperty("start_date") LocalDateTime startDate,
+        @JsonProperty("end_date") LocalDateTime endDate,
+        @JsonProperty("total_value") BigDecimal totalValue) {}

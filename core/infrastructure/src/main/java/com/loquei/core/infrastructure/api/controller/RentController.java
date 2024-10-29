@@ -21,6 +21,8 @@ import com.loquei.core.application.rent.update.refuseRent.UpdateRefuseRentUseCas
 import com.loquei.core.application.rent.update.updateRentalDate.UpdateRentalDateCommand;
 import com.loquei.core.application.rent.update.updateRentalDate.UpdateRentalDateOutput;
 import com.loquei.core.application.rent.update.updateRentalDate.UpdateRentalDateUseCase;
+import com.loquei.core.domain.item.ItemId;
+import com.loquei.core.domain.rent.RentId;
 import com.loquei.core.infrastructure.api.RentAPI;
 import com.loquei.core.infrastructure.rent.models.*;
 import com.loquei.core.infrastructure.rent.presenter.RentApiPresenter;
@@ -112,7 +114,7 @@ public class RentController implements RentAPI {
 
     @Override
     public ResponseEntity<?> cancelRent(CancelRentRequest input) {
-        final var aCommand = UpdateCancelRentCommand.with(input.rentId(), input.cancellationReason());
+        final var aCommand = UpdateCancelRentCommand.with(input.id(), input.cancellationReason());
 
         final Function<Notification, ResponseEntity<?>> onError =
                 notification -> ResponseEntity.unprocessableEntity().body(notification);
@@ -124,8 +126,8 @@ public class RentController implements RentAPI {
 
     @Override
     public ResponseEntity<?> UpdateRentalDate(UpdateRentalDateRequest input) {
-        final var aCommand =
-                UpdateRentalDateCommand.with(input.rentId(), input.itemId(), input.startDate(), input.endDate());
+        final var aCommand = UpdateRentalDateCommand.with(
+                RentId.from(input.id()), ItemId.from(input.item()), input.startDate(), input.endDate());
 
         final Function<Notification, ResponseEntity<?>> onError =
                 notification -> ResponseEntity.unprocessableEntity().body(notification);

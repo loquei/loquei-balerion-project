@@ -6,10 +6,10 @@ import java.time.LocalDateTime;
 
 public record RentListResponse(
         @JsonProperty("id") String id,
-        @JsonProperty("lessor") String lessorId,
-        @JsonProperty("lesse") String lesseeId,
-        @JsonProperty("item") String itemId,
-        @JsonProperty("startDate") LocalDateTime startDate,
-        @JsonProperty("endDate") LocalDateTime endDate,
-        @JsonProperty("totalValue") BigDecimal totalValue,
+        @JsonProperty("lessor") String lessor,
+        @JsonProperty("lessee") String lessee,
+        @JsonProperty("item") String item,
+        @JsonProperty("start_date") LocalDateTime startDate,
+        @JsonProperty("end_date") LocalDateTime endDate,
+        @JsonProperty("total_value") BigDecimal totalValue,
         @JsonProperty("status") String status) {}
