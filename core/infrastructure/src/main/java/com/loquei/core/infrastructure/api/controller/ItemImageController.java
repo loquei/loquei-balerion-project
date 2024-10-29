@@ -29,19 +29,16 @@ public class ItemImageController implements ItemImageAPI {
     private final DeleteItemImageUseCase deleteItemImageUseCase;
     private final RetrieveItemImagesUseCase retrieveItemImagesUseCase;
     private final ViewItemImageUseCase viewItemImageUseCase;
-    private final ItemImageRepository itemImageRepository;
 
     public ItemImageController(
             final CreateItemImageUseCase createItemImageUseCase,
             final DeleteItemImageUseCase deleteItemImageUseCase,
             final RetrieveItemImagesUseCase retrieveItemImagesUseCase,
-            final ViewItemImageUseCase viewItemImageUseCase,
-            final ItemImageRepository itemImageRepository) {
+            final ViewItemImageUseCase viewItemImageUseCase) {
         this.createItemImageUseCase = createItemImageUseCase;
         this.deleteItemImageUseCase = deleteItemImageUseCase;
         this.retrieveItemImagesUseCase = retrieveItemImagesUseCase;
         this.viewItemImageUseCase = viewItemImageUseCase;
-        this.itemImageRepository = itemImageRepository;
     }
 
     @Override

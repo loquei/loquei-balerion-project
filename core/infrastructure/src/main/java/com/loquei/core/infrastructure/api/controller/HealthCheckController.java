@@ -1,14 +1,12 @@
 package com.loquei.core.infrastructure.api.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import com.loquei.core.infrastructure.api.HealthAPI;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class HealthCheckController {
+public class HealthCheckController implements HealthAPI {
 
-    @GetMapping("/health")
-    public String healthCheck() {
-        return "OK";
-    }
+    @Override
+    public void healthCheck() {}
 
 }
