@@ -4,7 +4,6 @@ import com.loquei.common.Entity;
 import com.loquei.common.utils.InstantUtils;
 import com.loquei.common.validation.ValidationHandler;
 import com.loquei.core.domain.user.UserId;
-
 import java.time.Instant;
 
 public class UserImage extends Entity<UserImageId> {
@@ -71,5 +70,4 @@ public class UserImage extends Entity<UserImageId> {
     public Instant getCreatedAt() {
         return createdAt;
     }
-
 }

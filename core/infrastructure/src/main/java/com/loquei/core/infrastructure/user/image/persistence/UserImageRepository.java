@@ -1,10 +1,9 @@
 package com.loquei.core.infrastructure.user.image.persistence;
 
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-
-import java.util.Optional;
 
 public interface UserImageRepository extends JpaRepository<UserImageJpaEntity, String> {
 
@@ -13,5 +12,4 @@ public interface UserImageRepository extends JpaRepository<UserImageJpaEntity, S
     @Modifying
     @Query("DELETE FROM UserImageJpaEntity i WHERE i.userId = :userId")
     void deleteByUserId(String userId);
-
 }

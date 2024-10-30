@@ -4,7 +4,6 @@ import com.loquei.core.domain.user.UserId;
 import com.loquei.core.domain.user.image.UserImage;
 import com.loquei.core.domain.user.image.UserImageId;
 import jakarta.persistence.*;
-
 import java.time.Instant;
 
 @Entity

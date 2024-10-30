@@ -7,5 +7,4 @@ public record ViewUserImageOutput(String fileType, byte[] data) {
     public static ViewUserImageOutput from(final UserImage userImage) {
         return new ViewUserImageOutput(userImage.getFileType(), userImage.getData());
     }
-
 }

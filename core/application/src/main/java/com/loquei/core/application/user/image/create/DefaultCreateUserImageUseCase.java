@@ -1,14 +1,14 @@
 package com.loquei.core.application.user.image.create;
 
+import static io.vavr.API.Left;
+import static io.vavr.API.Try;
+
 import com.loquei.common.validation.Error;
 import com.loquei.common.validation.handler.Notification;
 import com.loquei.core.domain.user.UserGateway;
 import com.loquei.core.domain.user.image.UserImage;
 import com.loquei.core.domain.user.image.UserImageGateway;
 import io.vavr.control.Either;
-
-import static io.vavr.API.Left;
-import static io.vavr.API.Try;
 
 public class DefaultCreateUserImageUseCase extends CreateUserImageUseCase {
 
@@ -48,5 +48,4 @@ public class DefaultCreateUserImageUseCase extends CreateUserImageUseCase {
                 .toEither()
                 .bimap(Notification::create, CreateUserImageOutput::from);
     }
-
 }

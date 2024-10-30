@@ -7,5 +7,4 @@ public record CreateUserImageOutput(String id) {
     public static CreateUserImageOutput from(final UserImage userImage) {
         return new CreateUserImageOutput(userImage.getId().getValue());
     }
-
 }

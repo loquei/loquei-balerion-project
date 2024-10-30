@@ -18,8 +18,7 @@ public interface HealthAPI {
     @Operation(summary = "Health check")
     @ApiResponses(
             value = {
-                    @ApiResponse(responseCode = "204", description = "User deleted successfully"),
+                @ApiResponse(responseCode = "204", description = "User deleted successfully"),
             })
     void healthCheck();
-
 }

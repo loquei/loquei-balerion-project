@@ -8,5 +8,4 @@ public record CreateUserImageCommand(UserId userId, String fileName, String file
             final UserId userId, final String fileName, final String fileType, final byte[] data) {
         return new CreateUserImageCommand(userId, fileName, fileType, data);
     }
-
 }

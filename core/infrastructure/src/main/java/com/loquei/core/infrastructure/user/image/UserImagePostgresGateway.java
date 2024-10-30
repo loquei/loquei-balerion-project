@@ -6,10 +6,9 @@ import com.loquei.core.domain.user.image.UserImageGateway;
 import com.loquei.core.domain.user.image.UserImageId;
 import com.loquei.core.infrastructure.user.image.persistence.UserImageJpaEntity;
 import com.loquei.core.infrastructure.user.image.persistence.UserImageRepository;
+import java.util.Optional;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Component
 public class UserImagePostgresGateway implements UserImageGateway {

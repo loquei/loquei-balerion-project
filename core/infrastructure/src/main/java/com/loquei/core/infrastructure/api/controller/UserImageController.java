@@ -9,14 +9,13 @@ import com.loquei.core.application.user.image.retrieve.view.ViewUserImageUseCase
 import com.loquei.core.domain.user.UserId;
 import com.loquei.core.infrastructure.api.UserImageAPI;
 import com.loquei.core.infrastructure.utils.FileUtils;
+import java.util.function.Function;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.function.Function;
 
 @RestController
 public class UserImageController implements UserImageAPI {
@@ -28,8 +27,7 @@ public class UserImageController implements UserImageAPI {
     public UserImageController(
             final CreateUserImageUseCase createUserImageUseCase,
             final ViewUserImageUseCase viewUserImageUseCase,
-            final DeleteUserImageUseCase deleteUserImageUseCase
-    ) {
+            final DeleteUserImageUseCase deleteUserImageUseCase) {
         this.createUserImageUseCase = createUserImageUseCase;
         this.viewUserImageUseCase = viewUserImageUseCase;
         this.deleteUserImageUseCase = deleteUserImageUseCase;
@@ -64,5 +62,4 @@ public class UserImageController implements UserImageAPI {
     public void deleteById(final String id) {
         this.deleteUserImageUseCase.execute(id);
     }
-
 }

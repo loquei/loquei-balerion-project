@@ -8,5 +8,4 @@ public class HealthCheckController implements HealthAPI {
 
     @Override
     public void healthCheck() {}
-
 }

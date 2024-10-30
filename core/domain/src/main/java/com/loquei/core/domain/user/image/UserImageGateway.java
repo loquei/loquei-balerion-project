@@ -1,7 +1,6 @@
 package com.loquei.core.domain.user.image;
 
 import com.loquei.core.domain.user.UserId;
-
 import java.util.Optional;
 
 public interface UserImageGateway {
@@ -15,5 +14,4 @@ public interface UserImageGateway {
     void delete(UserImageId userImageId);
 
     void deleteByUserId(UserId userId);
-
 }

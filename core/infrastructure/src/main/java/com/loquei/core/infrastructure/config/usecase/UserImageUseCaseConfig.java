@@ -1,6 +1,5 @@
 package com.loquei.core.infrastructure.config.usecase;
 
-import com.loquei.core.application.item.image.retrieve.view.DefaultViewItemImageUseCase;
 import com.loquei.core.application.user.image.create.CreateUserImageUseCase;
 import com.loquei.core.application.user.image.create.DefaultCreateUserImageUseCase;
 import com.loquei.core.application.user.image.delete.DefaultDeleteUserImageUseCase;
@@ -19,9 +18,7 @@ public class UserImageUseCaseConfig {
     private final UserImagePostgresGateway userImagePostgresGateway;
 
     public UserImageUseCaseConfig(
-            final UserPostgresGateway userPostgresGateway,
-            final UserImagePostgresGateway userImagePostgresGateway
-    ) {
+            final UserPostgresGateway userPostgresGateway, final UserImagePostgresGateway userImagePostgresGateway) {
         this.userPostgresGateway = userPostgresGateway;
         this.userImagePostgresGateway = userImagePostgresGateway;
     }
@@ -40,5 +37,4 @@ public class UserImageUseCaseConfig {
     public DeleteUserImageUseCase deleteUserImageUseCase() {
         return new DefaultDeleteUserImageUseCase(userImagePostgresGateway);
     }
-
 }

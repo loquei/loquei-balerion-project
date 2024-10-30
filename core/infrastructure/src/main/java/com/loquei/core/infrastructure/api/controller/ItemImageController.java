@@ -10,7 +10,6 @@ import com.loquei.core.application.item.image.retrieve.view.ViewItemImageUseCase
 import com.loquei.core.domain.item.ItemId;
 import com.loquei.core.infrastructure.api.ItemImageAPI;
 import com.loquei.core.infrastructure.item.image.model.ItemImageLinksResponse;
-import com.loquei.core.infrastructure.item.image.persistence.ItemImageRepository;
 import com.loquei.core.infrastructure.utils.FileUtils;
 import java.net.URI;
 import java.util.function.Function;
