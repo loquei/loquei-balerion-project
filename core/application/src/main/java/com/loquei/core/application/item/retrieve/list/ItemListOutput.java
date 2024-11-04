@@ -1,8 +1,10 @@
 package com.loquei.core.application.item.retrieve.list;
 
+import com.loquei.core.domain.category.CategoryId;
 import com.loquei.core.domain.item.Item;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.List;
 
 public record ItemListOutput(
         String id,
@@ -12,6 +14,7 @@ public record ItemListOutput(
         Integer maxDays,
         Integer minDays,
         String userId,
+        List<String> categories,
         Instant updatedAt) {
     public static ItemListOutput from(final Item item) {
         return new ItemListOutput(
@@ -22,6 +25,7 @@ public record ItemListOutput(
                 item.getMaxDays(),
                 item.getMinDays(),
                 item.getUser().getValue(),
+                item.getCategories().stream().map(CategoryId::getValue).toList(),
                 item.getUpdatedAt());
     }
 }

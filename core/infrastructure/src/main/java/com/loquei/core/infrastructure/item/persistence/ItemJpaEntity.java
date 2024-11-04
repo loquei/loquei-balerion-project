@@ -91,7 +91,6 @@ public class ItemJpaEntity {
     }
 
     public Item toAggregate() {
-        System.out.println(this);
         return Item.with(
                 ItemId.from(getId()),
                 getName(),
