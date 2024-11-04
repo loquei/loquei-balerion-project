@@ -4,6 +4,8 @@ import com.loquei.core.application.item.create.CreateItemUseCase;
 import com.loquei.core.application.item.create.DefaultCreateItemUseCase;
 import com.loquei.core.application.item.delete.DefaultDeleteItemUseCase;
 import com.loquei.core.application.item.delete.DeleteItemUseCase;
+import com.loquei.core.application.item.retrieve.by.category.DefaultListItemsByCategoryUseCase;
+import com.loquei.core.application.item.retrieve.by.category.ListItemsByCategoryUseCase;
 import com.loquei.core.application.item.retrieve.get.DefaultGetItemByIdUseCase;
 import com.loquei.core.application.item.retrieve.get.GetItemByIdUseCase;
 import com.loquei.core.application.item.retrieve.list.DefaultListItemsUseCase;
@@ -59,5 +61,10 @@ public class ItemUseCaseConfig {
     @Bean
     public ListItemsUseCase listItemsUseCase() {
         return new DefaultListItemsUseCase(itemGateway, userGateway);
+    }
+
+    @Bean
+    public ListItemsByCategoryUseCase listItemsByCategoryParams() {
+        return new DefaultListItemsByCategoryUseCase(itemGateway, categoryGateway);
     }
 }
