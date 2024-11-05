@@ -5,6 +5,7 @@ import com.loquei.common.pagination.Pagination;
 import com.loquei.core.domain.category.Category;
 import com.loquei.core.domain.category.CategoryGateway;
 import com.loquei.core.domain.category.CategoryId;
+import com.loquei.core.domain.item.Item;
 import com.loquei.core.domain.item.ItemGateway;
 
 import java.util.function.Supplier;
@@ -32,7 +33,13 @@ public class DefaultListItemsByCategoryUseCase extends ListItemsByCategoryUseCas
 
         return this.itemGateway
                 .findAllByCategory(category.getId(), query)
-                .map(ItemListByCategoryOutput::from);
+                .map(this::withScore);
+    }
+
+    private ItemListByCategoryOutput withScore(final Item item) {
+        final var score = itemGateway.retrieveItemTotalScore(item.getId());
+
+        return ItemListByCategoryOutput.from(item, score);
     }
 
     private Supplier<NotFoundException> categoryNotFound(final CategoryId id) {

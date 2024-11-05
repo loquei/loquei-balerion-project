@@ -14,6 +14,7 @@ public record ItemListByCategoryOutput(
         BigDecimal dailyValue,
         Integer maxDays,
         Integer minDays,
+        Float score,
         String userId,
         List<String> categories,
         Instant updatedAt) {
@@ -25,6 +26,21 @@ public record ItemListByCategoryOutput(
                 item.getDailyValue(),
                 item.getMaxDays(),
                 item.getMinDays(),
+                null,
+                item.getUser().getValue(),
+                item.getCategories().stream().map(CategoryId::getValue).toList(),
+                item.getUpdatedAt());
+    }
+
+    public static ItemListByCategoryOutput from(final Item item, final Float itemScore) {
+        return new ItemListByCategoryOutput(
+                item.getId().getValue(),
+                item.getName(),
+                item.getDescription(),
+                item.getDailyValue(),
+                item.getMaxDays(),
+                item.getMinDays(),
+                itemScore,
                 item.getUser().getValue(),
                 item.getCategories().stream().map(CategoryId::getValue).toList(),
                 item.getUpdatedAt());

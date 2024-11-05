@@ -15,6 +15,7 @@ public interface ItemApiPresenter {
                 output.dailyValue(),
                 output.maxDays(),
                 output.minDays(),
+                output.score(),
                 output.userId(),
                 output.categories(),
                 output.updatedAt());
@@ -28,6 +29,7 @@ public interface ItemApiPresenter {
                 output.dailyValue(),
                 output.maxDays(),
                 output.minDays(),
+                output.score(),
                 output.userId(),
                 output.categories(),
                 output.updatedAt());
@@ -41,6 +43,7 @@ public interface ItemApiPresenter {
                 output.dailyValue(),
                 output.maxDays(),
                 output.minDays(),
+                output.score(),
                 output.userId(),
                 output.categories(),
                 output.createdAt(),

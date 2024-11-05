@@ -13,6 +13,7 @@ public record ItemOutput(
         BigDecimal dailyValue,
         Integer maxDays,
         Integer minDays,
+        Float score,
         String userId,
         List<String> categories,
         Instant createdAt,
@@ -30,10 +31,10 @@ public record ItemOutput(
             final Instant createdAt,
             final Instant updatedAt) {
 
-        return new ItemOutput(id, name, description, dailyValue, maxDays, minDays, userId, categories, createdAt, updatedAt);
+        return new ItemOutput(id, name, description, dailyValue, maxDays, minDays, null, userId, categories, createdAt, updatedAt);
     }
 
-    public static ItemOutput from(final Item item) {
+    public static ItemOutput from(final Item item, final Float itemScore) {
         return new ItemOutput(
                 item.getId().getValue(),
                 item.getName(),
@@ -41,6 +42,7 @@ public record ItemOutput(
                 item.getDailyValue(),
                 item.getMaxDays(),
                 item.getMinDays(),
+                itemScore,
                 item.getUser().getValue(),
                 item.getCategories().stream().map(CategoryId::getValue).toList(),
                 item.getCreatedAt(),

@@ -134,6 +134,11 @@ public class ItemPostgresGateway implements ItemGateway {
                 pageResult.map(ItemJpaEntity::toAggregate).toList());
     }
 
+    @Override
+    public Float retrieveItemTotalScore(final ItemId itemId) {
+        return itemRespository.retrieveItemTotalScore(itemId.getValue());
+    }
+
     private Item save(final Item item) {
         return this.itemRespository.save(ItemJpaEntity.from(item)).toAggregate();
     }

@@ -23,4 +23,6 @@ public interface ItemGateway {
 
     Pagination<Item> findAllByCategory(CategoryId categoryId, SearchQuery searchQuery);
 
+    Float retrieveItemTotalScore(ItemId itemId);
+
 }
