@@ -6,6 +6,8 @@ import java.util.Optional;
 
 public interface UserGateway {
 
+    Float retrieveUserTotalScore(UserId userId);
+
     User create(User user);
 
     User update(User user);
