@@ -1,5 +1,6 @@
 package com.loquei.core.infrastructure.user.image.persistence;
 
+import com.loquei.common.utils.Base64Utils;
 import com.loquei.core.domain.user.UserId;
 import com.loquei.core.domain.user.image.UserImage;
 import com.loquei.core.domain.user.image.UserImageId;
@@ -24,7 +25,7 @@ public class UserImageJpaEntity {
 
     @Lob
     @Column(name = "data")
-    private byte[] data;
+    private String data;
 
     @Column(name = "created_at", nullable = false, columnDefinition = "DATETIME(6)")
     private Instant createdAt;
@@ -37,7 +38,7 @@ public class UserImageJpaEntity {
         this.userId = userId;
         this.fileName = fileName;
         this.fileType = fileType;
-        this.data = data;
+        this.data = Base64Utils.encode(data);
         this.createdAt = createdAt;
     }
 
@@ -62,7 +63,7 @@ public class UserImageJpaEntity {
                 UserId.from(this.userId),
                 this.fileName,
                 this.fileType,
-                this.data,
+                Base64Utils.decode(this.data),
                 this.createdAt);
     }
 
@@ -99,11 +100,11 @@ public class UserImageJpaEntity {
     }
 
     public byte[] getData() {
-        return data;
+        return Base64Utils.decode(this.data);
     }
 
     public void setData(byte[] data) {
-        this.data = data;
+        this.data = Base64Utils.encode(data);
     }
 
     public Instant getCreatedAt() {
