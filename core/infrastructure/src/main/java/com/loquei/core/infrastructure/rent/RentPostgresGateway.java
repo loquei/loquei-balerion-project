@@ -39,6 +39,11 @@ public class RentPostgresGateway implements RentGateway {
     }
 
     @Override
+    public List<Rent> findAll() {
+        return repository.findAll().stream().map(RentJpaEntity::toAggregate).toList();
+    }
+
+    @Override
     public Optional<Rent> findById(RentId rentId) {
         return repository.findById(rentId.getValue()).map(RentJpaEntity::toAggregate);
     }
