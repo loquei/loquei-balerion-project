@@ -10,6 +10,12 @@ import org.springframework.data.repository.query.Param;
 
 public interface ItemRepository extends JpaRepository<ItemJpaEntity, String> {
 
+    @Query(
+            nativeQuery = true,
+            value =
+                    "SELECT ROUND(CAST(AVG(r.score) AS numeric), 1) FROM ratings r WHERE r.item_id = :itemId GROUP BY item_id")
+    Float retrieveItemTotalScore(@Param("itemId") String itemId);
+
     Page<ItemJpaEntity> findAll(Specification<ItemJpaEntity> whereClause, Pageable page);
 
     @Query(

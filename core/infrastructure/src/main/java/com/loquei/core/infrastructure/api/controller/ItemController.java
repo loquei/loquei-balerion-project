@@ -7,6 +7,8 @@ import com.loquei.core.application.item.create.CreateItemCommand;
 import com.loquei.core.application.item.create.CreateItemOutput;
 import com.loquei.core.application.item.create.CreateItemUseCase;
 import com.loquei.core.application.item.delete.DeleteItemUseCase;
+import com.loquei.core.application.item.retrieve.by.category.ListItemsByCategoryParams;
+import com.loquei.core.application.item.retrieve.by.category.ListItemsByCategoryUseCase;
 import com.loquei.core.application.item.retrieve.get.GetItemByIdUseCase;
 import com.loquei.core.application.item.retrieve.list.ListItemsParams;
 import com.loquei.core.application.item.retrieve.list.ListItemsUseCase;
@@ -32,18 +34,21 @@ public class ItemController implements ItemAPI {
     private final DeleteItemUseCase deleteItemUseCase;
     private final GetItemByIdUseCase getItemByIdUseCase;
     private final ListItemsUseCase listItemsUseCase;
+    private final ListItemsByCategoryUseCase listItemsByCategoryUseCase;
 
     public ItemController(
             final CreateItemUseCase createItemUseCase,
             final UpdateItemUseCase updateItemUseCase,
             final DeleteItemUseCase deleteItemUseCase,
             final GetItemByIdUseCase getItemByIdUseCase,
-            final ListItemsUseCase listItemsUseCase) {
+            final ListItemsUseCase listItemsUseCase,
+            final ListItemsByCategoryUseCase listItemsByCategoryUseCase) {
         this.createItemUseCase = createItemUseCase;
         this.updateItemUseCase = updateItemUseCase;
         this.deleteItemUseCase = deleteItemUseCase;
         this.getItemByIdUseCase = getItemByIdUseCase;
         this.listItemsUseCase = listItemsUseCase;
+        this.listItemsByCategoryUseCase = listItemsByCategoryUseCase;
     }
 
     @Override
@@ -80,6 +85,20 @@ public class ItemController implements ItemAPI {
         final var query = new SearchQuery(page, perPage, search, sort, direction);
         return listItemsUseCase
                 .execute(ListItemsParams.with(userEmail, recentlyViewed, ownerEmail, query))
+                .map(ItemApiPresenter::present);
+    }
+
+    @Override
+    public Pagination<ItemListResponse> listByCategory(
+            final String categoryId,
+            final String search,
+            final int page,
+            final int perPage,
+            final String sort,
+            final String direction) {
+        final var query = new SearchQuery(page, perPage, search, sort, direction);
+        return listItemsByCategoryUseCase
+                .execute(ListItemsByCategoryParams.with(categoryId, query))
                 .map(ItemApiPresenter::present);
     }
 

@@ -45,8 +45,6 @@ public class SecurityDefaultGenerateAuthCodeUseCase extends SecurityGenerateAuth
 
         CompletableFuture.runAsync(() -> this.authGateway.create(auth));
 
-        System.out.println("Auth code: " + auth.getAuthCode().getValue());
-
         final var email = buildEmail(user, auth);
 
         CompletableFuture.runAsync(() -> this.emailGateway.send(email));

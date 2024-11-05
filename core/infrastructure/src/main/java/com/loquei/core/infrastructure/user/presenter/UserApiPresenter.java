@@ -20,6 +20,7 @@ public interface UserApiPresenter {
                 output.phone(),
                 output.document(),
                 output.birth(),
+                output.score(),
                 output.createdAt(),
                 output.updatedAt());
     }

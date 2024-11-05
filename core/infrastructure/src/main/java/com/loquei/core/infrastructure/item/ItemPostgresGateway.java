@@ -4,12 +4,14 @@ import static com.loquei.core.infrastructure.utils.SpecificationUtils.like;
 
 import com.loquei.common.pagination.Pagination;
 import com.loquei.common.pagination.SearchQuery;
+import com.loquei.core.domain.category.CategoryId;
 import com.loquei.core.domain.item.Item;
 import com.loquei.core.domain.item.ItemGateway;
 import com.loquei.core.domain.item.ItemId;
 import com.loquei.core.domain.user.UserId;
 import com.loquei.core.infrastructure.item.persistence.ItemJpaEntity;
 import com.loquei.core.infrastructure.item.persistence.ItemRepository;
+import jakarta.persistence.criteria.JoinType;
 import java.util.Optional;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -105,6 +107,35 @@ public class ItemPostgresGateway implements ItemGateway {
         if (this.itemRespository.existsById(idValue)) {
             this.itemRespository.deleteById(idValue);
         }
+    }
+
+    @Override
+    public Pagination<Item> findAllByCategory(final CategoryId categoryId, final SearchQuery aQuery) {
+        final var page = PageRequest.of(
+                aQuery.page(), aQuery.perPage(), Sort.by(Sort.Direction.fromString(aQuery.direction()), aQuery.sort()));
+
+        final var specifications = Optional.ofNullable(aQuery.terms())
+                .filter(str -> !str.isBlank())
+                .map(this::assembleSpecification)
+                .orElse(Specification.where(null))
+                .and((root, query, criteriaBuilder) -> {
+                    query.distinct(true);
+                    final var join = root.join("categories", JoinType.INNER);
+                    return criteriaBuilder.equal(join.get("id").get("categoryId"), categoryId.getValue());
+                });
+
+        final var pageResult = this.itemRespository.findAll(Specification.where(specifications), page);
+
+        return new Pagination<>(
+                pageResult.getNumber(),
+                pageResult.getSize(),
+                pageResult.getTotalElements(),
+                pageResult.map(ItemJpaEntity::toAggregate).toList());
+    }
+
+    @Override
+    public Float retrieveItemTotalScore(final ItemId itemId) {
+        return itemRespository.retrieveItemTotalScore(itemId.getValue());
     }
 
     private Item save(final Item item) {

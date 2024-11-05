@@ -12,6 +12,7 @@ public record UserOutput(
         String phone,
         String document,
         LocalDate birth,
+        Float score,
         Instant createdAt,
         Instant updatedAt) {
 
@@ -24,6 +25,21 @@ public record UserOutput(
                 user.getPhone(),
                 user.getDocument(),
                 user.getBirth(),
+                null,
+                user.getCreatedAt(),
+                user.getUpdatedAt());
+    }
+
+    public static UserOutput from(final User user, final Float score) {
+        return new UserOutput(
+                user.getId().getValue(),
+                user.getUserName(),
+                user.getPersonalName(),
+                user.getEmail(),
+                user.getPhone(),
+                user.getDocument(),
+                user.getBirth(),
+                score,
                 user.getCreatedAt(),
                 user.getUpdatedAt());
     }

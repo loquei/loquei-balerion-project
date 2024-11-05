@@ -1,4 +1,4 @@
-package com.loquei.core.application.item.retrieve.list;
+package com.loquei.core.application.item.retrieve.by.category;
 
 import com.loquei.core.domain.category.CategoryId;
 import com.loquei.core.domain.item.Item;
@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 
-public record ItemListOutput(
+public record ItemListByCategoryOutput(
         String id,
         String name,
         String description,
@@ -17,8 +17,8 @@ public record ItemListOutput(
         String userId,
         List<String> categories,
         Instant updatedAt) {
-    public static ItemListOutput from(final Item item) {
-        return new ItemListOutput(
+    public static ItemListByCategoryOutput from(final Item item) {
+        return new ItemListByCategoryOutput(
                 item.getId().getValue(),
                 item.getName(),
                 item.getDescription(),
@@ -31,8 +31,8 @@ public record ItemListOutput(
                 item.getUpdatedAt());
     }
 
-    public static ItemListOutput from(final Item item, final Float itemScore) {
-        return new ItemListOutput(
+    public static ItemListByCategoryOutput from(final Item item, final Float itemScore) {
+        return new ItemListByCategoryOutput(
                 item.getId().getValue(),
                 item.getName(),
                 item.getDescription(),

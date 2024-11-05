@@ -1,5 +1,6 @@
 package com.loquei.core.infrastructure.item.presenter;
 
+import com.loquei.core.application.item.retrieve.by.category.ItemListByCategoryOutput;
 import com.loquei.core.application.item.retrieve.get.ItemOutput;
 import com.loquei.core.application.item.retrieve.list.ItemListOutput;
 import com.loquei.core.infrastructure.item.models.ItemListResponse;
@@ -14,7 +15,23 @@ public interface ItemApiPresenter {
                 output.dailyValue(),
                 output.maxDays(),
                 output.minDays(),
+                output.score(),
                 output.userId(),
+                output.categories(),
+                output.updatedAt());
+    }
+
+    static ItemListResponse present(final ItemListByCategoryOutput output) {
+        return new ItemListResponse(
+                output.id(),
+                output.name(),
+                output.description(),
+                output.dailyValue(),
+                output.maxDays(),
+                output.minDays(),
+                output.score(),
+                output.userId(),
+                output.categories(),
                 output.updatedAt());
     }
 
@@ -26,7 +43,9 @@ public interface ItemApiPresenter {
                 output.dailyValue(),
                 output.maxDays(),
                 output.minDays(),
+                output.score(),
                 output.userId(),
+                output.categories(),
                 output.createdAt(),
                 output.updatedAt());
     }

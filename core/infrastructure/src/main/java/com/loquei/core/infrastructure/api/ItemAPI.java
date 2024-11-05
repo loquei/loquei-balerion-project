@@ -47,6 +47,22 @@ public interface ItemAPI {
             @RequestParam(name = "userEmail", required = false, defaultValue = "email") final String userEmail,
             @RequestParam(name = "ownerEmail", required = false, defaultValue = "") final String email);
 
+    @GetMapping(value = "/category/{categoryId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "List all items paginated by category")
+    @ApiResponses(
+            value = {
+                @ApiResponse(responseCode = "200", description = "Listed successfully"),
+                @ApiResponse(responseCode = "422", description = "A invalid parameter was received"),
+                @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
+            })
+    Pagination<ItemListResponse> listByCategory(
+            @PathVariable(name = "categoryId") final String categoryId,
+            @RequestParam(name = "search", required = false, defaultValue = "") final String search,
+            @RequestParam(name = "page", required = false, defaultValue = "0") final int page,
+            @RequestParam(name = "perPage", required = false, defaultValue = "10") final int perPage,
+            @RequestParam(name = "sort", required = false, defaultValue = "name") final String sort,
+            @RequestParam(name = "dir", required = false, defaultValue = "asc") final String direction);
+
     @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Get a items by it's identifier")
     @ApiResponses(
