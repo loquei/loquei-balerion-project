@@ -95,8 +95,7 @@ public class ItemController implements ItemAPI {
             final int page,
             final int perPage,
             final String sort,
-            final String direction
-    ) {
+            final String direction) {
         final var query = new SearchQuery(page, perPage, search, sort, direction);
         return listItemsByCategoryUseCase
                 .execute(ListItemsByCategoryParams.with(categoryId, query))

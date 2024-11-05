@@ -7,7 +7,6 @@ import com.loquei.core.domain.category.CategoryGateway;
 import com.loquei.core.domain.category.CategoryId;
 import com.loquei.core.domain.item.Item;
 import com.loquei.core.domain.item.ItemGateway;
-
 import java.util.function.Supplier;
 
 public class DefaultListItemsByCategoryUseCase extends ListItemsByCategoryUseCase {
@@ -15,10 +14,7 @@ public class DefaultListItemsByCategoryUseCase extends ListItemsByCategoryUseCas
     private final ItemGateway itemGateway;
     private final CategoryGateway categoryGateway;
 
-    public DefaultListItemsByCategoryUseCase(
-            final ItemGateway itemGateway,
-            final CategoryGateway categoryGateway
-    ) {
+    public DefaultListItemsByCategoryUseCase(final ItemGateway itemGateway, final CategoryGateway categoryGateway) {
         this.itemGateway = itemGateway;
         this.categoryGateway = categoryGateway;
     }
@@ -28,12 +24,9 @@ public class DefaultListItemsByCategoryUseCase extends ListItemsByCategoryUseCas
         final var categoryId = CategoryId.from(params.categoryId());
         final var query = params.aQuery();
 
-        final var category = categoryGateway.findById(categoryId)
-                .orElseThrow(categoryNotFound(categoryId));
+        final var category = categoryGateway.findById(categoryId).orElseThrow(categoryNotFound(categoryId));
 
-        return this.itemGateway
-                .findAllByCategory(category.getId(), query)
-                .map(this::withScore);
+        return this.itemGateway.findAllByCategory(category.getId(), query).map(this::withScore);
     }
 
     private ItemListByCategoryOutput withScore(final Item item) {

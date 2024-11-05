@@ -31,7 +31,8 @@ public record ItemOutput(
             final Instant createdAt,
             final Instant updatedAt) {
 
-        return new ItemOutput(id, name, description, dailyValue, maxDays, minDays, null, userId, categories, createdAt, updatedAt);
+        return new ItemOutput(
+                id, name, description, dailyValue, maxDays, minDays, null, userId, categories, createdAt, updatedAt);
     }
 
     public static ItemOutput from(final Item item, final Float itemScore) {

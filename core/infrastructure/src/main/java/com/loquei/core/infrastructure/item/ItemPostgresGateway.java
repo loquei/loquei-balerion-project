@@ -11,9 +11,8 @@ import com.loquei.core.domain.item.ItemId;
 import com.loquei.core.domain.user.UserId;
 import com.loquei.core.infrastructure.item.persistence.ItemJpaEntity;
 import com.loquei.core.infrastructure.item.persistence.ItemRepository;
-import java.util.Optional;
-
 import jakarta.persistence.criteria.JoinType;
+import java.util.Optional;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;

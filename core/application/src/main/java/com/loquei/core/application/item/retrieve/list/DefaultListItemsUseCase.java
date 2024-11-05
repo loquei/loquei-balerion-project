@@ -1,5 +1,8 @@
 package com.loquei.core.application.item.retrieve.list;
 
+import static com.loquei.common.utils.BooleanUtils.isTrue;
+import static java.util.Objects.nonNull;
+
 import com.loquei.common.exceptions.NotFoundException;
 import com.loquei.common.pagination.Pagination;
 import com.loquei.common.pagination.SearchQuery;
@@ -7,11 +10,7 @@ import com.loquei.core.domain.item.Item;
 import com.loquei.core.domain.item.ItemGateway;
 import com.loquei.core.domain.user.User;
 import com.loquei.core.domain.user.UserGateway;
-
 import java.util.Objects;
-
-import static com.loquei.common.utils.BooleanUtils.isTrue;
-import static java.util.Objects.nonNull;
 
 public class DefaultListItemsUseCase extends ListItemsUseCase {
 

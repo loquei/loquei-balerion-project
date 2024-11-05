@@ -31,5 +31,4 @@ public class DefaultGetUserByIdUseCase extends GetUserByIdUseCase {
 
         return UserOutput.from(user, score);
     }
-
 }

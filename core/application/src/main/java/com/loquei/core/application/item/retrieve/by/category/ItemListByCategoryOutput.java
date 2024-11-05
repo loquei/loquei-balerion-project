@@ -2,7 +2,6 @@ package com.loquei.core.application.item.retrieve.by.category;
 
 import com.loquei.core.domain.category.CategoryId;
 import com.loquei.core.domain.item.Item;
-
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;

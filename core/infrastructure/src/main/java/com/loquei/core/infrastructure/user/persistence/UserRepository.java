@@ -12,7 +12,8 @@ public interface UserRepository extends JpaRepository<UserJpaEntity, String> {
 
     @Query(
             nativeQuery = true,
-            value = """
+            value =
+                    """
                         SELECT
                             ROUND(CAST(AVG(r.score) AS numeric), 1)
                         FROM ratings r
@@ -22,8 +23,7 @@ public interface UserRepository extends JpaRepository<UserJpaEntity, String> {
                                 WHERE user_id = :userId
                             )
                         GROUP BY item_id
-                    """
-    )
+                    """)
     Float retrieveUserTotalScore(@Param("userId") String userId);
 
     Page<UserJpaEntity> findAll(Specification<UserJpaEntity> whereClause, Pageable page);

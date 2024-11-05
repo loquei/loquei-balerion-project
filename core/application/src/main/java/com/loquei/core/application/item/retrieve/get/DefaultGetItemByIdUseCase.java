@@ -1,7 +1,6 @@
 package com.loquei.core.application.item.retrieve.get;
 
 import com.loquei.common.exceptions.NotFoundException;
-import com.loquei.core.application.item.retrieve.by.category.ItemListByCategoryOutput;
 import com.loquei.core.domain.item.Item;
 import com.loquei.core.domain.item.ItemGateway;
 import com.loquei.core.domain.item.ItemId;
