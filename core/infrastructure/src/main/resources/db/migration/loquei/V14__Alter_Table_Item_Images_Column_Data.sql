@@ -1,0 +1,2 @@
+ALTER TABLE item_image
+ALTER COLUMN data TYPE VARCHAR(255);
