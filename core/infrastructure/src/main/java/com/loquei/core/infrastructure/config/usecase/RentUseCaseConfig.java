@@ -18,6 +18,7 @@ import com.loquei.core.application.rent.update.refuseRent.DefaultUpdateRefuseRen
 import com.loquei.core.application.rent.update.refuseRent.UpdateRefuseRentUseCase;
 import com.loquei.core.application.rent.update.updateRentalDate.DefaultUpdateRentalDateUseCase;
 import com.loquei.core.application.rent.update.updateRentalDate.UpdateRentalDateUseCase;
+import com.loquei.core.domain.email.EmailGateway;
 import com.loquei.core.domain.item.ItemGateway;
 import com.loquei.core.domain.rent.RentGateway;
 import com.loquei.core.domain.user.UserGateway;
@@ -30,17 +31,19 @@ public class RentUseCaseConfig {
     private final RentGateway rentGateway;
     private final UserGateway userGateway;
     private final ItemGateway itemGateway;
+    private final EmailGateway emailGateway;
 
     public RentUseCaseConfig(
-            final RentGateway rentGateway, final UserGateway userGateway, final ItemGateway itemGateway) {
+            final RentGateway rentGateway, final UserGateway userGateway, final ItemGateway itemGateway, final EmailGateway emailGateway) {
         this.rentGateway = rentGateway;
         this.userGateway = userGateway;
         this.itemGateway = itemGateway;
+        this.emailGateway = emailGateway;
     }
 
     @Bean
     public CreateRentUseCase createRentUseCase() {
-        return new DefaultCreateRentUseCase(rentGateway, userGateway, itemGateway);
+        return new DefaultCreateRentUseCase(rentGateway, userGateway, itemGateway, emailGateway);
     }
 
     @Bean

@@ -1,12 +1,9 @@
 package com.loquei.core.application.rent.create;
 
-import static io.vavr.API.Left;
-import static io.vavr.API.Try;
-import static java.util.Objects.requireNonNull;
-
 import com.loquei.common.exceptions.NotFoundException;
 import com.loquei.common.validation.Error;
 import com.loquei.common.validation.handler.Notification;
+import com.loquei.core.domain.email.EmailGateway;
 import com.loquei.core.domain.item.Item;
 import com.loquei.core.domain.item.ItemGateway;
 import com.loquei.core.domain.item.ItemId;
@@ -17,22 +14,34 @@ import com.loquei.core.domain.user.User;
 import com.loquei.core.domain.user.UserGateway;
 import com.loquei.core.domain.user.UserId;
 import io.vavr.control.Either;
+
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
+
+import static io.vavr.API.Left;
+import static io.vavr.API.Try;
+import static java.util.Objects.requireNonNull;
 
 public class DefaultCreateRentUseCase extends CreateRentUseCase {
 
     private final RentGateway rentGateway;
     private final UserGateway userGateway;
     private final ItemGateway itemGateway;
+    private final EmailGateway emailGateway;
 
     public DefaultCreateRentUseCase(
-            final RentGateway rentGateway, final UserGateway userGateway, final ItemGateway itemGateway) {
+            final RentGateway rentGateway,
+            final UserGateway userGateway,
+            final ItemGateway itemGateway,
+            final EmailGateway emailGateway
+    ) {
         this.rentGateway = requireNonNull(rentGateway);
         this.userGateway = requireNonNull(userGateway);
         this.itemGateway = requireNonNull(itemGateway);
+        this.emailGateway = requireNonNull(emailGateway);
     }
 
     @Override
@@ -59,7 +68,28 @@ public class DefaultCreateRentUseCase extends CreateRentUseCase {
 
         rent.validate(notification);
 
-        return notification.hasError() ? Left(notification) : create(rent);
+        if (notification.hasError()) return Left(notification);
+
+        final var createdReturn = create(rent);
+
+        sendEmails(lessor, lessee, item, rent);
+
+        return createdReturn;
+    }
+
+    private void sendEmails(final User lessor, final User lessee, final Item item, final Rent rent) {
+        sendLessorEmail(lessor, item, rent);
+        sendLesseeEmail(lessee, item, rent);
+    }
+
+    private void sendLessorEmail(final User lessor, final Item item, final Rent rent) {
+        final var lessorEmail = SendLessorRentRequestEmailHelper.buildLessorEmail(lessor, item, rent);
+        CompletableFuture.runAsync(() -> this.emailGateway.send(lessorEmail));
+    }
+
+    private void sendLesseeEmail(final User lessee, final Item item, final Rent rent) {
+        final var lesseeEmail = SendLesseeRentRequestEmailHelper.buildLesseeEmail(lessee, item, rent);
+        CompletableFuture.runAsync(() -> this.emailGateway.send(lesseeEmail));
     }
 
     private Optional<Error> isItemAvailableForRent(ItemId itemId, LocalDateTime startDate, LocalDateTime endDate) {
