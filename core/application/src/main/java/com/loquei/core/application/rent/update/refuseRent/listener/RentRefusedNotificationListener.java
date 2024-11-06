@@ -1,4 +1,4 @@
-package com.loquei.core.application.rent.update.cancelRent.listener;
+package com.loquei.core.application.rent.update.refuseRent.listener;
 
 import com.loquei.common.event.EventListener;
 import com.loquei.common.exceptions.NotFoundException;
@@ -9,25 +9,26 @@ import com.loquei.core.domain.item.ItemId;
 import com.loquei.core.domain.rent.Rent;
 import com.loquei.core.domain.rent.RentGateway;
 import com.loquei.core.domain.rent.RentId;
-import com.loquei.core.domain.rent.event.RentCancelledNotificationEvent;
+import com.loquei.core.domain.rent.event.RentRefusedNotificationEvent;
 import com.loquei.core.domain.user.User;
 import com.loquei.core.domain.user.UserGateway;
 import com.loquei.core.domain.user.UserId;
 
 import java.util.function.Supplier;
 
-import static com.loquei.core.application.rent.update.cancelRent.listener.LesseeRentCancelledEmailHelper.buildLesseeEmail;
-import static com.loquei.core.application.rent.update.cancelRent.listener.LessorRentCancelledEmailHelper.buildLessorEmail;
+
+import static com.loquei.core.application.rent.update.refuseRent.listener.LesseeRentRefusedEmailHelper.buildLesseeEmail;
+import static com.loquei.core.application.rent.update.refuseRent.listener.LessorRentRefusedEmailHelper.buildLessorEmail;
 import static java.util.Objects.requireNonNull;
 
-public class RentCancelledNotificationListener implements EventListener<RentCancelledNotificationEvent> {
+public class RentRefusedNotificationListener implements EventListener<RentRefusedNotificationEvent> {
 
     private final RentGateway rentGateway;
     private final UserGateway userGateway;
     private final ItemGateway itemGateway;
     private final EmailGateway emailGateway;
 
-    public RentCancelledNotificationListener(
+    public RentRefusedNotificationListener(
             final RentGateway rentGateway,
             final UserGateway userGateway,
             final ItemGateway itemGateway,
@@ -40,7 +41,7 @@ public class RentCancelledNotificationListener implements EventListener<RentCanc
     }
 
     @Override
-    public void onEvent(final RentCancelledNotificationEvent event) {
+    public void onEvent(final RentRefusedNotificationEvent event) {
         final var rentId = event.getRentId();
         final var rent = retireveRent(rentId);
 
