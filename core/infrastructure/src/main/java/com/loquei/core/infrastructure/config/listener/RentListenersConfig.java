@@ -1,6 +1,7 @@
 package com.loquei.core.infrastructure.config.listener;
 
 import com.loquei.core.application.rent.update.acceptRent.listener.RentAcceptedNotificationListener;
+import com.loquei.core.application.rent.update.cancelRent.listener.RentCancelledNotificationListener;
 import com.loquei.core.domain.email.EmailGateway;
 import com.loquei.core.domain.item.ItemGateway;
 import com.loquei.core.domain.rent.RentGateway;
@@ -31,6 +32,11 @@ public class RentListenersConfig {
     @Bean
     public RentAcceptedNotificationListener rentAcceptedNotificationListener() {
         return new RentAcceptedNotificationListener(rentGateway, userGateway, itemGateway, emailGateway);
+    }
+
+    @Bean
+    public RentCancelledNotificationListener rentCancelledNotificationListener() {
+        return new RentCancelledNotificationListener(rentGateway, userGateway, itemGateway, emailGateway);
     }
 
 }
