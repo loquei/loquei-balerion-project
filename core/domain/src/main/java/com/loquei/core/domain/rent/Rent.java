@@ -137,8 +137,8 @@ public class Rent extends AggregateRoot<RentId> {
             this.status = RentStatus.IN_PROGRESS;
         } else if (this.endDate.isBefore(now) && this.status.equals(RentStatus.IN_PROGRESS)) {
             this.status = RentStatus.COMPLETED;
-        } else if (this.startDate.isAfter(now) && this.status.equals(RentStatus.PENDING)) {
-            this.status = RentStatus.CANCELLED;
+        } else if (this.startDate.isBefore(now) && this.status.equals(RentStatus.PENDING)) {
+            this.status = RentStatus.REFUSED;
         }
     }
 

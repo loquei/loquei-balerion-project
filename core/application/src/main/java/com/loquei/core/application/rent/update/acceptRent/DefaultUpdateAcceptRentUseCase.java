@@ -4,6 +4,7 @@ import static io.vavr.API.Left;
 import static io.vavr.API.Try;
 import static java.util.Objects.requireNonNull;
 
+import com.loquei.common.event.EventDispatcher;
 import com.loquei.common.exceptions.NotFoundException;
 import com.loquei.common.validation.Error;
 import com.loquei.common.validation.handler.Notification;
@@ -11,14 +12,17 @@ import com.loquei.core.domain.rent.Rent;
 import com.loquei.core.domain.rent.RentGateway;
 import com.loquei.core.domain.rent.RentId;
 import com.loquei.core.domain.rent.RentStatus;
+import com.loquei.core.domain.rent.event.RentAcceptedNotificationEvent;
 import io.vavr.control.Either;
 import java.util.function.Supplier;
 
 public class DefaultUpdateAcceptRentUseCase extends UpdateAcceptRentUseCase {
     private final RentGateway rentGateway;
+    private final EventDispatcher eventDispatcher;
 
-    public DefaultUpdateAcceptRentUseCase(final RentGateway rentGateway) {
+    public DefaultUpdateAcceptRentUseCase(final RentGateway rentGateway, final EventDispatcher eventDispatcher) {
         this.rentGateway = requireNonNull(rentGateway);
+        this.eventDispatcher = requireNonNull(eventDispatcher);
     }
 
     @Override
@@ -37,7 +41,13 @@ public class DefaultUpdateAcceptRentUseCase extends UpdateAcceptRentUseCase {
         rent.acceptRent();
         rent.validate(notification);
 
-        return notification.hasError() ? Left(notification) : update(rent);
+        if (notification.hasError()) return Left(notification);
+
+        final var updatedRent = update(rent);
+
+        eventDispatcher.dispatch(RentAcceptedNotificationEvent.with(rentId));
+
+        return updatedRent;
     }
 
     private Either<Notification, UpdateAcepptRentOutput> update(Rent rent) {

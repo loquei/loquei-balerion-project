@@ -51,7 +51,7 @@ public class RentUseCaseConfig {
 
     @Bean
     public UpdateAcceptRentUseCase updateAcceptRentUseCase() {
-        return new DefaultUpdateAcceptRentUseCase(rentGateway);
+        return new DefaultUpdateAcceptRentUseCase(rentGateway, eventDispatcher);
     }
 
     @Bean
