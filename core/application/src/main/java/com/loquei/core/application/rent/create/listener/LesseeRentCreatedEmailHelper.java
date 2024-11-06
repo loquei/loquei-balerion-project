@@ -1,4 +1,4 @@
-package com.loquei.core.application.rent.create;
+package com.loquei.core.application.rent.create.listener;
 
 import com.loquei.common.utils.EmailUtils;
 import com.loquei.core.domain.email.Email;
@@ -6,9 +6,9 @@ import com.loquei.core.domain.item.Item;
 import com.loquei.core.domain.rent.Rent;
 import com.loquei.core.domain.user.User;
 
-public final class SendLesseeRentRequestEmailHelper {
+public final class LesseeRentCreatedEmailHelper {
 
-    private SendLesseeRentRequestEmailHelper() {}
+    private LesseeRentCreatedEmailHelper() {}
 
     public static Email buildLesseeEmail(final User lessor, final Item item, final Rent rent) {
         final var email = lessor.getEmail();

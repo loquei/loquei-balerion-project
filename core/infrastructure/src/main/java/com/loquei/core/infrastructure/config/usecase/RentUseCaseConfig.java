@@ -56,12 +56,12 @@ public class RentUseCaseConfig {
 
     @Bean
     public UpdateCancelRentUseCase updateCancelRentUseCase() {
-        return new DefaultUpdateCancelRentUseCase(rentGateway);
+        return new DefaultUpdateCancelRentUseCase(rentGateway, eventDispatcher);
     }
 
     @Bean
     public UpdateRefuseRentUseCase updateRefuseRentUseCase() {
-        return new DefaultUpdateRefuseRentUseCase(rentGateway);
+        return new DefaultUpdateRefuseRentUseCase(rentGateway, eventDispatcher);
     }
 
     @Bean

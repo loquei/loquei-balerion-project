@@ -1,6 +1,7 @@
 package com.loquei.core.infrastructure.config.event;
 
 import com.loquei.common.event.EventDispatcher;
+import com.loquei.core.application.rent.create.listener.RentCreatedNotificationListener;
 import com.loquei.core.application.rent.update.acceptRent.listener.RentAcceptedNotificationListener;
 import com.loquei.core.application.rent.update.cancelRent.listener.RentCancelledNotificationListener;
 import com.loquei.core.application.rent.update.refuseRent.listener.RentRefusedNotificationListener;
@@ -20,6 +21,7 @@ public class EventConfiguration {
 
     // Listeners
     private final EmailEventListener emailEventListener;
+    private final RentCreatedNotificationListener rentCreatedNotificationListener;
     private final RentAcceptedNotificationListener rentAcceptedNotificationListener;
     private final RentCancelledNotificationListener rentCancelledNotificationListener;
     private final RentRefusedNotificationListener rentRefusedNotificationListener;
@@ -29,12 +31,16 @@ public class EventConfiguration {
             final EventDispatcher eventDispatcher,
             // Listeners
             final EmailEventListener emailEventListener,
+            final RentCreatedNotificationListener rentCreatedNotificationListener,
             final RentAcceptedNotificationListener rentAcceptedNotificationListener,
             final RentCancelledNotificationListener rentCancelledNotificationListener,
             final RentRefusedNotificationListener rentRefusedNotificationListener
     ) {
+        // Dispatcher
         this.eventDispatcher = eventDispatcher;
+        // Listeners
         this.emailEventListener = emailEventListener;
+        this.rentCreatedNotificationListener = rentCreatedNotificationListener;
         this.rentAcceptedNotificationListener = rentAcceptedNotificationListener;
         this.rentCancelledNotificationListener = rentCancelledNotificationListener;
         this.rentRefusedNotificationListener = rentRefusedNotificationListener;
@@ -45,6 +51,9 @@ public class EventConfiguration {
 
         // Register Email Event Listener
         eventDispatcher.registerListener(EmailEvent.class, emailEventListener);
+
+        // Register RentCreatedNotificationEvent Listener
+        eventDispatcher.registerListener(RentAcceptedNotificationEvent.class, rentAcceptedNotificationListener);
 
         // Register RentAcceptedNotificationEvent Listener
         eventDispatcher.registerListener(RentAcceptedNotificationEvent.class, rentAcceptedNotificationListener);

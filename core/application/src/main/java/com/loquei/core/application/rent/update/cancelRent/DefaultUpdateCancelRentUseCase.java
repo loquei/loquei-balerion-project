@@ -4,6 +4,7 @@ import static io.vavr.API.Left;
 import static io.vavr.API.Try;
 import static java.util.Objects.requireNonNull;
 
+import com.loquei.common.event.EventDispatcher;
 import com.loquei.common.exceptions.NotFoundException;
 import com.loquei.common.validation.Error;
 import com.loquei.common.validation.handler.Notification;
@@ -11,15 +12,18 @@ import com.loquei.core.domain.rent.Rent;
 import com.loquei.core.domain.rent.RentGateway;
 import com.loquei.core.domain.rent.RentId;
 import com.loquei.core.domain.rent.RentStatus;
+import com.loquei.core.domain.rent.event.RentCancelledNotificationEvent;
 import io.vavr.control.Either;
 import java.util.function.Supplier;
 
 public class DefaultUpdateCancelRentUseCase extends UpdateCancelRentUseCase {
 
     private final RentGateway rentGateway;
+    private final EventDispatcher eventDispatcher;
 
-    public DefaultUpdateCancelRentUseCase(final RentGateway rentGateway) {
+    public DefaultUpdateCancelRentUseCase(final RentGateway rentGateway, final EventDispatcher eventDispatcher) {
         this.rentGateway = requireNonNull(rentGateway);
+        this.eventDispatcher = requireNonNull(eventDispatcher);
     }
 
     @Override
@@ -39,7 +43,13 @@ public class DefaultUpdateCancelRentUseCase extends UpdateCancelRentUseCase {
         rent.cancelRent(cancellationReason);
         rent.validate(notification);
 
-        return notification.hasError() ? Left(notification) : update(rent);
+        if (notification.hasError()) return Left(notification);
+
+        final var updatedReturn = update(rent);
+
+        eventDispatcher.dispatch(RentCancelledNotificationEvent.with(rentId));
+
+        return updatedReturn;
     }
 
     private Either<Notification, UpdateCancelRentOutput> update(Rent rent) {

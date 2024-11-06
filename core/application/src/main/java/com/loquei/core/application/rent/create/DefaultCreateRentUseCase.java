@@ -12,6 +12,7 @@ import com.loquei.core.domain.item.ItemId;
 import com.loquei.core.domain.rent.Rent;
 import com.loquei.core.domain.rent.RentCalculator;
 import com.loquei.core.domain.rent.RentGateway;
+import com.loquei.core.domain.rent.event.RentCreatedNotificationEvent;
 import com.loquei.core.domain.user.User;
 import com.loquei.core.domain.user.UserGateway;
 import com.loquei.core.domain.user.UserId;
@@ -77,24 +78,9 @@ public class DefaultCreateRentUseCase extends CreateRentUseCase {
 
         final var createdReturn = create(rent);
 
-        sendEmails(lessor, lessee, item, rent);
+        eventDispatcher.dispatch(RentCreatedNotificationEvent.with(rent.getId()));
 
         return createdReturn;
-    }
-
-    private void sendEmails(final User lessor, final User lessee, final Item item, final Rent rent) {
-        sendLessorEmail(lessor, item, rent);
-        sendLesseeEmail(lessee, item, rent);
-    }
-
-    private void sendLessorEmail(final User lessor, final Item item, final Rent rent) {
-        final var lessorEmail = SendLessorRentRequestEmailHelper.buildLessorEmail(lessor, item, rent);
-        eventDispatcher.dispatch(new EmailEvent(lessorEmail));
-    }
-
-    private void sendLesseeEmail(final User lessee, final Item item, final Rent rent) {
-        final var lesseeEmail = SendLesseeRentRequestEmailHelper.buildLesseeEmail(lessee, item, rent);
-        eventDispatcher.dispatch(new EmailEvent(lesseeEmail));
     }
 
     private Optional<Error> isItemAvailableForRent(ItemId itemId, LocalDateTime startDate, LocalDateTime endDate) {
