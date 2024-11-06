@@ -1,9 +1,11 @@
 package com.loquei.core.application.rent.create;
 
+import com.loquei.common.event.EventDispatcher;
 import com.loquei.common.exceptions.NotFoundException;
 import com.loquei.common.validation.Error;
 import com.loquei.common.validation.handler.Notification;
 import com.loquei.core.domain.email.EmailGateway;
+import com.loquei.core.domain.email.event.EmailEvent;
 import com.loquei.core.domain.item.Item;
 import com.loquei.core.domain.item.ItemGateway;
 import com.loquei.core.domain.item.ItemId;
@@ -31,17 +33,20 @@ public class DefaultCreateRentUseCase extends CreateRentUseCase {
     private final UserGateway userGateway;
     private final ItemGateway itemGateway;
     private final EmailGateway emailGateway;
+    private final EventDispatcher eventDispatcher;
 
     public DefaultCreateRentUseCase(
             final RentGateway rentGateway,
             final UserGateway userGateway,
             final ItemGateway itemGateway,
-            final EmailGateway emailGateway
+            final EmailGateway emailGateway,
+            final EventDispatcher eventDispatcher
     ) {
         this.rentGateway = requireNonNull(rentGateway);
         this.userGateway = requireNonNull(userGateway);
         this.itemGateway = requireNonNull(itemGateway);
         this.emailGateway = requireNonNull(emailGateway);
+        this.eventDispatcher = requireNonNull(eventDispatcher);
     }
 
     @Override
@@ -84,12 +89,12 @@ public class DefaultCreateRentUseCase extends CreateRentUseCase {
 
     private void sendLessorEmail(final User lessor, final Item item, final Rent rent) {
         final var lessorEmail = SendLessorRentRequestEmailHelper.buildLessorEmail(lessor, item, rent);
-        CompletableFuture.runAsync(() -> this.emailGateway.send(lessorEmail));
+        eventDispatcher.dispatch(new EmailEvent(lessorEmail));
     }
 
     private void sendLesseeEmail(final User lessee, final Item item, final Rent rent) {
         final var lesseeEmail = SendLesseeRentRequestEmailHelper.buildLesseeEmail(lessee, item, rent);
-        CompletableFuture.runAsync(() -> this.emailGateway.send(lesseeEmail));
+        eventDispatcher.dispatch(new EmailEvent(lesseeEmail));
     }
 
     private Optional<Error> isItemAvailableForRent(ItemId itemId, LocalDateTime startDate, LocalDateTime endDate) {

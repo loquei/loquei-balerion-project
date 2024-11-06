@@ -1,5 +1,6 @@
 package com.loquei.core.infrastructure.config.usecase;
 
+import com.loquei.common.event.EventDispatcher;
 import com.loquei.core.application.rent.create.CreateRentUseCase;
 import com.loquei.core.application.rent.create.DefaultCreateRentUseCase;
 import com.loquei.core.application.rent.retrieve.checkavailability.DefaultIsItemAvailableForRentUseCase;
@@ -32,18 +33,20 @@ public class RentUseCaseConfig {
     private final UserGateway userGateway;
     private final ItemGateway itemGateway;
     private final EmailGateway emailGateway;
+    private final EventDispatcher eventDispatcher;
 
     public RentUseCaseConfig(
-            final RentGateway rentGateway, final UserGateway userGateway, final ItemGateway itemGateway, final EmailGateway emailGateway) {
+            final RentGateway rentGateway, final UserGateway userGateway, final ItemGateway itemGateway, final EmailGateway emailGateway, final EventDispatcher eventDispatcher) {
         this.rentGateway = rentGateway;
         this.userGateway = userGateway;
         this.itemGateway = itemGateway;
         this.emailGateway = emailGateway;
+        this.eventDispatcher = eventDispatcher;
     }
 
     @Bean
     public CreateRentUseCase createRentUseCase() {
-        return new DefaultCreateRentUseCase(rentGateway, userGateway, itemGateway, emailGateway);
+        return new DefaultCreateRentUseCase(rentGateway, userGateway, itemGateway, emailGateway, eventDispatcher);
     }
 
     @Bean
