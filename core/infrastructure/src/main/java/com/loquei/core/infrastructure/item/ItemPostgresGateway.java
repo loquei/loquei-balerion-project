@@ -1,5 +1,6 @@
 package com.loquei.core.infrastructure.item;
 
+import static com.loquei.core.infrastructure.utils.SpecificationUtils.dynamicLike;
 import static com.loquei.core.infrastructure.utils.SpecificationUtils.like;
 
 import com.loquei.common.pagination.Pagination;
@@ -143,8 +144,8 @@ public class ItemPostgresGateway implements ItemGateway {
     }
 
     private Specification<ItemJpaEntity> assembleSpecification(final String str) {
-        final Specification<ItemJpaEntity> nameLike = like("name", str);
-        final Specification<ItemJpaEntity> desciprtionLike = like("description", str);
+        final Specification<ItemJpaEntity> nameLike = dynamicLike("name", str);
+        final Specification<ItemJpaEntity> desciprtionLike = dynamicLike("description", str);
         return nameLike.or(desciprtionLike);
     }
 }

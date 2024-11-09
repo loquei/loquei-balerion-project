@@ -1,5 +1,7 @@
 package com.loquei.core.infrastructure.utils;
 
+import java.util.stream.Collectors;
+
 public final class SqlUtils {
 
     private SqlUtils() {}
@@ -13,4 +15,13 @@ public final class SqlUtils {
         if (term == null) return null;
         return "%" + term + "%";
     }
+
+    public static String dynamicLike(final String term) {
+        if (term == null) return null;
+        return "%" + term.chars()
+                .mapToObj(c -> (char) c)
+                .map(String::valueOf)
+                .collect(Collectors.joining("%")) + "%";
+    }
+
 }
