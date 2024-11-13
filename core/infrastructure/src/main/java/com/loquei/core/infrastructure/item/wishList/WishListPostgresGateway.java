@@ -8,6 +8,7 @@ import com.loquei.core.domain.user.UserId;
 import com.loquei.core.infrastructure.item.wishList.persistence.WishListJpaEntity;
 import com.loquei.core.infrastructure.item.wishList.persistence.WishListRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -28,6 +29,7 @@ public class WishListPostgresGateway implements WishListGateway {
     }
 
     @Override
+    @Transactional
     public void removeFromWishlist(UserId userId, ItemId itemId) {
         wishListRepository.deleteByUserIdAndItemId(userId.getValue(), itemId.getValue());
     }

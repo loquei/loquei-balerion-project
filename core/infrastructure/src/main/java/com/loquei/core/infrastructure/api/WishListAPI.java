@@ -24,7 +24,7 @@ public interface WishListAPI {
             })
     Object create(@RequestBody CreateWishListRequest input);
 
-    @DeleteMapping(value = "{id}")
+    @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete an wishlist by it's identifier")
     @ApiResponses(

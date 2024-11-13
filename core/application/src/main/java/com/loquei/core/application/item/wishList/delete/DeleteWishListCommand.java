@@ -10,6 +10,6 @@ public record DeleteWishListCommand(
     public static DeleteWishListCommand with(
             final String userId,
             final String itemId){
-        return  new DeleteWishListCommand(userId,itemId);
+        return  new DeleteWishListCommand(itemId, userId);
     }
 }
