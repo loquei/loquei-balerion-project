@@ -12,6 +12,8 @@ public interface ItemImageGateway {
 
     List<ItemImage> findByItemId(final ItemId itemId);
 
+    Optional<ItemImage> findMainImageByItemId (final ItemId itemId);
+
     void delete(final ItemImageId itemId);
 
     void deleteByItemId(final ItemId itemId);
