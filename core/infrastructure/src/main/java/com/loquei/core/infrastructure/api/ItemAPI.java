@@ -5,6 +5,7 @@ import com.loquei.core.infrastructure.item.models.CreateItemRequest;
 import com.loquei.core.infrastructure.item.models.ItemListResponse;
 import com.loquei.core.infrastructure.item.models.ItemResponse;
 import com.loquei.core.infrastructure.item.models.UpdateItemRequest;
+import com.loquei.core.infrastructure.item.wishList.model.ListItemWishListResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -62,6 +63,23 @@ public interface ItemAPI {
             @RequestParam(name = "perPage", required = false, defaultValue = "10") final int perPage,
             @RequestParam(name = "sort", required = false, defaultValue = "name") final String sort,
             @RequestParam(name = "dir", required = false, defaultValue = "asc") final String direction);
+
+    @GetMapping(value = "/wishlist/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "List all items from a wishlist")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200", description = "Listed successfully"),
+                    @ApiResponse(responseCode = "422", description = "A invalid parameter was received"),
+                    @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
+            })
+    Pagination<ListItemWishListResponse> findItemsFromWishList(
+            @PathVariable(name = "userId") final String userId,
+            @RequestParam(name = "search", required = false, defaultValue = "") final String search,
+            @RequestParam(name = "page", required = false, defaultValue = "0") final int page,
+            @RequestParam(name = "perPage", required = false, defaultValue = "10") final int perPage,
+            @RequestParam(name = "sort", required = false, defaultValue = "name") final String sort,
+            @RequestParam(name = "dir", required = false, defaultValue = "asc") final String direction);
+
 
     @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Get a items by it's identifier")

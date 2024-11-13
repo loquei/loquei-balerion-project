@@ -1,6 +1,7 @@
 package com.loquei.core.infrastructure.item.persistence;
 
 import com.loquei.core.infrastructure.item.recently.persistence.RecentlyViewedItemJpaEntity;
+import com.loquei.core.infrastructure.item.wishList.persistence.WishListJpaEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -35,6 +36,17 @@ public interface ItemRepository extends JpaRepository<ItemJpaEntity, String> {
             var subRoot = subquery.from(RecentlyViewedItemJpaEntity.class);
             subquery.select(subRoot.get("item")).where(criteriaBuilder.equal(subRoot.get("userId"), userId));
             query.orderBy(criteriaBuilder.desc(subRoot.get("viewedAt")));
+            return criteriaBuilder.in(root.get("id")).value(subquery);
+        };
+        return findAll(Specification.where(userSpec).and(spec), pageable);
+    }
+
+    default Page<ItemJpaEntity> findItemsFromWishList(
+            String userId, Specification<ItemJpaEntity> spec, Pageable pageable) {
+        Specification<ItemJpaEntity> userSpec = (root, query, criteriaBuilder) -> {
+            var subquery = query.subquery(String.class);
+            var subRoot = subquery.from(WishListJpaEntity.class);
+            subquery.select(subRoot.get("itemId")).where(criteriaBuilder.equal(subRoot.get("userId"), userId));
             return criteriaBuilder.in(root.get("id")).value(subquery);
         };
         return findAll(Specification.where(userSpec).and(spec), pageable);

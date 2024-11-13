@@ -17,6 +17,8 @@ public interface ItemGateway {
 
     Pagination<Item> findRecentlyViewedItemsByUserId(UserId userId, SearchQuery query);
 
+    Pagination<Item> findItemsFromWishList(UserId userId, SearchQuery query);
+
     Pagination<Item> findByOwnerId(UserId userId, SearchQuery query);
 
     void delete(ItemId itemId);

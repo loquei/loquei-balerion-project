@@ -37,6 +37,11 @@ public class ItemImagePostgresGateway implements ItemImageGateway {
     }
 
     @Override
+    public Optional<ItemImage> findMainImageByItemId(ItemId itemId) {
+        return itemImageRepository.findMainImageByItemId(itemId.getValue()).map(ItemImageJpaEntity::toEntity);
+    }
+
+    @Override
     public void delete(final ItemImageId itemId) {
         final var idValue = itemId.getValue();
         if (this.itemImageRepository.existsById(idValue)) {
