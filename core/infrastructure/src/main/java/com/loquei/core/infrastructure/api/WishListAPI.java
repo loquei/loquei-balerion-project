@@ -1,6 +1,7 @@
 package com.loquei.core.infrastructure.api;
 
 import com.loquei.core.infrastructure.item.wishList.model.CreateWishListRequest;
+import com.loquei.core.infrastructure.item.wishList.model.DeleteWishListRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -32,6 +33,6 @@ public interface WishListAPI {
                     @ApiResponse(responseCode = "404", description = "User was not found"),
                     @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
             })
-    void deleteById(@PathVariable(name = "id") String id);
+    void deleteById(@RequestBody DeleteWishListRequest input);
 
 }

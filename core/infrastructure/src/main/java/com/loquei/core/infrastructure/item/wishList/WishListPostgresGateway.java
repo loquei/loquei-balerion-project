@@ -28,9 +28,10 @@ public class WishListPostgresGateway implements WishListGateway {
     }
 
     @Override
-    public void removeFromWishlist(WishListId wishListId) {
-        wishListRepository.deleteById(wishListId.getValue());
+    public void removeFromWishlist(UserId userId, ItemId itemId) {
+        wishListRepository.deleteByUserIdAndItemId(userId.getValue(), itemId.getValue());
     }
+
 
     @Override
     public Boolean existsWishListByUserIdAndItemId(UserId userId, ItemId itemId) {

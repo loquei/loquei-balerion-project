@@ -1,7 +1,8 @@
 package com.loquei.core.application.item.wishList.delete;
 
+import com.loquei.core.domain.item.ItemId;
 import com.loquei.core.domain.item.wishList.WishListGateway;
-import com.loquei.core.domain.item.wishList.WishListId;
+import com.loquei.core.domain.user.UserId;
 
 import static java.util.Objects.requireNonNull;
 
@@ -13,8 +14,13 @@ public class DefaultDeleteWishListUseCase extends DeleteWishListUseCase {
         this.wishListGateway = requireNonNull(wishListGateway);
     }
 
+
     @Override
-    public void execute(String anIN) {
-        this.wishListGateway.removeFromWishlist(WishListId.from(anIN));
+    public void execute(DeleteWishListCommand anIN) {
+
+        final var itemId= ItemId.from(anIN.itemId());
+        final var userId= UserId.from(anIN.userId());
+
+        this.wishListGateway.removeFromWishlist(userId, itemId);
     }
 }

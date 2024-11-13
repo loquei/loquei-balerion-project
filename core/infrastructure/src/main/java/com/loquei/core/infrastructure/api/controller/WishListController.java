@@ -1,14 +1,14 @@
 package com.loquei.core.infrastructure.api.controller;
 
 import com.loquei.common.validation.handler.Notification;
-import com.loquei.core.application.item.create.CreateItemCommand;
-import com.loquei.core.application.item.create.CreateItemOutput;
 import com.loquei.core.application.item.wishList.create.CreateWishListCommand;
 import com.loquei.core.application.item.wishList.create.CreateWishListOutput;
 import com.loquei.core.application.item.wishList.create.CreateWishListUseCase;
+import com.loquei.core.application.item.wishList.delete.DeleteWishListCommand;
 import com.loquei.core.application.item.wishList.delete.DeleteWishListUseCase;
 import com.loquei.core.infrastructure.api.WishListAPI;
 import com.loquei.core.infrastructure.item.wishList.model.CreateWishListRequest;
+import com.loquei.core.infrastructure.item.wishList.model.DeleteWishListRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,7 +46,14 @@ public class WishListController implements WishListAPI {
     }
 
     @Override
-    public void deleteById(String id) {
-        deleteWishListUseCase.execute(id);
+    public void deleteById(DeleteWishListRequest input) {
+        final var acommand = DeleteWishListCommand.with(
+                input.userId(),
+                input.itemId()
+        );
+
+        deleteWishListUseCase.execute(acommand);
     }
+
+
 }
