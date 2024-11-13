@@ -83,6 +83,26 @@ public class ItemPostgresGateway implements ItemGateway {
     }
 
     @Override
+    public Pagination<Item> findItemsFromWishList(UserId userId, SearchQuery aQuery) {
+        final var page = PageRequest.of(
+                aQuery.page(), aQuery.perPage(), Sort.by(Sort.Direction.fromString(aQuery.direction()), aQuery.sort()));
+
+        final var specifications = Optional.ofNullable(aQuery.terms())
+                .filter(str -> !str.isBlank())
+                .map(this::assembleSpecification)
+                .orElse(null);
+
+        final var pageResult =
+                this.itemRespository.findItemsFromWishList(userId.getValue(), specifications, page);
+
+        return new Pagination<>(
+                pageResult.getNumber(),
+                pageResult.getSize(),
+                pageResult.getTotalElements(),
+                pageResult.map(ItemJpaEntity::toAggregate).toList());
+    }
+
+    @Override
     public Pagination<Item> findByOwnerId(final UserId userId, final SearchQuery aQuery) {
         final var page = PageRequest.of(
                 aQuery.page(), aQuery.perPage(), Sort.by(Sort.Direction.fromString(aQuery.direction()), aQuery.sort()));

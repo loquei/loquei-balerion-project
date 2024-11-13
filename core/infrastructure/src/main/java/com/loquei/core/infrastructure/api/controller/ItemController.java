@@ -15,6 +15,8 @@ import com.loquei.core.application.item.retrieve.list.ListItemsUseCase;
 import com.loquei.core.application.item.update.UpdateItemCommand;
 import com.loquei.core.application.item.update.UpdateItemOutput;
 import com.loquei.core.application.item.update.UpdateItemUseCase;
+import com.loquei.core.application.item.wishList.retrieve.list.ListWishListItemUseCase;
+import com.loquei.core.application.item.wishList.retrieve.list.ListWishListParams;
 import com.loquei.core.infrastructure.api.ItemAPI;
 import com.loquei.core.infrastructure.item.models.CreateItemRequest;
 import com.loquei.core.infrastructure.item.models.ItemListResponse;
@@ -23,6 +25,9 @@ import com.loquei.core.infrastructure.item.models.UpdateItemRequest;
 import com.loquei.core.infrastructure.item.presenter.ItemApiPresenter;
 import java.net.URI;
 import java.util.function.Function;
+
+import com.loquei.core.infrastructure.item.wishList.model.ListItemWishListResponse;
+import com.loquei.core.infrastructure.item.wishList.presenter.WishListApiPresenter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,6 +40,7 @@ public class ItemController implements ItemAPI {
     private final GetItemByIdUseCase getItemByIdUseCase;
     private final ListItemsUseCase listItemsUseCase;
     private final ListItemsByCategoryUseCase listItemsByCategoryUseCase;
+    private final ListWishListItemUseCase listWishListItemUseCase;
 
     public ItemController(
             final CreateItemUseCase createItemUseCase,
@@ -42,13 +48,15 @@ public class ItemController implements ItemAPI {
             final DeleteItemUseCase deleteItemUseCase,
             final GetItemByIdUseCase getItemByIdUseCase,
             final ListItemsUseCase listItemsUseCase,
-            final ListItemsByCategoryUseCase listItemsByCategoryUseCase) {
+            final ListItemsByCategoryUseCase listItemsByCategoryUseCase,
+            final ListWishListItemUseCase listWishListItemUseCase) {
         this.createItemUseCase = createItemUseCase;
         this.updateItemUseCase = updateItemUseCase;
         this.deleteItemUseCase = deleteItemUseCase;
         this.getItemByIdUseCase = getItemByIdUseCase;
         this.listItemsUseCase = listItemsUseCase;
         this.listItemsByCategoryUseCase = listItemsByCategoryUseCase;
+        this.listWishListItemUseCase = listWishListItemUseCase;
     }
 
     @Override
@@ -100,6 +108,20 @@ public class ItemController implements ItemAPI {
         return listItemsByCategoryUseCase
                 .execute(ListItemsByCategoryParams.with(categoryId, query))
                 .map(ItemApiPresenter::present);
+    }
+
+    @Override
+    public Pagination<ListItemWishListResponse> findItemsFromWishList(
+            final String userId,
+            final String search,
+            final int page,
+            final int perPage,
+            final String sort,
+            final String direction) {
+        final var query = new SearchQuery(page, perPage, search, sort, direction);
+        return listWishListItemUseCase
+                .execute(ListWishListParams.with(userId, query))
+                .map(WishListApiPresenter::present);
     }
 
     @Override

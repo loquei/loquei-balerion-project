@@ -12,6 +12,8 @@ import com.loquei.core.application.item.retrieve.list.DefaultListItemsUseCase;
 import com.loquei.core.application.item.retrieve.list.ListItemsUseCase;
 import com.loquei.core.application.item.update.DefaultUpdateItemUseCase;
 import com.loquei.core.application.item.update.UpdateItemUseCase;
+import com.loquei.core.application.item.wishList.retrieve.list.DefaultListWishListItemUseCase;
+import com.loquei.core.application.item.wishList.retrieve.list.ListWishListItemUseCase;
 import com.loquei.core.domain.category.CategoryGateway;
 import com.loquei.core.domain.item.ItemGateway;
 import com.loquei.core.domain.item.image.ItemImageGateway;
@@ -66,5 +68,10 @@ public class ItemUseCaseConfig {
     @Bean
     public ListItemsByCategoryUseCase listItemsByCategoryParams() {
         return new DefaultListItemsByCategoryUseCase(itemGateway, categoryGateway);
+    }
+
+    @Bean
+    public ListWishListItemUseCase listWishListItemUseCase(){
+        return new DefaultListWishListItemUseCase(itemGateway, itemImageGateway);
     }
 }
