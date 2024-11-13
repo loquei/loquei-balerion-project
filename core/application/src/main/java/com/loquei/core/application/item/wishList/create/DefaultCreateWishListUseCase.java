@@ -50,7 +50,7 @@ public class DefaultCreateWishListUseCase extends CreateWishListUseCase {
 
         final var wishlist = WishList.newWishList(user.getId(), item.getId());
 
-        ifExists(userId, itemId);
+        ifExists(userId, itemId).ifPresent(notification::append);
 
         wishlist.validate(notification);
 
