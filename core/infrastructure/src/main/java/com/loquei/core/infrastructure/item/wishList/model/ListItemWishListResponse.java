@@ -9,6 +9,6 @@ public record ListItemWishListResponse(
         @JsonProperty("daily_value") BigDecimal dailyValue,
         @JsonProperty("name") String name,
         @JsonProperty("description") String description,
-        @JsonProperty("itemImageId") String itemImageId
+        @JsonProperty("item_image_path") String itemImagePath
 ){
 }

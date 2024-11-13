@@ -4,6 +4,9 @@ import com.loquei.core.domain.item.Item;
 import com.loquei.core.domain.item.image.ItemImage;
 
 import java.math.BigDecimal;
+import java.util.Objects;
+
+import static java.util.Objects.isNull;
 
 public record ListWishListItemOutput(
         String itemId,
@@ -20,7 +23,7 @@ public record ListWishListItemOutput(
                 item.getDailyValue(),
                 item.getName(),
                 item.getDescription(),
-                itemImage.getId().getValue()
+                isNull(itemImage) ? null : itemImage.getId().getValue()
         );
     }
 

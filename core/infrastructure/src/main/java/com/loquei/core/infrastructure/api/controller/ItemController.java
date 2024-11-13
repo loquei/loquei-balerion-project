@@ -119,9 +119,12 @@ public class ItemController implements ItemAPI {
             final String sort,
             final String direction) {
         final var query = new SearchQuery(page, perPage, search, sort, direction);
+
+        final var baseImagePath = "/items/images/view/";
+
         return listWishListItemUseCase
                 .execute(ListWishListParams.with(userId, query))
-                .map(WishListApiPresenter::present);
+                .map(item -> WishListApiPresenter.present(item, baseImagePath));
     }
 
     @Override

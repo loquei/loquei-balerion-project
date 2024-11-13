@@ -21,6 +21,7 @@ public interface ItemImageRepository extends JpaRepository<ItemImageJpaEntity, S
             FROM ItemImageJpaEntity img
             WHERE img.itemId = :itemId
             ORDER BY img.createdAt ASC
+            LIMIT 1
             """)
     Optional<ItemImageJpaEntity> findMainImageByItemId(@Param("itemId") String itemId);
 }
