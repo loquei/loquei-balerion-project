@@ -21,6 +21,8 @@ public interface UserApiPresenter {
                 output.document(),
                 output.birth(),
                 output.score(),
+                output.feedbackCount(),
+                output.rentalsCount(),
                 output.createdAt(),
                 output.updatedAt());
     }

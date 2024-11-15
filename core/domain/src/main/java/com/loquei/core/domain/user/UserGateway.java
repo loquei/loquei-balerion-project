@@ -6,7 +6,11 @@ import java.util.Optional;
 
 public interface UserGateway {
 
+    Integer retrieveUserRatingCount(UserId userId);
+
     Float retrieveUserTotalScore(UserId userId);
+
+    Integer retrieveUserRentalsCount(UserId userId);
 
     User create(User user);
 

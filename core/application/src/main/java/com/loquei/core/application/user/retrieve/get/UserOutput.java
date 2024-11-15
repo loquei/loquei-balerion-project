@@ -13,6 +13,8 @@ public record UserOutput(
         String document,
         LocalDate birth,
         Float score,
+        Integer feedbackCount,
+        Integer rentalsCount,
         Instant createdAt,
         Instant updatedAt) {
 
@@ -25,6 +27,8 @@ public record UserOutput(
                 user.getPhone(),
                 user.getDocument(),
                 user.getBirth(),
+                null,
+                null,
                 null,
                 user.getCreatedAt(),
                 user.getUpdatedAt());
@@ -40,6 +44,45 @@ public record UserOutput(
                 user.getDocument(),
                 user.getBirth(),
                 score,
+                null,
+                null,
+                user.getCreatedAt(),
+                user.getUpdatedAt());
+    }
+
+    public static UserOutput from(final User user, final Float score, final Integer feedbackCount) {
+        return new UserOutput(
+                user.getId().getValue(),
+                user.getUserName(),
+                user.getPersonalName(),
+                user.getEmail(),
+                user.getPhone(),
+                user.getDocument(),
+                user.getBirth(),
+                score,
+                feedbackCount,
+                null,
+                user.getCreatedAt(),
+                user.getUpdatedAt());
+    }
+
+    public static UserOutput from(
+            final User user,
+            final Float score,
+            final Integer feedbackCount,
+            final Integer rentalsCount
+    ) {
+        return new UserOutput(
+                user.getId().getValue(),
+                user.getUserName(),
+                user.getPersonalName(),
+                user.getEmail(),
+                user.getPhone(),
+                user.getDocument(),
+                user.getBirth(),
+                score,
+                feedbackCount,
+                rentalsCount,
                 user.getCreatedAt(),
                 user.getUpdatedAt());
     }

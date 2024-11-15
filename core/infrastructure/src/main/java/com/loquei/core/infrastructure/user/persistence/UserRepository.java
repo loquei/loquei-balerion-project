@@ -26,6 +26,34 @@ public interface UserRepository extends JpaRepository<UserJpaEntity, String> {
                     """)
     Float retrieveUserTotalScore(@Param("userId") String userId);
 
+    @Query(
+            nativeQuery = true,
+            value =
+                    """
+                        SELECT
+                            COUNT(*)
+                        FROM ratings r
+                        WHERE r.item_id IN (
+                            SELECT i.id
+                            FROM items i
+                            WHERE user_id = :userId
+                        )
+                    """
+    )
+    Integer retrieveUserRatingCount(@Param("userId") String userId);
+
+    @Query(
+            nativeQuery = true,
+            value =
+                    """
+                        SELECT
+                            COUNT(*)
+                        FROM rentals
+                        WHERE lessor_id = :userId
+                    """
+    )
+    Integer retrieveUserRentalsCount(@Param("userId") String userId);
+
     Page<UserJpaEntity> findAll(Specification<UserJpaEntity> whereClause, Pageable page);
 
     Optional<UserJpaEntity> findByEmail(String email);

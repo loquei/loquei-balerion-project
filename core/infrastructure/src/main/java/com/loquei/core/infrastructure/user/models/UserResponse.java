@@ -13,5 +13,7 @@ public record UserResponse(
         @JsonProperty("document") String document,
         @JsonProperty("birth") LocalDate birth,
         @JsonProperty("score") Float score,
+        @JsonProperty("feedbacks_count") Integer feedbacksCount,
+        @JsonProperty("rentals_count") Integer rentalsCount,
         @JsonProperty("created_at") Instant createdAt,
         @JsonProperty("updated_at") Instant updatedAt) {}

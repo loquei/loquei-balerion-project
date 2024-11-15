@@ -19,16 +19,18 @@ public class DefaultGetUserByIdUseCase extends GetUserByIdUseCase {
     @Override
     public UserOutput execute(final String anId) {
         final var userId = UserId.from(anId);
-        return this.userGateway.findById(userId).map(this::withScore).orElseThrow(notFound(userId));
+        return this.userGateway.findById(userId).map(this::build).orElseThrow(notFound(userId));
     }
 
     private Supplier<NotFoundException> notFound(final UserId id) {
         return () -> NotFoundException.with(User.class, id);
     }
 
-    private UserOutput withScore(final User user) {
+    private UserOutput build(final User user) {
         final var score = this.userGateway.retrieveUserTotalScore(user.getId());
+        final var feedbackCount = this.userGateway.retrieveUserRatingCount(user.getId());
+        final var rentalsCount = this.userGateway.retrieveUserRentalsCount(user.getId());
 
-        return UserOutput.from(user, score);
+        return UserOutput.from(user, score, feedbackCount, rentalsCount);
     }
 }

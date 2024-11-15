@@ -26,8 +26,18 @@ public class UserPostgresGateway implements UserGateway {
     }
 
     @Override
+    public Integer retrieveUserRatingCount(final UserId userId) {
+        return userRepository.retrieveUserRatingCount(userId.getValue());
+    }
+
+    @Override
     public Float retrieveUserTotalScore(final UserId userId) {
         return userRepository.retrieveUserTotalScore(userId.getValue());
+    }
+
+    @Override
+    public Integer retrieveUserRentalsCount(final UserId userId) {
+        return userRepository.retrieveUserRentalsCount(userId.getValue());
     }
 
     @Override
