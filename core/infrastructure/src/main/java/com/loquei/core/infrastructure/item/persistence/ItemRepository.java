@@ -34,7 +34,7 @@ public interface ItemRepository extends JpaRepository<ItemJpaEntity, String> {
         Specification<ItemJpaEntity> userSpec = (root, query, criteriaBuilder) -> {
             var subquery = query.subquery(String.class);
             var subRoot = subquery.from(RecentlyViewedItemJpaEntity.class);
-            subquery.select(subRoot.get("item")).where(criteriaBuilder.equal(subRoot.get("userId"), userId));
+            subquery.select(subRoot.get("itemId")).where(criteriaBuilder.equal(subRoot.get("userId"), userId));
             query.orderBy(criteriaBuilder.desc(subRoot.get("viewedAt")));
             return criteriaBuilder.in(root.get("id")).value(subquery);
         };

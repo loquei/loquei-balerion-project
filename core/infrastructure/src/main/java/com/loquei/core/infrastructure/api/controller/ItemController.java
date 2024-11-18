@@ -10,6 +10,7 @@ import com.loquei.core.application.item.delete.DeleteItemUseCase;
 import com.loquei.core.application.item.retrieve.by.category.ListItemsByCategoryParams;
 import com.loquei.core.application.item.retrieve.by.category.ListItemsByCategoryUseCase;
 import com.loquei.core.application.item.retrieve.get.GetItemByIdUseCase;
+import com.loquei.core.application.item.retrieve.get.GetItemCommand;
 import com.loquei.core.application.item.retrieve.list.ListItemsParams;
 import com.loquei.core.application.item.retrieve.list.ListItemsUseCase;
 import com.loquei.core.application.item.update.UpdateItemCommand;
@@ -17,6 +18,7 @@ import com.loquei.core.application.item.update.UpdateItemOutput;
 import com.loquei.core.application.item.update.UpdateItemUseCase;
 import com.loquei.core.application.item.wishList.retrieve.list.ListWishListItemUseCase;
 import com.loquei.core.application.item.wishList.retrieve.list.ListWishListParams;
+import com.loquei.core.domain.security.token.SecurityTokenService;
 import com.loquei.core.infrastructure.api.ItemAPI;
 import com.loquei.core.infrastructure.item.models.CreateItemRequest;
 import com.loquei.core.infrastructure.item.models.ItemListResponse;
@@ -41,6 +43,7 @@ public class ItemController implements ItemAPI {
     private final ListItemsUseCase listItemsUseCase;
     private final ListItemsByCategoryUseCase listItemsByCategoryUseCase;
     private final ListWishListItemUseCase listWishListItemUseCase;
+    private final SecurityTokenService securityTokenService;
 
     public ItemController(
             final CreateItemUseCase createItemUseCase,
@@ -49,7 +52,8 @@ public class ItemController implements ItemAPI {
             final GetItemByIdUseCase getItemByIdUseCase,
             final ListItemsUseCase listItemsUseCase,
             final ListItemsByCategoryUseCase listItemsByCategoryUseCase,
-            final ListWishListItemUseCase listWishListItemUseCase) {
+            final ListWishListItemUseCase listWishListItemUseCase,
+            final SecurityTokenService securityTokenService) {
         this.createItemUseCase = createItemUseCase;
         this.updateItemUseCase = updateItemUseCase;
         this.deleteItemUseCase = deleteItemUseCase;
@@ -57,6 +61,7 @@ public class ItemController implements ItemAPI {
         this.listItemsUseCase = listItemsUseCase;
         this.listItemsByCategoryUseCase = listItemsByCategoryUseCase;
         this.listWishListItemUseCase = listWishListItemUseCase;
+        this.securityTokenService = securityTokenService;
     }
 
     @Override
@@ -128,8 +133,21 @@ public class ItemController implements ItemAPI {
     }
 
     @Override
-    public ItemResponse getById(final String id) {
-        return ItemApiPresenter.present(this.getItemByIdUseCase.execute(id));
+    public ItemResponse getById(final String id, final String token) {
+
+        String email = "";
+        if (token != null) {
+            final var jwt = extractJwtToken(token);
+            email = securityTokenService.extractEmail(jwt);
+        }
+
+        final var command = GetItemCommand.from(id, email);
+
+        return ItemApiPresenter.present(this.getItemByIdUseCase.execute(command));
+    }
+
+    private String extractJwtToken(final String auth) {
+        return auth.substring(7);
     }
 
     @Override

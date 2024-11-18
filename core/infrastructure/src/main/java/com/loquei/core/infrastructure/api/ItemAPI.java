@@ -89,7 +89,7 @@ public interface ItemAPI {
                 @ApiResponse(responseCode = "404", description = "User was not found"),
                 @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
             })
-    ItemResponse getById(@PathVariable(name = "id") String id);
+    ItemResponse getById(@PathVariable(name = "id") String id, @RequestHeader("Authorization") String header);
 
     @PutMapping(
             value = "{id}",

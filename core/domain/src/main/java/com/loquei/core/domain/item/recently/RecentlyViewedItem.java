@@ -42,6 +42,11 @@ public class RecentlyViewedItem extends Entity<RecentlyViewedItemId> {
         return new RecentlyViewedItem(id, userId, itemId, viewedAt, createdAt);
     }
 
+    public RecentlyViewedItem updateViewedAt() {
+        final var now = InstantUtils.now();
+        return new RecentlyViewedItem(getId(), getUserId(), getItemId(), now, getCreatedAt());
+    }
+
     @Override
     public void validate(final ValidationHandler aHandler) {
         // TODO: Implement validation

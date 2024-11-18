@@ -17,6 +17,8 @@ import com.loquei.core.application.item.wishList.retrieve.list.ListWishListItemU
 import com.loquei.core.domain.category.CategoryGateway;
 import com.loquei.core.domain.item.ItemGateway;
 import com.loquei.core.domain.item.image.ItemImageGateway;
+import com.loquei.core.domain.item.recently.RecentlyViewedItem;
+import com.loquei.core.domain.item.recently.RecentlyViewedItemGateway;
 import com.loquei.core.domain.user.UserGateway;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,16 +30,19 @@ public class ItemUseCaseConfig {
     private final ItemImageGateway itemImageGateway;
     private final CategoryGateway categoryGateway;
     private final UserGateway userGateway;
+    private final RecentlyViewedItemGateway recentlyViewedItemGateway;
 
     public ItemUseCaseConfig(
             final ItemGateway itemGateway,
             final ItemImageGateway itemImageGateway,
             final CategoryGateway categoryGateway,
-            final UserGateway userGateway) {
+            final UserGateway userGateway,
+            final RecentlyViewedItemGateway recentlyViewedItemGateway) {
         this.itemGateway = itemGateway;
         this.itemImageGateway = itemImageGateway;
         this.categoryGateway = categoryGateway;
         this.userGateway = userGateway;
+        this.recentlyViewedItemGateway = recentlyViewedItemGateway;
     }
 
     @Bean
@@ -57,7 +62,7 @@ public class ItemUseCaseConfig {
 
     @Bean
     public GetItemByIdUseCase getItemByIdUseCase() {
-        return new DefaultGetItemByIdUseCase(itemGateway);
+        return new DefaultGetItemByIdUseCase(itemGateway, userGateway, recentlyViewedItemGateway);
     }
 
     @Bean

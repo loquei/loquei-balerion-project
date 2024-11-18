@@ -3,9 +3,14 @@ package com.loquei.core.infrastructure.item.recently;
 import com.loquei.core.domain.item.recently.RecentlyViewedItem;
 import com.loquei.core.domain.item.recently.RecentlyViewedItemGateway;
 import com.loquei.core.domain.item.recently.RecentlyViewedItemId;
+import com.loquei.core.domain.user.UserId;
 import com.loquei.core.infrastructure.item.recently.persistence.RecentlyViewedItemJpaEntity;
 import com.loquei.core.infrastructure.item.recently.persistence.RecentlyViewedItemRepository;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
+
+@Component
 public class RecentlyViewedItemPostgresGateway implements RecentlyViewedItemGateway {
 
     private final RecentlyViewedItemRepository repository;
@@ -26,4 +31,12 @@ public class RecentlyViewedItemPostgresGateway implements RecentlyViewedItemGate
             this.repository.deleteById(idValue);
         }
     }
+
+    @Override
+    public List<RecentlyViewedItem> findAllByUserId(UserId userId) {
+        return repository.findAllByUserId(userId.getValue()).stream()
+                .map(RecentlyViewedItemJpaEntity::toEntity)
+                .toList();
+    }
+
 }
