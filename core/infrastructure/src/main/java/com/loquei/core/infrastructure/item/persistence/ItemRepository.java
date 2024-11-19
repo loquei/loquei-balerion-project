@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface ItemRepository extends JpaRepository<ItemJpaEntity, String> {
 
     @Query(
@@ -40,6 +42,16 @@ public interface ItemRepository extends JpaRepository<ItemJpaEntity, String> {
         };
         return findAll(Specification.where(userSpec).and(spec), pageable);
     }
+
+    @Query(
+            "SELECT item " +
+            "FROM Item item " +
+            "INNER JOIN RecentlyViewedItem recently " +
+            "ON item.id = recently.itemId " +
+            "WHERE recently.userId = :userId " +
+            "ORDER BY recently.viewedAt DESC"
+    )
+    List<ItemJpaEntity> findRecentlyViewedItemsByUserId(String userId);
 
     default Page<ItemJpaEntity> findItemsFromWishList(
             String userId, Specification<ItemJpaEntity> spec, Pageable pageable) {

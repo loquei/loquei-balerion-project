@@ -64,10 +64,7 @@ public class DefaultGetItemByIdUseCase extends GetItemByIdUseCase {
             if (recentlyOpt.isPresent()) {
                 final var recently = recentlyOpt.get();
 
-                recently.updateViewedAt();
-
-                recentlyViewedItemGateway.create(recently);
-                return;
+                recentlyViewedItemGateway.deleteById(recently.getId());
             }
         }
 
