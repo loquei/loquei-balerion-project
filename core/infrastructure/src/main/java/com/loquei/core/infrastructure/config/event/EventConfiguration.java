@@ -8,6 +8,7 @@ import com.loquei.core.application.rent.update.refuseRent.listener.RentRefusedNo
 import com.loquei.core.domain.email.event.EmailEvent;
 import com.loquei.core.domain.rent.event.RentAcceptedNotificationEvent;
 import com.loquei.core.domain.rent.event.RentCancelledNotificationEvent;
+import com.loquei.core.domain.rent.event.RentCreatedNotificationEvent;
 import com.loquei.core.domain.rent.event.RentRefusedNotificationEvent;
 import com.loquei.core.infrastructure.email.event.EmailEventListener;
 import org.springframework.context.annotation.Bean;
@@ -53,7 +54,7 @@ public class EventConfiguration {
         eventDispatcher.registerListener(EmailEvent.class, emailEventListener);
 
         // Register RentCreatedNotificationEvent Listener
-        eventDispatcher.registerListener(RentAcceptedNotificationEvent.class, rentAcceptedNotificationListener);
+        eventDispatcher.registerListener(RentCreatedNotificationEvent.class, rentCreatedNotificationListener);
 
         // Register RentAcceptedNotificationEvent Listener
         eventDispatcher.registerListener(RentAcceptedNotificationEvent.class, rentAcceptedNotificationListener);

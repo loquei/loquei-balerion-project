@@ -18,13 +18,13 @@ public final class LesseeRentRefusedEmailHelper {
     }
 
     private static String buildLesseeEmailSubject() {
-        return "Sua solicitação de locação foi aceita!";
+        return "Sua solicitação de locação foi recusada!";
     }
 
     private static String buildLesseeEmailBody(final User lessor, final Item item, final Rent rent) {
         final StringBuilder sb = new StringBuilder();
         sb.append("Olá ").append(lessor.getPersonalName()).append(", somos a Loquei!\n\n");
-        sb.append("Sua solicitação de locação foi aceita!\n");
+        sb.append("Sua solicitação de locação foi recusada!\n");
         sb.append("Confira abaixo os dados referente a locação:\n");
         sb.append("Item: ").append(item.getName()).append("\n");
         sb.append("Data de início: ").append(EmailUtils.formatLocalDateTime(rent.getStartDate())).append("\n");
