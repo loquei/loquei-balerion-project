@@ -8,12 +8,16 @@ import com.loquei.common.event.EventDispatcher;
 import com.loquei.common.exceptions.NotFoundException;
 import com.loquei.common.validation.Error;
 import com.loquei.common.validation.handler.Notification;
+import com.loquei.core.domain.item.ItemId;
 import com.loquei.core.domain.rent.Rent;
 import com.loquei.core.domain.rent.RentGateway;
 import com.loquei.core.domain.rent.RentId;
 import com.loquei.core.domain.rent.RentStatus;
 import com.loquei.core.domain.rent.event.RentAcceptedNotificationEvent;
+import com.loquei.core.domain.user.UserId;
 import io.vavr.control.Either;
+
+import java.util.List;
 import java.util.function.Supplier;
 
 public class DefaultUpdateAcceptRentUseCase extends UpdateAcceptRentUseCase {
@@ -43,11 +47,26 @@ public class DefaultUpdateAcceptRentUseCase extends UpdateAcceptRentUseCase {
 
         if (notification.hasError()) return Left(notification);
 
+        refuseConflictingRentals(rent);
+
         final var updatedRent = update(rent);
 
         eventDispatcher.dispatch(RentAcceptedNotificationEvent.with(rentId));
 
         return updatedRent;
+    }
+
+    private void refuseConflictingRentals(final Rent acceptedRent) {
+        final var conflictingRentals = rentGateway.findConflictingPendingRentals(
+                acceptedRent.getLessor(),
+                acceptedRent.getItem(),
+                acceptedRent.getStartDate(),
+                acceptedRent.getEndDate());
+
+        conflictingRentals.forEach(rent -> {
+            rent.refuseRent();
+            rentGateway.update(rent);
+        });
     }
 
     private Either<Notification, UpdateAcepptRentOutput> update(Rent rent) {

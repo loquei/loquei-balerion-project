@@ -20,4 +20,7 @@ public interface RentGateway {
     Pagination<Rent> findAllByUserId(UserId userId);
 
     boolean isItemAvailableForRent(ItemId itemId, LocalDateTime startDate, LocalDateTime endDate);
+
+    List<Rent> findConflictingPendingRentals(UserId userId, ItemId itemId, LocalDateTime startDate, LocalDateTime endDate);
+
 }

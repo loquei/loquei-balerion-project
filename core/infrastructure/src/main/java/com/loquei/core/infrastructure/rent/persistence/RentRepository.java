@@ -1,6 +1,9 @@
 package com.loquei.core.infrastructure.rent.persistence;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.loquei.core.domain.item.ItemId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,6 +19,20 @@ public interface RentRepository extends JpaRepository<RentJpaEntity, String> {
             + "FROM Rent r WHERE r.itemId = :itemId AND (r.status = 'ACCEPTED' OR r.status = 'ACTIVE') "
             + "AND (r.startDate <= :endDate AND r.endDate >= :startDate)")
     boolean isItemAvailableForRent(
+            @Param("itemId") String itemId,
+            @Param("startDate") LocalDateTime startDate,
+            @Param("endDate") LocalDateTime endDate);
+
+    @Query("""
+    SELECT r
+    FROM Rent r
+    WHERE r.lessorId = :userId
+      AND r.itemId = :itemId
+      AND r.status = 'PENDING'
+      AND (r.startDate < :endDate AND r.endDate > :startDate)
+    """)
+    List<RentJpaEntity> findConflictingPendingRentals(
+            @Param("userId") String userId,
             @Param("itemId") String itemId,
             @Param("startDate") LocalDateTime startDate,
             @Param("endDate") LocalDateTime endDate);
