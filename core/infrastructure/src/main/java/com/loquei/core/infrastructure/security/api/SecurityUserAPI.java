@@ -24,7 +24,7 @@ public interface SecurityUserAPI {
     SecurityCreateUserResponse create(@RequestBody SecurityCreateUserRequest input);
 
     @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Get a category by it's identifier")
+    @Operation(summary = "Get a user by it's identifier")
     @ApiResponses(
             value = {
                 @ApiResponse(responseCode = "200", description = "User retrieved successfully"),
@@ -34,7 +34,7 @@ public interface SecurityUserAPI {
     SecurityGetUserResponse getById(@PathVariable(name = "id") String id);
 
     @GetMapping(value = "{email}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Get a category by it's email")
+    @Operation(summary = "Get a user by it's email")
     @ApiResponses(
             value = {
                 @ApiResponse(responseCode = "200", description = "User retrieved successfully"),

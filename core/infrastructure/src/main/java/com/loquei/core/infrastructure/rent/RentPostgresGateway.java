@@ -67,6 +67,17 @@ public class RentPostgresGateway implements RentGateway {
         return repository.isItemAvailableForRent(itemId.getValue(), startDate, endDate);
     }
 
+    @Override
+    public List<Rent> findConflictingPendingRentals(UserId userId, ItemId itemId, LocalDateTime startDate, LocalDateTime endDate) {
+        return repository.findConflictingPendingRentals(
+                        userId.getValue(),
+                        itemId.getValue(),
+                        startDate,
+                        endDate)
+                .stream().map(RentJpaEntity::toAggregate).toList();
+    }
+
+
     private Rent save(final Rent rent) {
         return repository.save(RentJpaEntity.from(rent)).toAggregate();
     }

@@ -86,7 +86,7 @@ public interface ItemAPI {
     @ApiResponses(
             value = {
                 @ApiResponse(responseCode = "200", description = "Item retrieved successfully"),
-                @ApiResponse(responseCode = "404", description = "User was not found"),
+                @ApiResponse(responseCode = "404", description = "Item was not found"),
                 @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
             })
     ItemResponse getById(@PathVariable(name = "id") String id, @RequestHeader("Authorization") String header);
@@ -98,8 +98,8 @@ public interface ItemAPI {
     @Operation(summary = "Update an item by it's identifier")
     @ApiResponses(
             value = {
-                @ApiResponse(responseCode = "200", description = "User updated successfully"),
-                @ApiResponse(responseCode = "404", description = "User was not found"),
+                @ApiResponse(responseCode = "200", description = "Item updated successfully"),
+                @ApiResponse(responseCode = "404", description = "Item was not found"),
                 @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
             })
     ResponseEntity<?> update(@PathVariable(name = "id") String id, @RequestBody UpdateItemRequest input);
@@ -109,8 +109,8 @@ public interface ItemAPI {
     @Operation(summary = "Delete an item by it's identifier")
     @ApiResponses(
             value = {
-                @ApiResponse(responseCode = "204", description = "User deleted successfully"),
-                @ApiResponse(responseCode = "404", description = "User was not found"),
+                @ApiResponse(responseCode = "204", description = "Item deleted successfully"),
+                @ApiResponse(responseCode = "404", description = "Item was not found"),
                 @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
             })
     void deleteById(@PathVariable(name = "id") String id);

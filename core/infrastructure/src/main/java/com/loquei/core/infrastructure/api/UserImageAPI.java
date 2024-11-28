@@ -29,6 +29,7 @@ public interface UserImageAPI {
     ResponseEntity<?> create(@PathVariable("userId") String userId, @RequestBody MultipartFile file);
 
     @GetMapping("/view/{userId}")
+    @Operation(summary = "Visualize an item user image")
     ResponseEntity<Resource> visualizeFile(@PathVariable("userId") String id);
 
     @DeleteMapping(value = "{userId}")
