@@ -11,7 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping(value = "wishlist")
-@Tag(name = "Wish_list")
+@Tag(name = "Wishlist")
 public interface WishListAPI {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -29,8 +29,8 @@ public interface WishListAPI {
     @Operation(summary = "Delete an wishlist by it's identifier")
     @ApiResponses(
             value = {
-                    @ApiResponse(responseCode = "204", description = "User deleted successfully"),
-                    @ApiResponse(responseCode = "404", description = "User was not found"),
+                    @ApiResponse(responseCode = "204", description = "Wishlist item deleted successfully"),
+                    @ApiResponse(responseCode = "404", description = "Wishlist item was not found"),
                     @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
             })
     void deleteById(@RequestBody DeleteWishListRequest input);

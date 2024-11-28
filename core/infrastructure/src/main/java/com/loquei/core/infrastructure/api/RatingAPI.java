@@ -57,7 +57,7 @@ public interface RatingAPI {
             value = "{id}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Update a category by it's identifier")
+    @Operation(summary = "Update a rating by it's identifier")
     @ApiResponses(
             value = {
                 @ApiResponse(responseCode = "200", description = "Rating updated successfully"),
@@ -71,8 +71,8 @@ public interface RatingAPI {
     @Operation(summary = "Delete a rating by it's identifier")
     @ApiResponses(
             value = {
-                @ApiResponse(responseCode = "204", description = "Category deleted successfully"),
-                @ApiResponse(responseCode = "404", description = "Category was not found"),
+                @ApiResponse(responseCode = "204", description = "Rating deleted successfully"),
+                @ApiResponse(responseCode = "404", description = "Rating was not found"),
                 @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
             })
     void deleteById(@PathVariable(name = "id") String id);

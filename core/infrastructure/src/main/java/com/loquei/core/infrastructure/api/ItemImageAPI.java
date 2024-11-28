@@ -30,9 +30,11 @@ public interface ItemImageAPI {
     ResponseEntity<?> create(@PathVariable("itemId") String itemId, @RequestBody MultipartFile file);
 
     @GetMapping("/view/{itemImageId}")
+    @Operation(summary = "Visualize item image")
     ResponseEntity<Resource> visualizeFile(@PathVariable("itemImageId") String id);
 
     @GetMapping("/links/{itemId}")
+    @Operation(summary = "Get item images links")
     ResponseEntity<ItemImageLinksResponse> getLinksByItem(@PathVariable("itemId") String id);
 
     @DeleteMapping(value = "{id}")

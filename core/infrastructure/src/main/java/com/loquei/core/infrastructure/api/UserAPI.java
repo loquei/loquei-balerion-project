@@ -29,7 +29,7 @@ public interface UserAPI {
     ResponseEntity<?> create(@RequestBody CreateUserRequest input);
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "List all categories paginated")
+    @Operation(summary = "List all users paginated")
     @ApiResponses(
             value = {
                 @ApiResponse(responseCode = "200", description = "Listed successfully"),
@@ -44,7 +44,7 @@ public interface UserAPI {
             @RequestParam(name = "dir", required = false, defaultValue = "asc") final String direction);
 
     @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Get a category by it's identifier")
+    @Operation(summary = "Get a user by identifier")
     @ApiResponses(
             value = {
                 @ApiResponse(responseCode = "200", description = "User retrieved successfully"),
